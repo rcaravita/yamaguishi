@@ -1,0 +1,4 @@
+= content_for :banner do
+	= image_tag @page.attach.attach.url(:banner) if @page.attach
+	
+= @page.content.html_safe

@@ -1,0 +1,42 @@
+= content_for :banner do
+	= render partial: "/website/nivo-slider"
+	
+#cadastro
+	%h1 Minha Conta
+	
+	= form_for @client, url: client_registration_url do |f|
+
+		- if @client.errors.any?
+			-##error_explanation
+			-#	%h2= "#{pluralize(@client.errors.count, "error")} proibiram este cliente de ser salvo:"
+			-#	%ul
+			-#		- @client.errors.full_messages.each do |msg|
+			-#			%li= msg
+			.error_explanation{style: "color: #d22f00;"}
+				%h3 Verifique o preenchimento dos campos abaixo:
+							
+		= render partial: "/website/clients/registrations/form", locals: {f: f}
+		
+	-#%h2= @client.name
+	-#.left
+	-#	%p
+	-#		= @client.yamasis_id.blank? ? "Código: Indefinido" : "Código: #{@client.yamasis_id.to_s.rjust(6, "0")}"
+	-#	%p
+	-#		= "#{@client.kind_to_s} #{@client.document}"
+	-#		%br
+	-#		= mail_to @client.email
+	-#		%br
+	-#		= @client.phone
+	-#.left{style: "margin-left: 20px;"}
+	-#	%p
+	-#		= @client.route ? @client.route.name : "Rota Indefinida" 
+	-#	%p
+	-#		= @client.main_address.full_address
+	-#		-#= "#{@client.addresses.first.address}, #{@client.addresses.first.number}"
+	-#		-#= "- #{@client.addresses.first.complement}" unless @client.addresses.first.complement.blank?
+	-#		%br
+	-#		= "#{@client.main_address.quarter} - #{@client.main_address.city}/#{@client.main_address.state}"
+	-#		%br
+	-#		= "#{@client.main_address.postcode}"
+	-#		
+	-#.divider

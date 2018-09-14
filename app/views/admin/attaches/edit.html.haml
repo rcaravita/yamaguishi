@@ -1,0 +1,4 @@
+.right= link_to 'Excluir', @admin_attach, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir? Esta operação é irreversível.' }, class: "button delete"
+.right= link_to "Visualizar", @admin_attach, class: "button"
+
+= render 'form'

@@ -1,0 +1,100 @@
+= nested_form_for @admin_order do |f|
+	- if @admin_order.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@admin_order.errors.count, "error")} prohibited this admin_order from being saved:"
+			%ul
+				- @admin_order.errors.full_messages.each do |msg|
+					%li= msg
+
+
+	
+	.field.left
+		-#%label.left Cliente
+		= f.collection_select :client_id, Admin::Client.order('name'), :id, :name, prompt: "Selecione o cliente"
+		
+	.right
+		= f.select :status, [["Aberto", "0"], ["Assinado", "1"], ["Confirmado", "2"], ["Atendido", "3"], ["Cancelado", "4"]], prompt: true
+	
+	.space
+	.divider
+	
+	- if @admin_order.client
+	
+		.left
+			%p
+				= @admin_order.client.yamasis_id.blank? ? "Cód: Indefinido" : "Cód: #{@admin_order.client.yamasis_id.to_s.rjust(6, "0")}"
+
+			%p
+				= "#{@admin_order.client.kind_to_s} #{@admin_order.client.document}"
+				%br
+				= mail_to @admin_order.client.email
+				%br
+				= @admin_order.client.phone
+
+		.left{style: "margin-left: 20px;"}
+			%p
+				= @admin_order.client.route ? @admin_order.client.route.name : "Rota Indefinida" 
+
+			%p
+				= @admin_order.client.main_address.full_address
+				%br
+				= "#{@admin_order.client.main_address.quarter} - #{@admin_order.client.main_address.city}/#{@admin_order.client.main_address.state}"
+				%br
+				= "#{@admin_order.client.main_address.postcode}"
+	
+	.divider
+	
+	%h2 Produtos
+	
+	%table
+		%thead
+			%tr
+				%th{:width => 50} código
+				-#%th{:width => 30} imagem
+				%th{:width => 50} qtde
+				%th produto
+				%th{:width => 90, :nowrap => true} valor
+				%th{:width => 80} excluir
+		%tbody{:id => "itms"}
+			= f.fields_for :order_items, :wrapper => false do |oi|
+				= render :partial => "order_item_fields", :locals => {:oi => oi}
+		%tfoot
+			%tr
+				%td.total{colspan: 2}= f.link_to_add "Adicionar Item", :order_items, :data => { :target => "#itms" }, class: "button"
+				%td.total{colspan: 1, :nowrap => true} Total dos Produtos
+				%td.total{:nowrap => true}= number_to_currency(f.object.items_value)
+				%td.total= f.submit "Atualizar", class: "update", name: "order_update"
+
+	%h2 Detalhes da Entrega
+
+	= f.radio_button :delivery, false
+	Retira na Vila Yamaguishi
+	= f.radio_button :delivery, true
+	Entrega em Domicílio
+	
+	%table
+		%thead
+			%tr
+				%th{:width => 50}
+				%th{:width => 50}
+				%th data de entrega
+				%th{:width => 90} frete
+				%th{:width => 80}
+		%tbody
+			- if @admin_order.client
+				%tr
+					%td
+					%td
+					%td= f.date_select :delivery_date, prompt: true
+					%td= f.text_field :delivery_value, size: 5
+					%td
+				
+			%tr
+				%td.total
+				%td.total
+				%td.total Total do Pedido
+				%td.total= number_to_currency(@admin_order.total_value)
+				%td
+
+	.divider
+	.right= f.submit "Salvar", class: "confirm"

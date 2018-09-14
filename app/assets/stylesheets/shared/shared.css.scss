@@ -1,0 +1,102 @@
+.map {
+	overflow: auto;
+	padding: 20px;
+	background: $amarelo;
+	.text {
+		float: left;
+		width: 280px;
+	}
+}
+
+#product {
+	padding: 20px;
+	float: right;
+	width: 720px;
+	overflow: auto;
+	img {
+		margin: 0px 20px 20px 0px;
+	}
+	.title {
+		//font-size: 2em;
+		margin-bottom: 30px;
+		line-height: 1.2em;
+	}
+	.item {
+		height: 50px;
+		a.add {
+			background: $verde;
+			padding: 10px;
+			//margin: 30px 0px;
+			width: 200px;
+			color: white;
+			&:hover {
+				background: $amarelo;
+			}
+		}
+	}
+	.description {
+		font-size: 0.9em;
+		margin-top: 10px;
+	}
+}
+
+#cadastro {
+	input[type='text'], input[type='tel'], input[type='password'], input[type='email'] {
+		width: 228px;
+		&.full_width {
+			width: 478px;
+		}
+	}
+	#buscar_CEP {
+		color: green;
+		font-size: 0.9em;
+		font-weight: bold;
+		line-height: 3em;
+	}
+}
+
+#order {
+	table {
+		width: 100%;
+	}
+	th {
+		padding: 5px 10px;
+		text-align: left;
+		font-size: 0.8em;
+		color: $cinza;
+		border-bottom: 1px solid $amarelo;
+	}
+	td {
+		padding: 5px 10px;
+		border-bottom: 1px solid $amarelo;
+		vertical-align: middle;
+		overflow: auto;
+		&.total {
+			border-top: 2px solid $amarelo;
+			border-bottom: none;
+			color: $vermelho;
+			font-size: 1.2em;
+			height: 40px;
+			a.button, input[type="submit"] {
+				font-size: 0.75em;
+			}
+		}
+	}
+	img.image {
+		width: 30px;
+	}
+}
+
+.handle {
+	font-size: 12px;
+	color: #777;
+	cursor: move;
+}
+
+.toggle {
+	cursor: pointer;
+}
+
+.toggled {
+	display: none;
+}

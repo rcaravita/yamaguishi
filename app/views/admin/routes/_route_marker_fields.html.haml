@@ -1,0 +1,37 @@
+.right= m.link_to_remove "[x]"
+
+.field
+	%label Nome
+	= m.text_field :name
+	
+.field.left
+	%label Bairro
+	= m.text_field :quarter
+	
+.field.left
+	%label Cidade
+	= m.text_field :city
+	
+.field.left
+	%label UF
+	= m.text_field :state, size: 20
+	
+.field.left
+	%label Latitude
+	= m.text_field :latitude
+
+.field.left
+	%label Longitude
+	= m.text_field :longitude
+
+.field.left
+	%label Priorizar Coordenadas
+	= m.check_box :gmaps
+		
+-#.clear
+
+-#.field
+-#	%label Descrição
+-#	= m.text_area :description, cols: 31, rows: 8
+	
+.divider

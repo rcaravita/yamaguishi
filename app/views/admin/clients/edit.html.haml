@@ -1,0 +1,21 @@
+.right= link_to 'Excluir', @admin_client, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir este cliente? Esta ação é irreversível e vai apagar todos os pedidos relacionados.' }, class: "button delete"
+.right= link_to "Visualizar", @admin_client, class: "button"
+
+#cadastro
+	%h1 Cliente
+	
+	.divider
+
+	= form_for @admin_client do |f|
+		- if @admin_client.errors.any?
+			#error_explanation
+				%h2= "#{pluralize(@admin_client.errors.count, "error")} prohibited this admin_client from being saved:"
+				%ul
+					- @admin_client.errors.full_messages.each do |msg|
+						%li= msg
+					
+		= render 'form', :f => f
+		
+		.clear
+
+		.right= f.submit "Salvar", class: "save"

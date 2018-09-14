@@ -1,0 +1,22 @@
+!!!
+%html
+	%head
+		%title Admin | Orgânicos Yamaguishi
+		= stylesheet_link_tag "admin/main"
+		= javascript_include_tag "admin/main"
+		= csrf_meta_tags
+	
+	%body
+		#attaches-gallery
+			- @attaches.each_with_index do |a, i|
+				.image-box
+					%script var thumb#{i} = "<img src='#{a.attach(:thumb)}' alt='#{a.description}' title='#{a.description}' />"
+					%script var medium#{i} = "<img src='#{a.attach(:medium)}' alt='#{a.description}' title='#{a.description}' />"
+					%script var big#{i} = "<img src='#{a.attach(:big)}' alt='#{a.description}' title='#{a.description}' />"
+					%script var banner#{i} = "<img src='#{a.attach(:banner)}' alt='#{a.description}' title='#{a.description}' />"
+					
+					.image= image_tag(a.attach(:thumb))
+					.commands
+						= link_to "big", "javascript:void();", onmousedown: "window.opener.tinyMCE.execCommand('mceInsertContent',false, big#{i});"
+						= link_to "medium", "javascript:", onmousedown: "window.opener.tinyMCE.execCommand('mceInsertContent',false, medium#{i});"
+						= link_to "thumb", "javascript:", onmousedown: "window.opener.tinyMCE.execCommand('mceInsertContent',false, thumb#{i});"

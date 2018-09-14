@@ -1,0 +1,10 @@
+%h1 Pedidos
+= link_to "Exportar para Yamasis [em desenvolvimento]", admin_export_orders_yamasis_path(format: :xml), target: :blank
+
+%h1 Clientes
+= link_to "Exportar para Excel", admin_export_clients_path(format: :xls)
+
+-#%h2 Importar
+-#= form_tag admin_import_clients_path, multipart: true do
+-#	.left= file_field_tag :file
+-#	.right= submit_tag "Importar", class: "button tiny"

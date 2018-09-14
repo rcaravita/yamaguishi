@@ -1,0 +1,61 @@
+= content_for :banner do
+	= render partial: "nivo-slider"
+
+#contact-form
+	.left-side
+		%h3 Envie uma mensagem:
+	
+		- unless flash.empty?
+			#error_message
+				-#%h2 Dados incorretos, tente novamente.
+				- flash.each do |name, msg|
+					%h1= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+				
+		= form_for @contact, :url => contact_form_path do |f|
+	
+			.field
+				%label Nome *
+				= f.text_field :name
+			
+			.field
+				%label E-mail *
+				= f.email_field :email
+			
+			.field
+				%label Telefone
+				= f.phone_field :phone
+			
+			.field
+				%label Assunto *
+				= f.text_field :subject
+			
+			.field
+				%label Mensagem *
+				= f.text_area :message, :cols => 20, :rows => 10
+			
+			.actions
+				.right= f.submit "Enviar", class: "button submit big"
+			
+	.right-side
+		= Admin::Page.find_by_link("atendimento").try(:content).try(:html_safe)
+		-#%h3 Vila Yamaguishi
+		-#%p
+		-#	Rod. SP-340 Km 138
+		-#	%br
+		-#	Jaguariúna - SP - CEP 13820-000
+		-#	%br
+		-#	Brasil - Caixa Postal 29
+		-#	%br
+		-#%h5 Telefones
+		-#Tel: (19) 3867-1173
+		-#%br
+		-#Celular Recepção: (19) 99653-2989 e (19) 99625-5580
+		-#%h5
+		-#	Produtos e Pedidos:
+		-#%p
+		-#	= mail_to "produtos@yamaguishi.com.br"
+		-#%h5
+		-#	Cursos e Vila Yamaguishi:
+		-#%p
+		-#	= mail_to "vila@yamaguishi.com.br"
+		

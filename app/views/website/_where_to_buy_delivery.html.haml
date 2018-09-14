@@ -1,0 +1,12 @@
+.item
+	= image_tag("shared/delivery-right.png")
+	- if place
+		= place.name
+		\-
+		= "#{I18n.translate(Date::DAYNAMES[place.day])}"
+		%br
+		= "Frete: #{number_to_currency(place.value)}"
+	- else
+		%p{style: "color:#d22f00;"}
+			Entrega em domicílio não disponível,
+			= link_to "entre em contato.", "/atendimento", style: "color:#d22f00;"

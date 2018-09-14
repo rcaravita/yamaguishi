@@ -1,0 +1,105 @@
+!!!
+%html
+	%head
+		%meta{:content => "text/html", :charset => "UTF-8", "http-equiv" => "Content-Type"}
+
+	%body
+		%p
+			Prezado(a)
+			%b= "#{@client.name},"
+
+		%p seu pedido foi recebido com sucesso.
+
+		%hr
+		
+		%p
+			Número do pedido:
+			%b= @order.id.to_s.rjust(6, "0")
+
+		%p
+			Data da entrega:
+			%b
+				- if @order.delivery_date
+					= l(@order.delivery_date, format: :delivery)
+					- if @order.delivery == true
+						= " (#{@order.client.route.name})"
+				- else
+					A Confirmar
+
+		%p
+			%u
+				Detalhes da entrega:
+			
+		%p
+			%b
+				= @order.delivery ? "Entrega em Domicílio" : "Retira na Vila Yamaguishi"
+		
+		%p
+			- if @order.delivery
+				= @order.client.main_address.full_address
+				%br
+				= "#{@order.client.addresses.first.quarter} - #{@order.client.addresses.first.city}/#{@order.client.addresses.first.state}"
+				%br
+				= "#{@order.client.addresses.first.postcode}"
+			- else
+				%b Vila Yamaguishi
+				%br
+				Rod. SP-340 Km 138
+				%br
+				Jaguariúna - SP - CEP 13820-000
+				%br das 7h às 15h
+		
+		%p
+			= "Telefone: #{@order.client.phone}" if @order.client.phone
+		
+		%table{:border => "0", :cellspacing => "0"}
+			- @order.order_items.each do |oi|
+				%tr
+					%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+						%b= number_to_human(oi.quantity)
+					%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+						= oi.name
+					%td{:width => 100, :style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+						= number_to_currency(oi.total_value)
+			%tr
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")} Valor dos Produtos
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
+					%b
+						= number_to_currency(@order.items_value)
+			%tr
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")} Valor do Frete
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+					%b
+						= @order.delivery_date ? number_to_currency(@order.delivery_value) : "A Confirmar"
+					
+			%tr
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
+					%b Total do Pedido
+				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
+					%b= number_to_currency(@order.total_value)
+		%ul
+			- if !@order.delivery_date.present?
+				%li
+					%b Em breve entraremos em contato para confirmar a data de entrega e o valor do frete.
+			%li
+				%b Pagamento em dinheiro ou cheque no ato da entrega.
+
+		%hr
+
+		%p Estamos à disposição para atende-lo(a).
+
+		%p Atenciosamente,
+
+		%p
+			%b Yamaguishi Orgânicos
+		%p
+			telefone: (19) 3867-1173
+			%br
+			e-mail: produtos@yamaguishi.com.br
+			%br
+			website: www.yamaguishi.com.br
+			%br
+			facebook: www.facebook.com/VilaYamaguishiOrganico

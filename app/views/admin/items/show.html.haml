@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Quantity:
+  = @admin_item.quantity
+%p
+  %b Unity:
+  = @admin_item.unity
+%p
+  %b Value:
+  = @admin_item.value
+%p
+  %b Item:
+  = @admin_item.item
+%p
+  %b Producer:
+  = @admin_item.producer
+%p
+  %b Quality:
+  = @admin_item.quality
+%p
+  %b Visible:
+  = @admin_item.visible
+
+= link_to 'Edit', edit_admin_item_path(@admin_item)
+\|
+= link_to 'Back', admin_items_path

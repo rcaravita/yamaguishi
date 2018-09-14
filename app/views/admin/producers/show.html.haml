@@ -1,0 +1,6 @@
+.right= link_to 'Excluir', @admin_producer, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir? Isto vai interferir no histórico de compras dos clientes.' }, class: "button delete"
+.right= link_to "Editar", edit_admin_producer_path(@admin_producer), class: "button edit"
+
+%h1= @admin_producer.name
+
+%p= @admin_producer.description

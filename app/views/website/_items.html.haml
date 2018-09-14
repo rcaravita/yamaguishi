@@ -1,0 +1,14 @@
+- if @items.blank?
+	%h3 [nenhum produto disponível]
+	%br
+	%p= link_to "voltar para a loja", root_path
+- else
+	- @items.in_groups_of(5) do |i|
+		= render :partial => 'item_box', :locals => { :item => i[0] }
+		= render :partial => 'item_box', :locals => { :item => i[1] }
+		= render :partial => 'item_box', :locals => { :item => i[2] }
+		= render :partial => 'item_box', :locals => { :item => i[3] }
+		= render :partial => 'item_box', :locals => { :item => i[4] }
+		.divider
+
+	-#= render :partial => 'item_box', :collection => @items, :as => :item

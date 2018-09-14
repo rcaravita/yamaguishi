@@ -1,0 +1,103 @@
+%h4 Dados Pessoais
+
+.field.left
+	%label Código (Yamasis)
+	= f.text_field :yamasis_id
+
+.field
+	%label Rota
+	= f.collection_select :route_id, Admin::Route.all, :id, :name, prompt: true
+
+.clear
+
+.field.left
+	%label Nome
+	= f.text_field :name, :autofocus => true
+.field.left
+	%label E-mail
+	= f.email_field :email
+
+.clear
+
+.field.left
+	%label Telefone
+	= f.phone_field :phone
+.field
+	%label Celular
+	= f.phone_field :mobile	
+
+.clear
+
+.field.left
+	%label
+		= f.radio_button :kind, 0, scope: "cpf"
+		CPF
+		= f.radio_button :kind, 1, scope: "cnpj"
+		CNPJ
+
+	= f.text_field :cpf, id: "document" if f.object.kind == "0"
+	= f.text_field :cnpj, id: "document" if f.object.kind == "1"
+
+
+.clear
+
+.field.left
+	%label Senha
+	= f.password_field :password
+.field
+	%label Senha (confirmação)
+	= f.password_field :password_confirmation
+
+.space
+.field
+	= f.check_box :optin
+	Aceito receber informativos por email
+
+.space
+
+%h4 Endereço de Entrega
+
+= f.fields_for :addresses do |a|
+	.field
+		%label CEP
+		= a.text_field :postcode
+	-#.field
+	-#	%label &nbsp
+	-#	= link_to "Buscar CEP", "javascript:find_address_by_postcode($('#client_addresses_attributes_0_postcode').val());", id: "buscar_CEP"
+
+	-#.field.left
+	-#	%label Logradouro
+	-#	= a.text_field :address
+	-#.field.left
+	-#	%label Número
+	-#	= a.text_field :number
+	-#.field
+	-#	%label Complemento
+	-#	= a.text_field :complement
+
+	.field.left
+		%label Endereço
+		= a.text_field :complete_address
+	.field.left
+		%label Número
+		= a.text_field :number, style: "width: 60px;"
+	.field
+		%label Complemento
+		= a.text_field :complement, style: "width: 80px;"
+
+	.field.left
+		%label Bairro
+		= a.text_field :quarter
+	.field.left
+		%label Cidade
+		= a.text_field :city
+		
+	.clear
+		
+	.field
+		%label Estado
+		= a.text_field :state
+
+
+
+-#= render "website/clients/shared/links"

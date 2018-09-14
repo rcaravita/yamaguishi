@@ -1,0 +1,5 @@
+$(".cart .quantity").html("<%= @order.items_quantity %>");
+$(".cart .value").html("<%= number_to_currency(@order.items_value) %>");
+$("#item_<%= @item.item.id %> .add").addClass("added");
+$("#item_<%= @item.item.id %> .add").html("&#10004; (comprar mais)");
+

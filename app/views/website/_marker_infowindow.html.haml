@@ -1,0 +1,22 @@
+%b= object.kind
+-#.left= image_tag "shared/#{object.kind.parameterize}-right.png", width: 40
+
+%h4= object.name
+
+%p
+	= "#{object.address}#{', ' unless object.number.blank?}"
+	= object.number
+	= "- #{object.complement}" unless object.complement.blank?
+	%br
+	= object.quarter
+	= " - " unless object.quarter.blank?
+	= "#{object.city}/#{object.state}"
+	%br
+	= "#{object.postcode}"
+	
+%p= object.phone
+	
+%p= object.description.html_safe
+%p
+	-#= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{object.gmaps4rails_address}", target: :blank
+	= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{object.latitude},#{object.longitude}", target: :blank

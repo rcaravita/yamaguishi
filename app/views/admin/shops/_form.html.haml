@@ -1,0 +1,65 @@
+#cadastro
+	%h1 Ponto de Venda
+
+	.divider
+
+	= form_for @admin_shop do |f|
+		- if @admin_shop.errors.any?
+			#error_explanation
+				%h2= "#{pluralize(@admin_shop.errors.count, "error")} prohibited this admin_shop from being saved:"
+				%ul
+					- @admin_shop.errors.full_messages.each do |msg|
+						%li= msg
+
+		.field.left
+			%label Nome
+			= f.text_field :name
+		.field
+			%label Tipo
+			= f.select :kind, ["Ponto de Venda", "Feira Orgânica"], prompt: true
+		
+		.divider
+	
+		.field.left
+			%label CEP
+			= f.text_field :postcode
+		.field
+			%label Telefone
+			= f.text_field :phone
+		.field.left
+			%label Logradouro
+			= f.text_field :address
+		.field.left
+			%label Número
+			= f.text_field :number
+		.field
+			%label Complemento
+			= f.text_field :complement
+		.field.left
+			%label Bairro
+			= f.text_field :quarter
+		.field.left
+			%label Cidade
+			= f.text_field :city
+		.field
+			%label Estado
+			= f.text_field :state
+
+		.field.left
+			%label latitude
+			= f.text_field :latitude
+		.field.left
+			%label longitude
+			= f.text_field :longitude
+		.field
+			%label Priorizar Coordenadas
+			= f.check_box :gmaps
+	
+		.divider
+	
+		.field
+			%label Descrição
+			= f.text_area :description, rows: 3, cols: 30
+
+		.actions
+			.right= f.submit 'Salvar', class: "button save"

@@ -1,0 +1,26 @@
+%h1 Produtor
+
+.divider
+
+= form_for @admin_producer do |f|
+	- if @admin_producer.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@admin_producer.errors.count, "error")} prohibited this admin_producer from being saved:"
+			%ul
+				- @admin_producer.errors.full_messages.each do |msg|
+					%li= msg
+
+	.field
+		%label Nome
+		= f.text_field :name
+	
+	.field
+		%label Descrição
+		= f.text_area :description, cols: 70, rows: 10
+			
+	.field
+		= f.label :link
+		= f.text_field :link
+
+	.actions
+		.right= f.submit 'Salvar', class: "save"

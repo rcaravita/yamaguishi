@@ -1,0 +1,10 @@
+.right= link_to 'Excluir', @admin_page, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir? Esta operação é irreversível.' }, class: "button delete"
+.right= link_to "Editar", edit_admin_page_path(@admin_page), class: "button edit"
+
+%h1= @admin_page.title.html_safe
+
+= image_tag(@admin_page.attach.attach.url(:banner), width: 745) if @admin_page.attach
+
+= @admin_page.content.html_safe
+
+

@@ -1,0 +1,25 @@
+.right= link_to 'Nova Página', new_admin_page_path, class: "button create"
+
+%h1 Páginas
+
+.divider
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th título
+			%th link
+
+	%tbody
+		- @admin_pages.each do |admin_page|
+			%tr
+				%td= link_to admin_page.title, admin_page
+				%td= link_to admin_page.link, admin_page
+				-#%td= link_to 'Show', admin_page
+				-#%td= link_to 'Edit', edit_admin_page_path(admin_page)
+				-#%td= link_to 'Destroy', admin_page, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th
+			

@@ -1,0 +1,4 @@
+.right= link_to 'Excluir', @admin_route, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir?' }, class: "button delete"
+.right= link_to "Visualizar", @admin_route, class: "button"
+
+= render 'form'

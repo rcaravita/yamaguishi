@@ -1,0 +1,37 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+$(document).ready ->
+	$('.dynamic-table').dataTable({
+		"sPaginationType": "full_numbers",
+		"iDisplayLength": 50,
+		"aLengthMenu": [[10, 25, 50, 100, 150, -1], [10, 25, 50, 100, 150, "All"]],
+		"oLanguage": { "sUrl": "<%= asset_path('shared/datatables-PT-BR.txt') %>"},
+		"bStateSave": true
+	});
+	
+	
+	$(".toggleVisibility").click ->
+		$.post "/admin/items/"+ this.name + "/toggleVisibility",
+			(data) ->
+				$('#notice').html "Visibilidade do produto alterada."
+				#location.reload();
+				
+	$(".toggleHighlight").click ->
+		$.post "/admin/items/"+ this.name + "/toggleHighlight",
+			(data) ->
+				$('#notice').html "Destaque do produto alterado."
+				#location.reload();
+				
+	$(".toggleSlideshow").click ->
+		$.post "/admin/attaches/"+ this.name + "/toggleSlideshow",
+			(data) ->
+				$('#notice').html "Destaque da imagem alterado."
+				#location.reload();
+
+	$("input[name*='admin_client[kind]']").change ->
+		#alert $(this).attr('scope')
+		$("input#document").attr('name', "admin_client[#{$(this).attr('scope')}]")
+		$("input#document").attr('value', "")
+		

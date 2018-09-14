@@ -1,0 +1,38 @@
+.right= link_to 'Novo Ponto de Venda', new_admin_shop_path, class: "button create"
+
+%h1 Pontos de Venda
+
+.divider
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th Nome
+			-#%th Description
+			-#%th Address
+			-#%th Number
+			-#%th Complement
+			%th Bairro
+			%th Cidade
+			-#%th State
+			-#%th Postcode
+			-#%th Latitude
+			-#%th Longitude
+			-#%th Gmaps
+			%th Tipo
+			-#%th
+			-#%th
+			-#%th
+	%tbody
+		- @admin_shops.each do |admin_shop|
+			%tr
+				%td= link_to admin_shop.name, admin_shop
+				%td= admin_shop.quarter
+				%td= admin_shop.city
+				%td= admin_shop.kind
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th

@@ -1,0 +1,32 @@
+.right= link_to 'Excluir', @admin_shop, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir?' }, class: "button delete"
+.right= link_to 'Novo Ponto de Venda', new_admin_shop_path, class: "button create"
+.right= link_to "Editar", edit_admin_shop_path(@admin_shop), class: "button edit"
+
+.space
+
+.map
+	.text
+		%h3= @admin_shop.kind
+		%h2= @admin_shop.name
+		%p
+			= "#{@admin_shop.address}#{', ' unless @admin_shop.number.blank?}"
+			= @admin_shop.number
+			= "- #{@admin_shop.complement}" unless @admin_shop.complement.blank?
+			%br
+			= @admin_shop.quarter
+			= " - " unless @admin_shop.quarter.blank?
+			= "#{@admin_shop.city}/#{@admin_shop.state}"
+			= "#{@admin_shop.postcode}"
+		
+		%p= @admin_shop.phone
+		%p= @admin_shop.description.html_safe
+		
+		%p= "[#{@admin_shop.latitude}, #{@admin_shop.longitude}]"
+				
+	.right= gmaps("markers" => {"data" => @marker})
+
+
+
+
+
+	

@@ -1,0 +1,6 @@
+= content_for :banner do
+	= render partial: "nivo-slider"
+	
+%h1= @category.name
+
+= render :partial => 'items', :locals => { :items => @items }

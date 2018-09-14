@@ -1,0 +1,19 @@
+$("#where_to_buy .delivery").html(
+	"<%= j(render(partial: 'website/where_to_buy_delivery', locals: {:place => @route})) %>"
+)
+
+$("#where_to_buy .fairs").html(
+	<% if @fairs.blank? %>
+	"<%= j(render(partial: 'website/where_to_buy_error', locals: {:place => 'feira-organica'})) %>"
+	<% else %>
+	"<%= j(render(partial: 'website/where_to_buy', collection: @fairs, as: :place)) %>"
+	<% end %>
+)
+	
+$("#where_to_buy .shops").html(
+	<% if @shops.blank? %>
+	"<%= j(render(partial: 'website/where_to_buy_error', locals: {:place => 'ponto-de-venda'})) %>"
+	<% else %>
+	"<%= j(render(partial: 'website/where_to_buy', collection: @shops, as: :place)) %>"
+	<% end %>)
+

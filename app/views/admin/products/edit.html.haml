@@ -1,0 +1,4 @@
+.right= link_to 'Excluir', @admin_product, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir? Isto vai interferir no histórico de compras dos clientes.' }, class: "button delete"
+.right= link_to "Visualizar", @admin_product, class: "button"
+
+= render 'form'

@@ -1,0 +1,59 @@
+.right= link_to 'Novo Pedido', new_admin_order_path, class: "button create"
+
+%h1 Pedidos
+
+.divider
+
+.filters
+	= check_box_tag :assinado, "1", true, {class: 'filter', data: {status: 1}}
+	Assinado
+	= check_box_tag :confirmado, "2", true, {class: 'filter', data: {status: 2}}
+	Confirmado
+	= check_box_tag :atendido, "3", false, {class: 'filter', data: {status: 3}}
+	Atendido
+	= check_box_tag :cancelado, "4", false, {class: 'filter', data: {status: 4}}
+	Cancelado
+
+%br
+
+%table{class: "dynamic-table-orders", data: {source: '/admin/orders.json'}}
+	%thead
+		%tr
+			%th pedido
+			%th{title: "Código Cliente Yamasis"} código
+			%th cliente
+			%th rota
+			%th{nowrap: true} valor
+			%th entrega
+			-#%th status
+			%th atendido
+			%th envio
+			%th atualizado
+			-#%th
+			-#%th
+			-#%th
+	-#%tbody
+	-#	- @admin_orders.each do |admin_order|
+	-#		%tr
+	-#			%td= link_to admin_order.id.to_s.rjust(6, "0"), admin_order
+	-#			%td= admin_order.client.yamasis_id.to_s.rjust(6, "0")
+	-#			%td= link_to admin_order.client.name, admin_order.client
+	-#			%td= admin_order.client.route.try(:name)
+	-#			%td= number_to_currency(admin_order.total_value)
+	-#			%td= admin_order.delivery_date.present? ? l(admin_order.delivery_date, format: :delivery) : "A Confirmar"
+	-#			%td= admin_order.status_to_s
+	-#			-#%td= link_to 'Show', admin_order
+	-#			-#%td= link_to 'Edit', edit_admin_order_path(admin_order)
+	-#			-#%td= link_to 'Destroy', admin_order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			%th
+			-#%th
+			%th
+			%th
+			%th
+			%th

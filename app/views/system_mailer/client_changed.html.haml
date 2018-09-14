@@ -1,0 +1,39 @@
+%h3 Dados Originais
+
+%p
+	= @old_name
+
+%p
+	= "#{@old_kind} #{@old_document}"
+	%br
+	= @old_email
+	%br
+	Tel:
+	= @old_phone
+
+%p
+	= @old_add.full_address
+	%br
+	= "#{@old_add.quarter} - #{@old_add.city}/#{@old_add.state}"
+	%br
+	= "#{@old_add.postcode}"
+
+%h3 Dados Atualizados
+
+%p
+	= @new.name
+
+%p
+	= "#{@new.kind_to_s} #{@new.document}"
+	%br
+	= @new.email
+	%br
+	Tel:
+	= @new.phone
+
+%p
+	= @new.main_address.full_address
+	%br
+	= "#{@new.main_address.quarter} - #{@new.main_address.city}/#{@new.main_address.state}"
+	%br
+	= "#{@new.main_address.postcode}"

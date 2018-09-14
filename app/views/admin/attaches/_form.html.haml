@@ -1,0 +1,23 @@
+%h1 Imagem
+
+.divider
+
+= form_for @admin_attach, html: {multipart: true} do |f|
+	- if @admin_attach.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@admin_attach.errors.count, "error")} prohibited this admin_attach from being saved:"
+			%ul
+				- @admin_attach.errors.full_messages.each do |msg|
+					%li= msg
+	
+	= image_tag f.object.attach.url(:medium) unless f.object.new_record?
+	
+	.field
+		= f.file_field :attach
+		
+	.field
+		%label Descrição
+		= f.text_field :description, maxlength: 100
+			
+	.actions
+		.right= f.submit 'Salvar', class: "save"

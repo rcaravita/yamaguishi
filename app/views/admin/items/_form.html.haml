@@ -1,0 +1,31 @@
+= form_for @admin_item do |f|
+  - if @admin_item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@admin_item.errors.count, "error")} prohibited this admin_item from being saved:"
+      %ul
+        - @admin_item.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :quantity
+    = f.text_field :quantity
+  .field
+    = f.label :unity
+    = f.text_field :unity
+  .field
+    = f.label :value
+    = f.text_field :value
+  .field
+    = f.label :item
+    = f.text_field :item
+  .field
+    = f.label :producer
+    = f.text_field :producer
+  .field
+    = f.label :quality
+    = f.text_field :quality
+  .field
+    = f.label :visible
+    = f.check_box :visible
+  .actions
+    = f.submit 'Save'

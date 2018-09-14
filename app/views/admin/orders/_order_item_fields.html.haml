@@ -1,0 +1,8 @@
+%tr
+	%td= oi.object.item.code.to_s.rjust(6, "0") unless oi.object.new_record?
+	-#%td= image_tag oi.object.item.image(:mini), class: "image" unless oi.object.new_record?
+	%td= oi.text_field :quantity, size: 2
+	-#%td= oi.object.name unless oi.object.new_record?
+	%td= oi.collection_select :item_id, Admin::Item.available, :id, :complete_name, prompt: "Selecione o produto"
+	%td= number_to_currency(oi.object.total_value)
+	%td= oi.check_box :_destroy

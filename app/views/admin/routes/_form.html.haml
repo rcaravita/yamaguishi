@@ -1,0 +1,38 @@
+%h1 Rota de Entrega
+
+.divider
+
+= nested_form_for @admin_route do |f|
+	- if @admin_route.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@admin_route.errors.count, "error")} prohibited this admin_route from being saved:"
+			%ul
+				- @admin_route.errors.full_messages.each do |msg|
+					%li= msg
+
+	.field.left
+		%label Nome
+		= f.text_field :name
+	.field
+		%label Descrição
+		= f.text_field :description
+	.field.left
+		%label Valor do Frete
+		= f.text_field :value
+	.field.left
+		%label Dia de Entrega
+		= f.select :day, [['Domingo', 0], ['Segunda-feira', 1], ['Terça-feira', 2], ['Quarta-feira', 3], ['Quinta-feira', 4], ['Sexta-feira', 5], ['Sábado', 6]], prompt: true
+	.field
+		%label Visível
+		= f.check_box :visible
+
+	%h2 Localizações
+	
+	.divider
+	
+	= f.fields_for :route_markers do |m|
+		= render :partial => "route_marker_fields", :locals => {:m => m}
+	= f.link_to_add "Adicionar Localização", :route_markers, class: "button"
+	
+	.actions
+		.right= f.submit 'Salvar', class: "save"

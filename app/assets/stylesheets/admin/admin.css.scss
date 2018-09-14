@@ -1,0 +1,95 @@
+// Place all the styles related to the Website controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	background: url(image-path('shared/bg.jpg')) top left repeat-x;
+	#container {
+		width: 950px;
+		margin: 0 auto;
+		overflow: auto;
+		#header {
+			.top {
+				height: 63px;
+			}
+			.menu {
+				height: 40px;
+				background: green url(image-path('shared/menu-bg.jpg')) top left repeat-x;
+				p {
+					padding: 8px 5px;
+					color: white;
+				}
+				li {
+					list-style: none;
+					float: left;
+					a {
+						display: block;
+						width: 157px;
+						text-align: center;
+						padding: 8px 0px;
+						border-right: 1px solid white;
+						color: white;
+						&:hover {
+							color: $vermelho;
+						}
+						&.last {
+							border-right: none;
+							width: 159px;
+						}
+					}
+				}
+			}
+		}
+		#main {
+			overflow: auto;
+			#sidebar {
+				//height: 800px;
+				width: 145px;
+				overflow: auto;
+				float: left;
+				text-align: left;
+				padding: 20px 10px 0px 10px;
+				//background: url(image-path('website/store-label.jpg')) top right no-repeat;
+				a {
+					font-weight: bold;
+					font-size: 1.6em;
+				}
+				.categories {
+					overflow: auto;
+					margin-top: 13px;
+					ul {
+						list-style-image: url(image-path('shared/list-image.png'));
+						padding: 0px 0px 0px 20px;
+					}
+					li, a {
+						line-height: 1.4em;
+						padding: 4px 0px;
+						font-size: 0.9em;
+						font-weight: bold;
+						width: 120px;
+						&.active {
+							color: $vermelho;
+							font-size: 1em;
+						}
+					}
+					li {
+						border-bottom: 1px solid $cinza;
+					}
+				}
+			}
+			#content {
+				float: right;
+				width: 780px;
+				overflow: auto;
+				margin: 0px;
+				padding: 10px 0px;
+			}
+		}
+		#footer {
+			margin-top: 10px;
+			border-top: 2px solid $cinza;
+			clear: both;
+			height: 90px;
+		}
+	}
+}

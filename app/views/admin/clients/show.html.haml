@@ -1,0 +1,62 @@
+.right= link_to 'Excluir', @admin_client, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir este cliente? Esta ação é irreversível e vai apagar todos os pedidos relacionados.' }, class: "button delete"
+.right= link_to "Editar", edit_admin_client_path(@admin_client), class: "button edit"
+
+%h1= @admin_client.name
+.left
+	
+	%p
+		= @admin_client.yamasis_id.blank? ? "Cód: Indefinido" : "Cód: #{@admin_client.yamasis_id.to_s.rjust(6, "0")}"
+
+	%p
+		= "#{@admin_client.kind_to_s} #{@admin_client.document}"
+		%br
+		= mail_to @admin_client.email
+		%br
+		= @admin_client.phone
+	
+.left{style: "margin-left: 20px;"}
+	%p
+		= @admin_client.route ? @admin_client.route.name : "Rota Indefinida" 
+
+	%p
+		= @admin_client.main_address.full_address
+		%br
+		= "#{@admin_client.main_address.quarter} - #{@admin_client.main_address.city}/#{@admin_client.main_address.state}"
+		%br
+		= "#{@admin_client.main_address.postcode}"
+
+.clear
+
+.divider
+
+.right= link_to "Novo Pedido", new_admin_order_path(client: @admin_client.id), class: "button create"
+
+%h2 Pedidos
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th #
+			%th valor
+			%th entrega
+			%th status
+			-#%th
+			-#%th
+			-#%th
+	%tbody
+		- @orders.each do |admin_order|
+			%tr
+				%td= link_to admin_order.id.to_s.rjust(6, "0"), admin_order
+				%td= number_to_currency(admin_order.total_value)
+				%td= admin_order.delivery_date.present? ? l(admin_order.delivery_date, format: :delivery) : "A Confirmar"
+				
+				%td= admin_order.status_to_s
+				-#%td= link_to 'Show', admin_order
+				-#%td= link_to 'Edit', edit_admin_order_path(admin_order)
+				-#%td= link_to 'Destroy', admin_order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th

@@ -1,0 +1,160 @@
+= content_for :banner do
+	= render partial: "nivo-slider"
+	
+= Admin::Page.find_by_link("como-comprar-1").try(:content).try(:html_safe)
+
+-#%h1 Como Comprar Orgânicos Yamaguishi
+-#
+-#%p
+-#	Você pode adquirir nossos produtos orgânicos selecionados através deste site para
+-#	= link_to "receber em sua casa (delivery)", "#delivery"
+-#	ou retira-los na Vila Yamaguishi. Senão você pode escolher entre uma das
+-#	= link_to "feiras orgânicas", "#feira-organica"
+-#	e
+-#	= link_to "pontos de venda", "#ponto-de-venda"
+-#	relacionados no mapa e abaixo.
+-#
+-#%p
+-#	%b
+-#		O valor mínimo para entrega à domicílio é de R$70,00 + taxa de entrega. Os pedidos são aceitos com até dois dias antecedência para entrega em domicílio e um dia para retirada na Vila Yamaguishi.
+-#
+-#%h3= link_to "Veja o passo-a-passo para fazer pedidos aqui.", "/passo-a-passo"
+
+.space
+
+.left{:style => "margin-right:10px;"}= image_tag "shared/delivery-right.png", width: 40
+%h2#delivery{:style => "margin:0px;"} Entrega em Domicílio
+
+.space
+
+= Admin::Page.find_by_link("como-comprar-2").try(:content).try(:html_safe)
+
+-#%p
+-#	As entregas em domicílio (delivery) são feitas semanalmente em dias pré-determinados por região nas cidades de
+-#	%b Campinas, Jundiaí, Itatiba, Valinhos e Vinhedo.
+-#	As principais cidades e bairros atendidos estão relacionados na tabela abaixo.
+-#%p
+-#	%b
+-#		O valor mínimo para entrega à domicílio é de R$70,00 + taxa de entrega. Os pedidos são aceitos com até dois dias antecedência para entrega em domicílio e um dia para retirada na Vila Yamaguishi.
+-#%p
+-#	Em
+-#	%b São Paulo
+-#	as entregas são feitas pelo
+-#	= link_to "Sabor Natural.", "http://www.sabornatural.com.br", target: :blank
+-#%p
+-#	= link_to "Consulte-nos", "/atendimento"
+-#	para entregas em outras regiões.
+
+%h4.toggle
+	= link_to "Tabela de Rotas para Entrega em Domicílio", "javascript:void(0);"
+
+%table.formatted.toggled
+	%thead
+		%tr
+			%th Nome
+			%th Locais
+			%th{width: 90} Dia
+			%th{width: 90} Taxa de Entrega
+			-#%th Rota
+			
+	%tbody
+		- for route in @routes do
+			%tr
+				%td= route.description
+				%td= route.route_markers.map(&:name).join(", ")
+				%td= I18n.translate(Date::DAYNAMES[route.day])
+				%td= number_to_currency(route.value)
+				-#%td= route.name
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			-#%th
+			
+.space
+
+.left{:style => "margin-right:10px;"}= image_tag "shared/feira-organica-right.png", width: 40
+%h2#feira-organica{:style => "margin:0px;"} Feiras Orgânicas
+
+%h4.toggle
+	= link_to "Tabela de Feiras Orgânicas", "javascript:void(0);"
+
+%table.formatted.toggled
+	%thead
+		%tr
+			%th{width: 120} Local
+			%th{width: 90} Cidade
+			%th{width: 160} Endereço
+			
+			%th Informações
+			%th{width: 50}
+	%tbody
+		- for shop in @fairs do
+			%tr
+				%td
+					%b= shop.name
+				%td= shop.city
+				%td
+					= "#{shop.address}#{', ' unless shop.number.blank?}"
+					= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
+					%br
+					= shop.quarter
+				
+				%td= shop.description
+				%td
+					= link_to "mapa", "javascript:findMarker('#{shop.id}')"
+					%br
+					= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
+					
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			%th
+
+.space
+
+.left{:style => "margin-right:10px;"}= image_tag "shared/ponto-de-venda-right.png", width: 40
+%h2#ponto-de-venda{:style => "margin:0px;"} Pontos de Venda
+
+%h4.toggle
+	= link_to "Tabela de Pontos de Venda", "javascript:void(0);"
+	
+%table.formatted.toggled
+	%thead
+		%tr
+			%th{width: 120} Local
+			%th{width: 90} Cidade
+			%th{width: 240} Endereço
+			
+			%th Telefone
+			%th{width: 50}
+	%tbody
+		- for shop in @shops do
+			%tr
+				%td
+					%b= shop.name
+				%td= shop.city
+				%td
+					= "#{shop.address}#{', ' unless shop.number.blank?}"
+					= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
+					%br
+					= shop.quarter
+				%td= shop.phone
+				%td
+					= link_to "mapa", "javascript:findMarker('#{shop.id}')"
+					%br
+					= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
+					-#= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.gmaps4rails_address}", target: :blank
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			%th
+			

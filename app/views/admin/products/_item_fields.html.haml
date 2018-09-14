@@ -1,0 +1,34 @@
+.right= i.link_to_remove "[x]"
+
+= image_tag i.object.image(:thumb), class: "left"
+
+.field.left
+	%label Código
+	= i.text_field :code, size: 5
+	
+.field.left
+	%label Quantidade
+	= i.text_field :quantity, size: 5
+	
+.field.left
+	%label Unidade
+	-#= i.text_field :unity, size: 5
+	= i.select :unity, ["kg", "g", "L", "ml", "un", "dz", "mç"], prompt: "Selecione"
+
+.field
+	%label Valor
+	= i.text_field :value, size: 9
+	= i.check_box :visible, :value => "true"
+	visível
+	= i.check_box :highlight, :value => "true"
+	destaque
+
+.field
+	%label Imagem	
+	= i.file_field :image
+		
+.field
+	%label Produtor
+	= i.collection_select :producer_id, Admin::Producer.all, :id, :name, :prompt => true
+	
+.divider

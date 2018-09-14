@@ -1,0 +1,284 @@
+// Place all the styles related to the Website controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	#container {
+		width: 950px;
+		margin: 0 auto;
+		#header {
+			height: 85px;
+			list-style: none;
+			.left {
+				width: 318px;
+				float: left;
+				padding-top: 10px;
+			}
+			.center {
+				width: 320px;
+				float: left;
+				padding-top: 10px;
+				.top {
+					height: 20px;
+					a, a:visited {
+						display: block;
+						float: left;
+						padding: 0px 5px;
+						border-right: 1px solid $bege;
+						font-size: 0.7em;
+						line-height: 1em;
+						color: $marrom;
+						//font-weight: 600;
+						&.last {
+							border-right: none;
+						}
+						&.first {
+							padding: 0px 5px 0px 0px;
+						}
+						&:hover {
+							color: $bege;
+						}
+						
+					}
+				}
+				.bottom {
+					height: 45px;
+					input[type="text"] {
+						width: 301px;
+						height: 25px;
+						margin: 0px;
+					}
+					input[type="submit"] {
+						width: 35px;
+						height: 35px;
+						position: relative;
+						left: 280px;
+						top: -35px;
+						background: url(image-path('shared/icons/search.png')) no-repeat;
+						border: none;
+						cursor: pointer;
+					}
+				}
+			}
+			.right {
+				float: right;
+				margin-right: 5px;
+				
+				#cart {
+					background: #C1272D;
+					padding: 5px 5px;
+					color: white;
+					width: 290px;
+					font-size: 0.9em;
+					-moz-border-radius: 0px 0px 10px 10px;
+					border-radius: 0px 0px 10px 10px;
+					position: relative;
+					top: 0px;
+					right: 0px;
+					text-align: center;
+					div {display: inline;}
+				}
+				.commands {
+					margin: 15px 0px 0px 0px;
+					a {
+						display: block;
+						float: right;
+						border-right: 1px solid $bege;
+						padding: 0px 10px;
+						font-size: 0.9em;
+						font-weight: bold;
+						&.last {
+							border: none;
+						}
+					}
+				}
+			}
+			
+		}
+		#top {
+			height: 392px;
+			overflow: auto;
+			
+			.menu {
+				list-style: none;
+				text-align: center;
+				padding: 0px 5px;
+				height: 46px;
+				overflow: auto;
+				
+				a {
+					height: 46px;
+					width: 313px;
+					line-height: 2.3em;
+					font-size: 1.2em;
+					font-weight: bold;
+					float: left;
+					display: block;
+					&.loja {background: #CCC url(image-path('website/bg-loja.jpg'));}
+					&.cursos {background: #CCC url(image-path('website/bg-cursos.jpg'));}
+					&.blog {background: #CCC url(image-path('website/bg-blog.jpg'));}
+					&.vila {background: #CCC url(image-path('website/bg-vila.jpg'));}
+					&.associacao {background: #CCC url(image-path('website/bg-associacao.jpg'));}
+					&.empresa {background: #CCC url(image-path('website/bg-empresa.jpg'));}
+					
+					&:hover {
+						color: white;
+					}
+					//-moz-box-shadow: 0px 0px 15px #CCC;
+					//-webkit-box-shadow: 0px 0px 15px #CCC;
+					box-shadow: 0px 0px 5px black;
+				}
+			}
+			#banner {
+				height: 300px;
+				background: #CCC url(image-path('website/banner-1.jpg'));
+				box-shadow: 0px 0px 5px black;
+				position: relative;
+				z-index: 100000;
+			}
+		}
+		#content {
+			overflow: auto;
+			margin: 0px 5px;
+			background: #CCC url(image-path('website/bg-container.jpg'));
+			box-shadow: 0px 0px 15px #666;
+			.sidebar {
+				width: 308px;
+				padding-top: 5px;
+				&.right {
+					float: right;
+					margin-right: 5px;
+				}
+				&.left {
+					float: left;
+					margin-left: 5px;
+				}
+			}
+			.page {
+				padding: 20px;
+				margin: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				border: 1px solid $bege;
+			}
+			.box {
+				overflow: auto;
+				width: 273px;
+				border: 1px solid $bege;
+				padding: 10px;
+				margin: 5px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				list-style: none;
+				a {
+					line-height: 2em;
+					font-size: 0.9em;
+					font-weight: bold;
+				}
+				&.shade {
+					background: #CCC url(image-path('website/bg-box.jpg'));
+				}
+			}
+			.product {
+				padding: 10px;
+				float: right;
+				width: 600px;
+				overflow: auto;
+				img {
+					margin: 20px 20px 20px 0px;
+				}
+				.title {
+					font-size: 1.5em;
+					margin: 20px 0px;
+				}
+				.description {
+					font-size: 0.9em;
+					margin-top: 20px;
+				}
+				a.buy {
+					background: red;
+					padding: 10px;
+					margin: 20px 0px;
+					display: black;
+					width: 200px;
+					color: white;
+				}
+			}
+			.product-box {
+				width: 144px;
+				height: 240px;
+				border: 1px solid $bege;
+				margin: 5px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				float: left;
+				text-align: center;
+				
+				.image {
+					height: 144px;
+					//background: white;
+					a {
+						img {
+						//height: 144px;
+						-moz-border-radius: 10px 10px 0px 0px;
+						border-radius: 10px 10px 0px 0px;
+						cursor: pointer;
+						}
+					}
+				}
+				.name {
+					height: 40px;
+					background: $marrom;
+					
+					font-size: 0.85em;
+					line-height: 1.3em;
+					padding-top: 2px;
+					a {
+						color: white;
+					}
+				}
+				.value {
+					height: 25px;
+					background: #C1272D;
+					color: white;
+					font-size: 0.8em;
+					cursor: pointer;
+					a {
+						color: white;
+					}
+				}
+				.brand {
+					cursor: pointer;
+				}
+			}
+			#home {
+				.highlights {
+					overflow: auto;
+					padding: 5px 0px;
+					}
+				.brands {
+					margin: 20px 0px;
+					margin-left: 5px;
+					overflow: auto;
+					.brand {
+						width: 100px;
+						height: 50px;
+						background: white;
+						float: left;
+						margin: 8px;
+					}
+				}
+			}
+		}
+		#footer {
+			height: 90px;
+		}
+	}
+}
+
+#buscar_CEP {
+	color: green;
+	font-size: 0.9em;
+	font-weight: bold;
+	line-height: 3em;
+}

@@ -1,0 +1,27 @@
+.right= link_to 'Nova Imagem', new_admin_attach_path, class: "button create"
+
+%h1 Imagens
+
+.divider
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th
+			%th descrição
+			%th slideshow
+
+	%tbody
+		- @admin_attaches.each do |admin_attach|
+			%tr
+				%td= link_to image_tag(admin_attach.attach.url(:medium)), edit_admin_attach_path(admin_attach)
+				%td= link_to admin_attach.description, edit_admin_attach_path(admin_attach)
+				%td= check_box_tag(admin_attach.id, value = "true", checked = admin_attach.slideshow, options = {:class => "toggleSlideshow"})
+				
+				-#%td= link_to 'Show', admin_attach
+				-#%td= link_to 'Edit', edit_admin_attach_path(admin_attach)
+				-#%td= link_to 'Destroy', admin_attach, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th

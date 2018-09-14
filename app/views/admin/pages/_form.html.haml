@@ -1,0 +1,33 @@
+%h1 Página
+
+.divider
+
+= form_for @admin_page do |f|
+	- if @admin_page.errors.any?
+		#error_explanation
+			%h2= "#{pluralize(@admin_page.errors.count, "error")} prohibited this admin_page from being saved:"
+			%ul
+				- @admin_page.errors.full_messages.each do |msg|
+					%li= msg
+
+	.field.left
+		%label Título
+		= f.text_field :title
+		
+	.field
+		= f.label :link
+		= f.text_field :link
+	
+	.field
+		%label Imagem
+		= f.collection_select :attach_id, Admin::Attach.all, :id, :description, prompt: true
+			
+	.field
+		-#%a{href: "javascript:void();", onmousedown: "window.open('/admin/attaches/gallery', 'gallery', 'width=500,height=500')", class: "right button edit" }
+			incluir Imagem
+		= f.text_area :content, cols: 70, rows: 30, class: "tinymce"
+			
+	= tinymce
+
+	.actions
+		.right= f.submit 'Salvar', class: "save"

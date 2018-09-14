@@ -1,0 +1,4 @@
+.item
+	= link_to image_tag("shared/#{place.kind.parameterize}-right.png"), "javascript:findMarker('#{place.id}');"
+	= link_to place.name, "javascript:findMarker('#{place.id}');"
+	= "(#{number_to_human(place.distance * 1000, units: :distance)})"

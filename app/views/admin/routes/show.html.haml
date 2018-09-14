@@ -1,0 +1,21 @@
+.right= link_to 'Excluir', @admin_route, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir?' }, class: "button delete"
+.right= link_to 'Nova Rota de Entrega', new_admin_route_path, class: "button create"
+.right= link_to "Editar", edit_admin_route_path(@admin_route), class: "button edit"
+
+.space
+
+.map
+	.text
+		%h3= "#{I18n.translate(Date::DAYNAMES[@admin_route.day])} (#{number_to_currency(@admin_route.value)})"
+		%h2= @admin_route.name
+		%p
+			Visível:
+			= @admin_route.visible
+		
+		%p
+			- for marker in @route_markers do
+				= link_to "#{marker.city}#{' - ' unless marker.quarter.blank?}#{marker.quarter}", "javascript:findMarker('#{marker.id}')"
+				%br
+
+	.right
+		= gmaps4rails(@markers)

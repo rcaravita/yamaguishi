@@ -1,0 +1,56 @@
+!!!
+%html
+	%head
+		%title Orgânicos Yamaguishi
+		= stylesheet_link_tag "website/main"
+		= javascript_include_tag "website/main"
+		= csrf_meta_tags
+		
+	%body
+		#container
+		
+			#header
+				.left
+					.logo= link_to image_tag("shared/logo-Yamaguishi.png"), root_path
+				.center
+					.top
+						%li= link_to "HOME", root_path, class: "first"
+						- if client_signed_in?
+							%li= link_to current_client.email, edit_client_registration_path
+							%li= link_to "SAIR", destroy_client_session_path, method: :delete, class: "last"
+						- else
+							%li= link_to "LOGIN", new_client_session_path
+							%li= link_to "CADASTRE-SE", new_client_registration_path, class: "last"
+					.bottom
+						= form_tag "/", :method => :get do
+							= text_field_tag "s", params[:s]
+							= submit_tag "", :name => nil
+				.right
+					#cart
+						MEU CARRINHO (
+						.quantity= @order.total_quantity
+						items )
+						.value= @order.total_value
+					.commands
+						%li= link_to "ATENDIMENTO", "/atendimento", class: "last"
+						%li= link_to "COMO COMPRAR", "/como-comprar"
+						
+				
+			#top
+				.menu
+					%li= link_to "LOJA", "/", class: "loja"
+					%li= link_to "CURSOS", "/cursos", class: "cursos"
+					%li= link_to "BLOG", "/blog", class: "blog"
+					
+				#banner
+				
+				.menu
+					%li= link_to "VILA YAMAGUISHI", "/vila-yamaguishi", class: "vila"
+					%li= link_to "ASSOCIAÇÃO FELICIDADE", "/associacao-felicidade", class: "associacao"
+					%li= link_to "EMPRESA YAMAGUISHI", "/empresa-yamaguishi", class: "empresa"
+					
+			#content
+				= yield
+					
+			#footer
+				= yield :scripts #for Google-Maps-for-Rails

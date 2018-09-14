@@ -1,0 +1,16 @@
+/nbfolder
+/nbproject
+*.picasa.ini
+*.mwb.bak
+*.dia~
+*.pot
+*.lock
+*.rdoc
+*.sql
+*.gz
+*.DS_Store
+/tmp
+/vendor
+/log
+/test
+/script

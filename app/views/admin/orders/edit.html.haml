@@ -1,0 +1,9 @@
+.right= link_to 'Excluir', @admin_order, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir este pedido? Esta ação é irreversível.' }, class: "button delete"
+.right= link_to "Visualizar", @admin_order, class: "button"
+
+#order
+	%h1
+		= "Pedido #{@admin_order.status_to_s} #"
+		= @admin_order.id
+		
+	= render 'form'

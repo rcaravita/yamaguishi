@@ -1,0 +1,82 @@
+.right= link_to 'Excluir', @admin_order, :method => :delete, :data => { :confirm => 'Tem certeza que deseja excluir este pedido? Esta ação é irreversível.' }, class: "button delete"
+.right= link_to "Editar", edit_admin_order_path(@admin_order), class: "button edit"
+
+#order
+	%h1
+		= "Pedido #{@admin_order.status_to_s} #"
+		= @admin_order.id.to_s.rjust(6, "0")
+		
+	- if [2,3].include?(@admin_order.status)
+		= check_box_tag(:atendido, true, @admin_order.status == 3, class: "toggleStatus", name: @admin_order.id)
+		Pedido Atendido
+		
+	%table
+		%thead
+			%tr
+				%th{:width => 40}
+				-#%th{:width => 40}
+				%th{:width => 30}
+				%th
+				%th{:width => 100}
+				-#%th{:width => 100} excluir
+		%tbody
+			- @admin_order.order_items.each do |item|
+				%tr
+					%td= item.item.code
+					-#%td= image_tag item.item.image(:mini), class: "image"
+					%td= item.quantity
+					%td= item.name
+					%td= number_to_currency(item.total_value)
+					-#%td= item.check_box :_destroy
+			%tr
+				%td.total{colspan: 3} Total dos Produtos
+				%td.total= number_to_currency(@admin_order.items_value)
+				-#%td.total= f.submit "Atualizar", class: "update"
+				
+	%h2 Detalhes da Entrega
+
+	%h4= @admin_order.delivery ? "Entrega em Domicílio" : "Retira na Vila Yamaguishi"
+	
+	%table
+		%thead
+			%tr
+				%th cliente
+				%th endereço
+				%th data de entrega
+				%th{:width => 100} frete
+		%tbody
+			%tr
+				%td
+					%b
+						= @admin_client.yamasis_id.to_s.rjust(6, "0")
+						= link_to @admin_client.name, @admin_client
+					%br
+					= @admin_client.kind_to_s
+					= @admin_client.document
+					-#%br
+					-#= mail_to @admin_client.email
+					%br
+					Tel:
+					= @admin_client.phone
+				%td
+					- if @admin_order.delivery
+						= @admin_client.main_address.full_address
+						%br
+						= "#{@admin_client.main_address.quarter} - #{@admin_client.main_address.city}/#{@admin_client.main_address.state}"
+						%br
+						= "#{@admin_client.main_address.postcode}"
+					- else
+						[retira]
+						
+				%td
+					- if @admin_order.delivery_date
+						= l(@admin_order.delivery_date, format: :delivery)
+						- if @admin_order.delivery == true
+							%br
+							= "(#{@admin_client.route.try(:name)})"
+					- else
+						A Confirmar
+				%td= @admin_order.delivery_date ? number_to_currency(@admin_order.delivery_value) : "A Confirmar"
+			%tr
+				%td.total{colspan: 3} Total do Pedido
+				%td.total= number_to_currency(@admin_order.total_value)

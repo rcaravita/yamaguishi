@@ -1,0 +1,8 @@
+= content_for :banner do
+	= render partial: "nivo-slider"
+	
+#home
+	= Admin::Page.find_by_link("index").content.html_safe
+.divider
+%h1 Novidades Orgânicas do Sítio
+= render :partial => 'items', :locals => { :items => @items }

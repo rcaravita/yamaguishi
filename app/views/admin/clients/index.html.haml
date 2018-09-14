@@ -1,0 +1,38 @@
+.right= link_to 'Novo Cliente', new_admin_client_path, class: "button create"
+
+%h1 Clientes
+
+.divider
+
+%table{class: "dynamic-table-clients", data: {source: '/admin/clients.json'}}
+	%thead
+		%tr
+			%th{title: "Código Yamasis"} código
+			%th nome
+			-#%th e-mail
+			%th{nowrap: true} rota
+			-#%th tel
+			-#%th tipo
+			-#%th documento
+			-#%th
+			-#%th
+			-#%th
+	-#%tbody
+	-#	- @admin_clients.each do |admin_client|
+	-#		%tr
+	-#			%td= admin_client.yamasis_id.to_s.rjust(6, "0")
+	-#			%td= link_to admin_client.name, admin_client
+	-#			-#%td= admin_client.email
+	-#			%td{nowrap: true}= admin_client.route.name if admin_client.route
+	-#			-#%td= admin_client.phone
+	-#			-#%td= admin_client.kind
+	-#			-#%td= admin_client.document
+	-#			-#%td= link_to 'Show', admin_client
+	-#			-#%td= link_to 'Edit', edit_admin_client_path(admin_client)
+	-#			-#%td= link_to 'Destroy', admin_client, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+

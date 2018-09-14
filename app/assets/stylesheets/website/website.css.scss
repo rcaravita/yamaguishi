@@ -1,0 +1,289 @@
+// Place all the styles related to the Website controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	background: url(image-path('shared/bg.jpg')) top left repeat-x;
+	#container {
+		width: 950px;
+		margin: 0 auto;
+		#header {
+			.top {
+				height: 63px;
+			}
+			.menu {
+				height: 40px;
+				background: $verde url(image-path('shared/menu-bg.jpg')) top left repeat-x;
+				li {
+					list-style: none;
+					float: left;
+					a {
+						display: block;
+						text-decoration: none;
+						width: 135px;
+						text-align: center;
+						padding: 8px 0px;
+						border-right: 1px solid white;
+						color: white;
+						&:hover {
+							//color: $vermelho;
+							background: $amarelo url(image-path('shared/tophover.jpg')) top left repeat-x;
+						}
+						&.last {
+							border-right: none;
+							width: 134px;
+						}
+					}
+				}
+			}
+			.banner {
+				height: 172px;
+			}
+		}
+		#main {
+			overflow: auto;
+			#sidebar {
+				//height: 800px;
+				width: 185px;
+				overflow: auto;
+				float: left;
+				text-align: left;
+				padding: 20px 10px 0px 10px;
+				background: url(image-path('website/store-label.jpg')) top right no-repeat;
+				a { //loja
+					text-decoration: none;
+					font-weight: bold;
+					font-size: 1.6em;
+				}
+				.categories {
+					overflow: auto;
+					margin-top: 13px;
+					ul {
+						list-style-image: url(image-path('shared/list-image.png'));
+						padding: 0px 0px 0px 20px;
+					}
+					li, a {
+						line-height: 1.4em;
+						padding: 4px 0px;
+						font-size: 0.9em;
+						font-weight: bold;
+						width: 155px;
+						&.active {
+							color: $vermelho;
+							font-size: 1em;
+						}
+					}
+					li {
+						border-bottom: 1px solid $cinza;
+					}
+				}
+			}
+			.square-icon {
+				width: 33px;
+				height: 33px;
+				background: url(image-path('shared/icons/square-icon.jpg')) no-repeat;
+			}
+			.search {
+				border-bottom: 1px solid $amarelo;
+				//margin-left: 10px;
+				height: 30px;
+				width: 315px;
+				float: left;
+				padding: 10px;
+				p {
+					margin: 0px;
+					padding: 6px 17px;
+					float: left;
+				}
+				input[type="text"] {
+					width: 145px;
+					height: 15px;
+					margin: 0px;
+				}
+				input[type="submit"] {
+					width: 30px;
+					height: 30px;
+					position: relative;
+					left: -5px;
+					top: -2px;
+					background: url(image-path('shared/icons/search-arrow.jpg')) no-repeat;
+					border: none;
+					cursor: pointer;
+					&.confirm {
+						font-size: 2em;
+					}
+				}
+			}
+			.client {
+				border-bottom: 1px solid $amarelo;
+				height: 30px;
+				width: 388px;
+				float: left;
+				padding: 10px;
+				p {
+					margin: 0px;
+					padding: 6px 7px 6px 17px;
+					float: right;
+					a {text-decoration: none;}
+				}
+			}
+			.cart {
+				height: 17px;
+				width: 708px;
+				text-align: right;
+				border-bottom: 2px solid $cinza;
+				float: left;
+				margin: 0px;
+				padding: 10px 17px;
+				color: $vermelho;
+				font-weight: bold;
+				font-size: 1.1em;
+				div {display: inline;}
+				a {
+					text-decoration: none;
+					color: $vermelho;
+					&:hover {
+						color: $verde;
+					}
+				}
+			}
+			#content {
+				float: right;
+				width: 745px;
+				overflow: auto;
+				margin: 0px;
+				padding: 10px 0px;
+			
+				li {
+					list-style-type: circle;
+					//padding: 20px;
+					margin: 10px 30px;
+				}
+				//.page {
+				//	padding: 20px;
+				//	margin: 10px;
+				//}
+				input[type="submit"] {
+					&.big {
+						font-size: 1.6em;
+					}
+				}
+				#contact-form {
+					.left-side {
+						float: left;
+						width: 420px;
+						margin-right: 30px;
+						input, textarea {
+							width: 400px;
+						}
+						input[type='submit'] {
+							width: 100px;
+						}
+					}
+					.right-side {
+						//padding-top: 10px;
+					}
+				}
+				#where_to_buy {
+					margin-top: 20px;
+					.item {
+						clear: both;
+						overflow: auto;
+						margin: 5px 0px;
+						img {
+							width: 30px;
+							float: left;
+							margin-right: 10px;
+						}
+					}
+				}
+				.item-box {
+					width: 140px;
+					height: 240px;
+					margin: 4px;
+					margin-bottom: 10px;
+					float: left;
+					text-align: center;
+					.image {
+						height: 140px;
+						a {
+							img {
+								height: 140px;
+								cursor: pointer;
+								border: 1px solid $cinza;
+							}
+						}
+					}
+					.name {
+						height: 35px;
+						font-size: 0.85em;
+						line-height: 1.3em;
+						padding-top: 10px;
+						font-weight: bold;
+						a {
+							color: $verde;
+						}
+					}
+					.value {
+						height: 25px;
+						color: $vermelho;
+						font-size: 0.8em;
+						font-weight: bold;
+						cursor: pointer;
+						a {
+							color: white;
+						}
+					}
+					a.add {
+						display: block;
+						height: 25px;
+						background: $verde;
+						font-size: 0.8em;
+						color: white;
+						text-decoration: none;
+						&:hover {
+							background: $amarelo;
+							color: $verde;
+						}
+						&.added {
+							background: $vermelho;
+							&:hover {
+								background: $amarelo;
+								color: $verde;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#footer {
+		height: 160px;
+		background: $verde-claro url(image-path('shared/footer.jpg')) top left repeat-x;
+		padding-top: 30px;
+		font-size: 0.7em;
+		line-height: 1.5em;
+		a {
+			text-decoration: none;
+		}
+		li {
+			list-style: none;
+		}
+		.footer-content {
+			width: 950px;
+			margin: 0 auto;
+			.col {
+				float: left;
+				margin-right: 30px;
+			}
+			.message {
+				width: 560px;
+				float: right;
+				margin-right: 0px;
+				text-align: right;
+				font-size: 1.4em;
+				line-height: 1.5em;
+			}
+		}
+	}
+}

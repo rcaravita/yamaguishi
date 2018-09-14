@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Description:
+  = @admin_attach.description
+
+= link_to 'Edit', edit_admin_attach_path(@admin_attach)
+\|
+= link_to 'Back', admin_attaches_path

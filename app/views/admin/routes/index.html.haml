@@ -1,0 +1,29 @@
+.right= link_to 'Nova Rota de Entrega', new_admin_route_path, class: "button create"
+
+%h1 Rotas de Entrega
+
+.divider
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th Nome
+			%th Dia
+			%th Valor
+			-#%th
+			-#%th
+			-#%th
+	%tbody
+		- @admin_routes.each do |admin_route|
+			%tr
+				%td= link_to admin_route.name, admin_route
+				%td= I18n.translate(Date::DAYNAMES[admin_route.day])
+				%td= number_to_currency(admin_route.value)
+				-#%td= link_to 'Show', admin_route
+				-#%td= link_to 'Edit', edit_admin_route_path(admin_route)
+				-#%td= link_to 'Destroy', admin_route, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			%th
+			%th

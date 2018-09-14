@@ -1,0 +1,29 @@
+.right= link_to 'Novo Produtor', new_admin_producer_path, class: "button create"
+
+%h1 Produtores
+
+.divider
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th nome
+			-#%th Link
+			-#%th Description
+			-#%th
+			-#%th
+			-#%th
+	%tbody
+		- @admin_producers.each do |admin_producer|
+			%tr
+				%td= link_to admin_producer.name, admin_producer
+				-#%td= admin_producer.link
+				-#%td= admin_producer.description
+				-#%td= link_to 'Show', admin_producer
+				-#%td= link_to 'Edit', edit_admin_producer_path(admin_producer)
+				-#%td= link_to 'Destroy', admin_producer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+	%tfoot
+		%tr
+			%th
+			-#%th
+			-#%th

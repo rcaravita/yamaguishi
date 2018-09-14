@@ -1,0 +1,60 @@
+window.userMarker = undefined
+
+#$(document).ready ->
+
+@findMarker = (marker_id) ->
+	m.infowindow.close() for m in Gmaps.map.markers
+	marker = m for m in Gmaps.map.markers when m.id is marker_id
+	infowindow = marker.infowindow
+	infowindow.open Gmaps.map.serviceObject, marker.serviceObject
+	openInfowindow = infowindow
+	Gmaps.map.serviceObject.setCenter marker.serviceObject.getPosition()
+	Gmaps.map.serviceObject.setZoom 15
+	$("html, body").animate
+		scrollTop: $(".map").offset().top - 15
+	, 500
+	
+@findAddress = (address) ->
+	$.getJSON "http://maps.googleapis.com/maps/api/geocode/json?address=#{address}&language=pt-BR&components=country:BR&sensor=false", (data) ->
+		placeMarker(data)
+		
+findCordinate = (cordinate) ->
+	$.getJSON "http://maps.googleapis.com/maps/api/geocode/json?latlng=#{cordinate}&language=pt-BR&sensor=false", (data) ->
+		placeMarker(data)
+		
+placeMarker = (data) ->
+	
+	# close all info windows
+	m.infowindow.close() for m in Gmaps.map.markers 
+	# set formated address
+	matched_address = data.results[0].formatted_address #
+	#def latitude and longitude
+	lat = data.results[0].geometry.location.lat
+	lng = data.results[0].geometry.location.lng
+	latLng = new google.maps.LatLng(lat, lng)
+	# destroy custom marker if exists
+	window.userMarker.setMap null if window.userMarker
+	# create new marker
+	marker = new google.maps.Marker(
+		position: latLng
+		map: Gmaps.map.serviceObject
+		draggable: true
+		title: 'arraste para mover'
+	)
+	# config zoom and map center
+	Gmaps.map.serviceObject.setCenter marker.getPosition()
+	Gmaps.map.serviceObject.setZoom 12
+	window.userMarker = marker
+	infowindow = new google.maps.InfoWindow(content: matched_address)
+	
+	$.ajax "/onde-comprar?lat=#{lat}&lng=#{lng}"
+	
+	google.maps.event.addListener marker, "click", ->
+		infowindow.open Gmaps.map.serviceObject, marker
+	google.maps.event.addListener marker, "dragstart", ->
+		infowindow.close()
+		$("#where_to_buy .delivery, #where_to_buy .fairs, #where_to_buy .shops").html('')
+	google.maps.event.addListener marker, "dragend", ->
+		findCordinate(marker.getPosition().lat() + ',' + marker.getPosition().lng())
+	
+			

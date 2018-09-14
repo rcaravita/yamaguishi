@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:o="urn:schemas-microsoft-com:office:office"
+	xmlns:x="urn:schemas-microsoft-com:office:excel"
+	xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:html="http://www.w3.org/TR/REC-html40">
+	<Worksheet ss:Name="Clientes">
+		
+		<Table>
+			
+			<Row>
+				<Cell><Data ss:Type="String">client_id</Data></Cell>
+				<Cell><Data ss:Type="String">name</Data></Cell>
+				<Cell><Data ss:Type="String">client_kind</Data></Cell>
+				<Cell><Data ss:Type="String">ddd</Data></Cell>
+				<Cell><Data ss:Type="String">phone</Data></Cell>
+				<Cell><Data ss:Type="String">client_created_at</Data></Cell>
+				<Cell><Data ss:Type="String">client_updated_at</Data></Cell>
+				<Cell><Data ss:Type="String">email</Data></Cell>
+				<Cell><Data ss:Type="String">client_sign_in_count</Data></Cell>
+				<Cell><Data ss:Type="String">client_last_sign_in_at</Data></Cell>
+				<Cell><Data ss:Type="String">rg</Data></Cell>
+				<Cell><Data ss:Type="String">cpf</Data></Cell>
+				<Cell><Data ss:Type="String">client_aniversary</Data></Cell>
+				<Cell><Data ss:Type="String">gender</Data></Cell>
+				<Cell><Data ss:Type="String">optin</Data></Cell>
+				<Cell><Data ss:Type="String">route_id</Data></Cell>
+				<Cell><Data ss:Type="String">yamasis_id</Data></Cell>
+				<Cell><Data ss:Type="String">shopping_id</Data></Cell>
+
+				<% if false %>
+					<Cell><Data ss:Type="String">encrypted_password</Data></Cell>
+					<Cell><Data ss:Type="String">reset_password_token</Data></Cell>
+					<Cell><Data ss:Type="String">reset_password_sent_at</Data></Cell>
+					<Cell><Data ss:Type="String">remember_created_at</Data></Cell>
+					<Cell><Data ss:Type="String">current_sign_in_at</Data></Cell>
+					<Cell><Data ss:Type="String">current_sign_in_ip</Data></Cell>
+					<Cell><Data ss:Type="String">last_sign_in_ip</Data></Cell>
+				<% end %>
+				
+				<Cell><Data ss:Type="String">complete_address</Data></Cell>
+				<Cell><Data ss:Type="String">address</Data></Cell>
+				<Cell><Data ss:Type="String">number</Data></Cell>
+				<Cell><Data ss:Type="String">complement</Data></Cell>
+				<Cell><Data ss:Type="String">quarter</Data></Cell>
+				<Cell><Data ss:Type="String">city</Data></Cell>
+				<Cell><Data ss:Type="String">state</Data></Cell>
+				<Cell><Data ss:Type="String">postcode</Data></Cell>
+				<Cell><Data ss:Type="String">address_kind</Data></Cell>
+
+				<% if false %>
+					<Cell><Data ss:Type="String">addressable_type</Data></Cell>
+					<Cell><Data ss:Type="String">addressable_id</Data></Cell>
+					<Cell><Data ss:Type="String">address_created_at</Data></Cell>
+					<Cell><Data ss:Type="String">address_updated_at</Data></Cell>
+				<% end %>
+
+			</Row>
+			
+		<% for client in @clients %>
+		
+			<Row>
+				<Cell><Data ss:Type="String"><%= client.id %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.name %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.kind %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.ddd %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.phone %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= l client.created_at, format: :export %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= l client.updated_at, format: :export %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.email %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.sign_in_count %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= l client.last_sign_in_at, format: :export if client.last_sign_in_at %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.rg %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.cpf %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= l client.aniversary, format: :export if client.aniversary %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.gender %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.optin %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.route_id %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.yamasis_id %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.shopping_id %></Data></Cell>
+
+				<% if false %>
+					<Cell><Data ss:Type="String"><%= client.encrypted_password %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.reset_password_token %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.reset_password_sent_at %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.remember_created_at %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.current_sign_in_at %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.current_sign_in_ip %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.last_sign_in_ip %></Data></Cell>
+				<% end %>
+				
+				<Cell><Data ss:Type="String"><%= client.addresses.first.complete_address unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.address unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.number unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.complement unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.quarter unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.city unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.state unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.postcode unless client.addresses.empty? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= client.addresses.first.kind unless client.addresses.empty? %></Data></Cell>
+				
+				<% if false %>
+					<Cell><Data ss:Type="String"><%= client.addresses.first.addressable_type unless client.addresses.empty? %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.addresses.first.addressable_id unless client.addresses.empty? %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.addresses.first.created_at unless client.addresses.empty? %></Data></Cell>
+					<Cell><Data ss:Type="String"><%= client.addresses.first.updated_at unless client.addresses.empty? %></Data></Cell>
+				<% end %>
+
+			</Row>
+			
+		<% end %>
+		
+		</Table>
+		
+	</Worksheet>
+</Workbook>

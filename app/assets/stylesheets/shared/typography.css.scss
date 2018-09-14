@@ -1,0 +1,163 @@
+@font-face
+{
+    font-family: maiandra;
+	src: local(maiandra), url('/Maiandra.ttf') format("truetype");
+}
+
+body {
+	font: normal normal normal 1em/1.5em maiandra, Arial, sans-serif;
+	//background: #CCC url(image-path('website/bg-body.jpg'));
+	color: $verde;
+	font-size: 1em;
+}
+
+a, a:visited {
+	//text-decoration: none;
+	color: $verde;
+	&:hover {
+		color: $vermelho;
+	}
+}
+
+h1 { font-size: 1.8em; line-height: 1.8em; margin: 10px 0px;}
+h2 { font-size: 1.6em; line-height: 1.6em; margin: 10px 0px;}
+h3 { font-size: 1.4em; line-height: 1.4em; margin: 10px 0px;}
+h4 { font-size: 1.2em; line-height: 1.2em; margin: 10px 0px;}
+h5 { font-size: 1.0em; line-height: 1.0em; margin: 10px 0px;}
+h6 { font-size: 0.8em; line-height: 0.8em; margin: 10px 0px;}
+
+p {margin: 0px 0px 10px 0px;}
+
+table.formatted {
+	width: 100%;
+	td {
+		padding: 10px;
+		//border-bottom: 1px solid $cinza;
+	}
+	tr:nth-child(even) {background: #E2EFCC;}
+	tr:nth-child(odd) {background: white;}
+	thead th {
+		padding: 3px 18px 3px 10px;
+		border-bottom: 2px solid #CCC;
+		font-weight: normal;
+		cursor: pointer;
+		*cursor: hand;
+		font-size: 0.8em;
+		color: #CCC;
+		text-align: left;
+	}
+
+	tfoot th {
+		padding: 3px 18px 3px 10px;
+		border-top: 2px solid #CCC;
+		font-weight: normal;
+		font-size: 0.8em;
+		color: #CCC;
+		text-align: left;
+	}
+}
+
+input, select, textarea {
+	background: none;
+	border: 1px solid $cinza;
+	font-size: 1em;
+	padding: 5px;
+	color: $verde;
+	&[type="text"], &[type="email"], &[type="password"], &[type="tel"] {
+		//width: 220px;
+	}
+	&:focus {
+		border: 1px solid $verde;
+		outline: none;
+	}
+}
+
+textarea {
+	background: none;
+	border: 1px solid $verde;
+	padding: 5px;
+	color: $verde;
+	&:focus {
+		border: 1px solid $amarelo;
+		outline: none;
+	}
+}
+
+a.button, input[type="submit"] {
+		padding: 5px 10px;
+		margin: 2px;
+		background: #CCC;
+		font-size: 0.9em;
+		color: $verde;
+		vertical-align: middle;
+		border: none;
+		cursor: pointer;
+		font-weight: normal;
+		font-family: inherit;
+		text-decoration: none;
+		&.create, &.new, &.save, &.submit, &.login, &.confirm {color: white; background: $verde;}
+		&.edit, &.update, &.signup {color: white; background: $azul;}
+		&.destroy, &.cancel, &.delete {color: white; background: $vermelho;}
+}
+
+form {
+	//overflow: auto;
+}
+legend {
+	font-size: 1.1em;
+}
+label {
+	display: block;
+	font-size: 0.8em;
+}
+.field {
+	overflow: auto;
+	//height: 50px;
+	padding: 5px;
+}
+.actions {
+	margin-top: 10px;
+}
+
+.right {float: right;}
+.left {float: left;}
+.clear {clear: both;}
+.hidden {display:none;}
+.divider {
+	clear: both;
+	border-bottom: 2px solid $cinza;
+	margin: 10px 0px;
+}
+.box {
+	clear: both;
+	//border: 2px solid $amarelo;
+	margin: 10px 0px;
+	padding: 10px;
+	background: $amarelo;
+	p {
+		margin: 0px;
+	}
+}
+.space {
+	clear: both;
+	height: 12px;
+	display: block;
+}
+
+#error_explanation {
+	color: $vermelho;
+	li {
+		list-style: square;
+	}
+}
+
+.field_with_errors {
+	display: inline;
+	input {
+		border: 1px solid red;
+		&[type="radio"] {
+			//not working
+		}
+	}
+	
+}

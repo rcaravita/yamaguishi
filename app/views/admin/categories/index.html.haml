@@ -1,0 +1,33 @@
+.right= link_to 'Nova Categoria', new_admin_category_path, class: "button create"
+
+%h1 Categorias
+
+.divider
+
+-#%ul#categories{"data-update-url" => sort_admin_categories_url}
+-#	- @admin_categories.each do |c|
+-#		= content_tag_for :li, c do
+-#			%span.handle [drag]
+-#			= link_to h(c.name), c
+
+%table.formatted{data: {"update-url" => sort_admin_categories_url}}
+	%thead
+		%tr
+			%th
+			%th nome
+			%th link
+			-#%th position
+	%tbody#categories{"data-update-url" => sort_admin_categories_url}
+		- @admin_categories.each do |c|
+			= content_tag_for :tr, c do
+				%td
+					%span.handle [drag]
+				%td= link_to c.name, edit_admin_category_path(c)
+				%td= c.link
+				-#%td= admin_category.position
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			-#%th
