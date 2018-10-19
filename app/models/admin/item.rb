@@ -8,7 +8,6 @@ class Admin::Item < ActiveRecord::Base
 	belongs_to :producer
 	belongs_to :quality
 	
-	default_scope includes(:product).order('admin_products.name')
 	
 	has_many :order_items, :dependent => :destroy
 	accepts_nested_attributes_for :order_items, :allow_destroy => true

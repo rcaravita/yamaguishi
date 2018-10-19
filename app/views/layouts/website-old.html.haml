@@ -1,56 +1,107 @@
 !!!
 %html
 	%head
-		%title Orgânicos Yamaguishi
+		%title Yamaguishi Orgânicos
 		= stylesheet_link_tag "website/main"
 		= javascript_include_tag "website/main"
 		= csrf_meta_tags
 		
+		%link{:href => "/assets/favicons/apple-touch-icon-57x57.png", :rel => "apple-touch-icon", :sizes => "57x57"}
+		%link{:href => "/assets/favicons/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+		%link{:href => "/assets/favicons/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
+		%link{:href => "/assets/favicons/apple-touch-icon-144x144.png", :rel => "apple-touch-icon", :sizes => "144x144"}
+		%link{:href => "/assets/favicons/apple-touch-icon-60x60.png", :rel => "apple-touch-icon", :sizes => "60x60"}
+		%link{:href => "/assets/favicons/apple-touch-icon-120x120.png", :rel => "apple-touch-icon", :sizes => "120x120"}
+		%link{:href => "/assets/favicons/apple-touch-icon-76x76.png", :rel => "apple-touch-icon", :sizes => "76x76"}
+		%link{:href => "/assets/favicons/apple-touch-icon-152x152.png", :rel => "apple-touch-icon", :sizes => "152x152"}
+		%link{:href => "/assets/favicons/apple-touch-icon-180x180.png", :rel => "apple-touch-icon", :sizes => "180x180"}
+		%link{:href => "/assets/favicons/favicon-192x192.png", :rel => "icon", :sizes => "192x192", :type => "image/png"}
+		%link{:href => "/assets/favicons/favicon-160x160.png", :rel => "icon", :sizes => "160x160", :type => "image/png"}
+		%link{:href => "/assets/favicons/favicon-96x96.png", :rel => "icon", :sizes => "96x96", :type => "image/png"}
+		%link{:href => "/assets/favicons/favicon-16x16.png", :rel => "icon", :sizes => "16x16", :type => "image/png"}
+		%link{:href => "/assets/favicons/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}
+		%meta{:content => "#da532c", :name => "msapplication-TileColor"}
+		%meta{:content => "/mstile-144x144.png", :name => "msapplication-TileImage"}
+		
+		:javascript
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-57364846-1', 'auto');
+			ga('send', 'pageview');
+		
 	%body
 		#container
-		
 			#header
-				.left
-					.logo= link_to image_tag("shared/logo-Yamaguishi.png"), root_path
-				.center
-					.top
-						%li= link_to "HOME", root_path, class: "first"
+				.top
+					= link_to image_tag("shared/top.jpg"), root_path
+				.menu
+					.center
+						%li= link_to "Início", "/", class: current_class?('/')
+						%li= link_to "Loja", "/loja", class: current_class?('/loja')
+						%li= link_to "Notícias", "/noticias", class: current_class?('/noticias')
+						%li= link_to "A Vila", "/a-vila", class: current_class?('/a-vila')
+						%li= link_to "Cursos", "/cursos", class: current_class?('/cursos')
+						%li= link_to "Blog", "/blog", class: current_class?('/blog')
+						%li= link_to "Atendimento", "/atendimento", class: current_class?('/atendimento') + ' last'
+				.banner
+					= yield :banner
+					
+			#main
+				#sidebar
+					= link_to "LOJA", root_path
+					= render partial: "/website/categories"
+					
+					<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2FVilaYamaguishiOrganico&amp;width=181&amp;height=490&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=130658133800179" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:181px; height:490px;" allowTransparency="true"></iframe>
+				
+				.search
+					.square-icon.left
+					%p BUSCA
+					= form_tag "/", :method => :get do
+						= text_field_tag "s", params[:s]
+						= submit_tag "", :name => nil
+				
+				.client
+					%p
 						- if client_signed_in?
-							%li= link_to current_client.email, edit_client_registration_path
-							%li= link_to "SAIR", destroy_client_session_path, method: :delete, class: "last"
+							= current_client.name.split.first(2).join(" ")
+							= link_to "[minha conta]", client_path
+							= link_to "[logout]", destroy_client_session_path, method: :delete, class: "last"
 						- else
-							%li= link_to "LOGIN", new_client_session_path
-							%li= link_to "CADASTRE-SE", new_client_registration_path, class: "last"
-					.bottom
-						= form_tag "/", :method => :get do
-							= text_field_tag "s", params[:s]
-							= submit_tag "", :name => nil
-				.right
-					#cart
-						MEU CARRINHO (
-						.quantity= @order.total_quantity
-						items )
-						.value= @order.total_value
-					.commands
-						%li= link_to "ATENDIMENTO", "/atendimento", class: "last"
-						%li= link_to "COMO COMPRAR", "/como-comprar"
-						
-				
-			#top
-				.menu
-					%li= link_to "LOJA", "/", class: "loja"
-					%li= link_to "CURSOS", "/cursos", class: "cursos"
-					%li= link_to "BLOG", "/blog", class: "blog"
+							= link_to "LOGIN", new_client_session_path
+							ou
+							= link_to "CADASTRAR-SE", new_client_registration_path, class: "last"
+					.square-icon.right
 					
-				#banner
-				
-				.menu
-					%li= link_to "VILA YAMAGUISHI", "/vila-yamaguishi", class: "vila"
-					%li= link_to "ASSOCIAÇÃO FELICIDADE", "/associacao-felicidade", class: "associacao"
-					%li= link_to "EMPRESA YAMAGUISHI", "/empresa-yamaguishi", class: "empresa"
+				.cart
+					#notice.left= notice
+					-#.left= session[:previous_url]
+					.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
+
+				#content
+					= yield
 					
-			#content
-				= yield
-					
-			#footer
-				= yield :scripts #for Google-Maps-for-Rails
+		#footer
+			.footer-content
+				.col
+					= render partial: "/website/categories"
+				.col
+					%li= link_to "Página Inicial", "/"
+					%li= link_to "Loja", "/loja"
+					%li= link_to "A Vila", "/a-vila"
+					%li= link_to "Associação", "/associacao"
+					%li= link_to "Cursos", "/cursos"
+					%li= link_to "Blog", "/blog"
+					%li= link_to "Atendimento", "/atendimento", class: "last"
+					%li= link_to "Página do Cliente", "/cliente", class: "last"
+				.col.message
+					-#= Admin::Page.find_by_link("pedido").content.html_safe
+
+			-#.clear
+			-#
+			-#.brands
+			-#	- 8.times do
+			-#		.brand
+			= yield :scripts #for Google-Maps-for-Rails

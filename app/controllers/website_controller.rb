@@ -14,7 +14,7 @@ class WebsiteController < ApplicationController
 			redirect_to :back and return if params[:s].blank?
 			@items = search(params[:s])
 		else
-			@items = Admin::Item.highlight
+			@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
 		end
 	end
 	
@@ -35,7 +35,7 @@ class WebsiteController < ApplicationController
 	
 	def page
 		case params[:page]
-		when "como-comprar"
+		when "loja"
 			@markers = Admin::Shop.all.to_gmaps4rails do |object, marker|
 				marker.infowindow render_to_string(:partial => "/website/marker_infowindow", :locals => { :object => object})
 				marker.picture({:picture => view_context.image_path("shared/#{object.kind.parameterize}.png"), :width => 40, :height => 40})
@@ -45,7 +45,7 @@ class WebsiteController < ApplicationController
 			@routes = Admin::Route.where(visible: true).order(:description, :day)
 			@shops = Admin::Shop.where(:kind => "Ponto de Venda").order(:city)
 			@fairs = Admin::Shop.where(:kind => "Feira Orgânica").order(:city)
-			render "/website/pages/como-comprar"
+			render "/website/pages/loja"
 		#when "passo-a-passo"
 		#	render "/website/pages/passo-a-passo"
 		else

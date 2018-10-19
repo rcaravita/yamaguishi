@@ -40,7 +40,7 @@
 				.menu
 					.center
 						%li= link_to "Início", "/", class: current_class?('/')
-						%li= link_to "Como Comprar", "/como-comprar", class: current_class?('/como-comprar')
+						%li= link_to "Loja", "/loja", class: current_class?('/loja')
 						%li= link_to "Notícias", "/noticias", class: current_class?('/noticias')
 						%li= link_to "A Vila", "/a-vila", class: current_class?('/a-vila')
 						%li= link_to "Cursos", "/cursos", class: current_class?('/cursos')
@@ -50,18 +50,6 @@
 					= yield :banner
 					
 			#main
-				#sidebar
-					= link_to "LOJA", root_path
-					= render partial: "/website/categories"
-					
-					<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2FVilaYamaguishiOrganico&amp;width=181&amp;height=490&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=130658133800179" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:181px; height:490px;" allowTransparency="true"></iframe>
-				
-				.search
-					.square-icon.left
-					%p BUSCA
-					= form_tag "/", :method => :get do
-						= text_field_tag "s", params[:s]
-						= submit_tag "", :name => nil
 				
 				.client
 					%p
@@ -70,32 +58,37 @@
 							= link_to "[minha conta]", client_path
 							= link_to "[logout]", destroy_client_session_path, method: :delete, class: "last"
 						- else
-							= link_to "LOGIN", new_client_session_path
+							= link_to "login", new_client_session_path
 							ou
-							= link_to "CADASTRAR-SE", new_client_registration_path, class: "last"
-					.square-icon.right
+							= link_to "cadastrar-se", new_client_registration_path, class: "last"
 					
-				.cart
-					#notice.left= notice
-					-#.left= session[:previous_url]
-					.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
+					.cart
+						#notice.left= notice
+						-#.left= session[:previous_url]
+						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
 
 				#content
 					= yield
+
+				#sidebar
+					= link_to "Novidades do sítio", root_path, class: "title"
+					= render :partial => 'items', :locals => { :items => @items }
 					
 		#footer
 			.footer-content
-				.col
-					= render partial: "/website/categories"
-				.col
+				.right.fb
+					<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2FVilaYamaguishiOrganico&amp;width=200&amp;height=300&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=130658133800179" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:300px;" allowTransparency="true"></iframe>
+				.col.left
 					%li= link_to "Página Inicial", "/"
-					%li= link_to "Como Comprar", "/como-comprar"
+					%li= link_to "Loja", "/loja"
 					%li= link_to "A Vila", "/a-vila"
 					%li= link_to "Associação", "/associacao"
 					%li= link_to "Cursos", "/cursos"
 					%li= link_to "Blog", "/blog"
 					%li= link_to "Atendimento", "/atendimento", class: "last"
 					%li= link_to "Página do Cliente", "/cliente", class: "last"
+				.col.left
+					= render partial: "/website/categories"
 				.col.message
 					-#= Admin::Page.find_by_link("pedido").content.html_safe
 

@@ -397,30 +397,48 @@ table {
 
 @font-face {
     font-family: maiandra;
-    src: local(maiandra), url("/Maiandra.ttf") format("truetype")
+    src: local(maiandra), url("/fonts/Maiandra.ttf") format("truetype")
+}
+@font-face {
+    font-family: 'Lucida';
+    font-weight: 400;
+    font-style: normal;
+    src: url("/fonts/LucidaSans.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: 'Lucida';
+    font-weight: 700;
+    font-style: normal;
+    src: url("/fonts/LucidaSans-Bold.otf") format("truetype");
+}
+
+@font-face {
+    font-family: 'Lucida';
+    font-weight: 400;
+    font-style: italic;
+    src: url("/fonts/LucidaSans-Italic.ttf") format("truetype");
+}
+
+
 body {
-	/* @TODO - arrumar fonte site */
-    color: #1c7935;
+    color: ccc;
     background-color: #F4F4E5;
-    font-size: 1em
+    font-size: 14px;
+    line-height: 22px;
+    font-family: "Lucida";
+    font-weight: 400;
 }
 
 a,
 a:visited {
-    color: #1c7935
-}
-
-a:hover,
-a:visited:hover {
-    color: #d22f00
+    color: rgb(28, 121, 53);
 }
 
 h1 {
-    font-size: 1.8em;
-    line-height: 1.8em;
-    margin: 10px 0px
+    font-size: 28px;
+    line-height: 42px;
+    margin: 10px 0px 28px 0px;
 }
 
 h2 {
@@ -705,22 +723,29 @@ body #container #header .banner {
 }
 
 body #container #main {
-    overflow: auto
+    overflow: auto;
+    padding-bottom: 40px;
 }
 
 body #container #main #sidebar {
-    width: 185px;
+    width: 208px;
     overflow: auto;
     float: left;
     text-align: left;
-    padding: 20px 10px 0px 10px;
-    background: url("/assets/website/store-label.jpg") top right no-repeat
+    margin-top: 20px;
+    padding: 0 20px;
+    border-left: 2px dotted #CCC;
+}
+body #container #main #sidebar iframe{
+    margin-top: 40px;
 }
 
-body #container #main #sidebar a {
-    text-decoration: none;
+body #container #main #sidebar a.title {
     font-weight: bold;
-    font-size: 1.6em
+    font-size:18px;
+    margin-bottom: 20px;
+    display: block;
+    text-decoration: none;
 }
 
 body #container #main #sidebar .categories {
@@ -794,34 +819,27 @@ body #container #main .search input[type="submit"].confirm {
 }
 
 body #container #main .client {
-    border-bottom: 1px solid #e1eb83;
-    height: 30px;
     width: 388px;
-    float: left;
-    padding: 10px
+    float: right;
+    margin: 10px 20px;
 }
 
 body #container #main .client p {
     margin: 0px;
-    padding: 6px 7px 6px 17px;
-    float: right
+    float: right;
+    font-size: 14px;
 }
 
-body #container #main .client p a {
-    text-decoration: none
-}
 
 body #container #main .cart {
     height: 17px;
-    width: 708px;
+    padding-top: 4px;
     text-align: right;
-    border-bottom: 2px solid #CCC;
-    float: left;
-    margin: 0px;
-    padding: 10px 17px;
-    color: #d22f00;
+    color: #000;
     font-weight: bold;
-    font-size: 1.1em
+    font-size: 14px;
+    clear: both;
+    
 }
 
 body #container #main .cart div {
@@ -830,19 +848,21 @@ body #container #main .cart div {
 
 body #container #main .cart a {
     text-decoration: none;
-    color: #d22f00
 }
 
 body #container #main .cart a:hover {
-    color: #1c7935
+    text-decoration: underline;
 }
 
 body #container #main #content {
-    float: right;
-    width: 745px;
+    float: left;
+    width: 660px;
+    padding: 10px 20px;
     overflow: auto;
-    margin: 0px;
-    padding: 10px 0px
+    margin: -70px 0px 0px 0px;
+}
+body #container #main #content #home{
+    width: 560px;
 }
 
 body #container #main #content li {
@@ -885,7 +905,8 @@ body #container #main #content #where_to_buy .item img {
     margin-right: 10px
 }
 
-body #container #main #content .item-box {
+body #container #main #content .item-box,
+body #container #main #sidebar .item-box {
     width: 140px;
     height: 240px;
     margin: 4px;
@@ -894,17 +915,37 @@ body #container #main #content .item-box {
     text-align: center
 }
 
-body #container #main #content .item-box .image {
+body #container #main #sidebar .item-box {
+    width: 94px;
+    height: 190px;
+    position: relative;
+}
+body #container #main #sidebar .item-box:nth-child(even) {
+    clear: both;
+}
+
+body #container #main #content .item-box .image,
+body #container #main #sidebar .item-box .image {
     height: 140px
 }
 
-body #container #main #content .item-box .image a img {
+body #container #main #sidebar .item-box .image {
+    height: 94px;
+}
+
+body #container #main #content .item-box .image a img, 
+body #container #main #sidebar .item-box .image a img {
     height: 140px;
     cursor: pointer;
     border: 1px solid #CCC
 }
 
-body #container #main #content .item-box .name {
+body #container #main #sidebar .item-box .image a img {
+    height: 94px;
+}
+
+body #container #main #content .item-box .name, 
+body #container #main #sidebar .item-box .name {
     height: 35px;
     font-size: 0.85em;
     line-height: 1.3em;
@@ -912,11 +953,21 @@ body #container #main #content .item-box .name {
     font-weight: bold
 }
 
-body #container #main #content .item-box .name a {
+body #container #main #sidebar .item-box .name {
+    height: auto;
+    font-size: 12px;
+    line-height: 16px;
+    padding-top: 4px;
+    font-weight: normal;
+}
+
+body #container #main #content .item-box .name a,
+body #container #main #sidebar .item-box .name a {
     color: #1c7935
 }
 
-body #container #main #content .item-box .value {
+body #container #main #content .item-box .value,
+body #container #main #sidebar .item-box .value {
     height: 25px;
     color: #d22f00;
     font-size: 0.8em;
@@ -924,11 +975,18 @@ body #container #main #content .item-box .value {
     cursor: pointer
 }
 
-body #container #main #content .item-box .value a {
+body #container #main #sidebar .item-box .value {
+    height: 20px;
+    font-size: 8px;
+}
+
+body #container #main #content .item-box .value a,
+body #container #main #sidebar .item-box .value a {
     color: white
 }
 
-body #container #main #content .item-box a.add {
+body #container #main #content .item-box a.add,
+body #container #main #sidebar .item-box a.add {
     display: block;
     height: 25px;
     background: #1c7935;
@@ -936,17 +994,26 @@ body #container #main #content .item-box a.add {
     color: white;
     text-decoration: none
 }
+body #container #main #sidebar .item-box a.add {
+    font-size: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 
-body #container #main #content .item-box a.add:hover {
+body #container #main #content .item-box a.add:hover,
+body #container #main #sidebar .item-box a.add:hover {
     background: #e1eb83;
     color: #1c7935
 }
 
-body #container #main #content .item-box a.add.added {
+body #container #main #content .item-box a.add.added,
+body #container #main #sidebar .item-box a.add.added {
     background: #d22f00
 }
 
-body #container #main #content .item-box a.add.added:hover {
+body #container #main #content .item-box a.add.added:hover,
+body #container #main #sidebar .item-box a.add.added:hover {
     background: #e1eb83;
     color: #1c7935
 }
@@ -973,8 +1040,11 @@ body #footer .footer-content {
 }
 
 body #footer .footer-content .col {
-    float: left;
-    margin-right: 30px
+    margin-right: 30px;
+    margin-left: 20px;
+}
+body #footer .footer-content .fb {
+    margin-right: 20px
 }
 
 body #footer .footer-content .message {
