@@ -1220,6 +1220,10 @@ body #footer .footer-content .message {
 	padding-bottom: 500em;
 	margin-bottom: -500em;
 }
+#container #main #content #categories .categories {
+	width: 200px;
+}
+
 .website-page-view.loja #container #main #content #categories li,
 .website-category-view #container #main #content #categories li,
 .website-product-view #container #main #content #categories li {
@@ -1241,8 +1245,8 @@ body #footer .footer-content .message {
 .website-category-view #container #main #content #home,
 .website-product-view #container #main #content #home {
 	float: left;
-	width: 660px;
-	margin-left: 20px;
+	width: 620px;
+	margin-left: 30px;
 	margin-top: 70px;
 	padding-bottom: 500em;
 	margin-bottom: -500em;
