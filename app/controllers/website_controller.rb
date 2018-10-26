@@ -10,12 +10,7 @@ class WebsiteController < ApplicationController
 	before_filter :define_order_details, except: [:order_update, :order_confirmed] #from Store module
 		
 	def index
-		if params[:s]
-			redirect_to :back and return if params[:s].blank?
-			@items = search(params[:s])
-		else
-			@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
-		end
+		@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
 	end
 	
 	def category
@@ -36,6 +31,14 @@ class WebsiteController < ApplicationController
 	def page
 		case params[:page]
 		when "loja"
+			add_body_css_class('loja');
+			if params[:s]
+				redirect_to :back and return if params[:s].blank?
+				@items = search(params[:s])
+				@search = true
+			else
+				@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
+			end
 			@markers = Admin::Shop.all.to_gmaps4rails do |object, marker|
 				marker.infowindow render_to_string(:partial => "/website/marker_infowindow", :locals => { :object => object})
 				marker.picture({:picture => view_context.image_path("shared/#{object.kind.parameterize}.png"), :width => 40, :height => 40})
@@ -48,6 +51,13 @@ class WebsiteController < ApplicationController
 			render "/website/pages/loja"
 		#when "passo-a-passo"
 		#	render "/website/pages/passo-a-passo"
+		when "cliente"
+			begin
+				@page = Admin::Page.find_by_link(params[:page])
+				render "/website/pages/generic"
+			rescue
+				redirect_to root_path, notice: "Página não encontrada."
+			end
 		else
 			@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
 			begin

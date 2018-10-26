@@ -63,7 +63,7 @@
 							= link_to "cadastrar-se", new_client_registration_path, class: "last"
 					
 					.cart
-						#notice.left= notice
+						#notice= notice
 						-#.left= session[:previous_url]
 						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
 
@@ -71,8 +71,13 @@
 					= yield
 
 				#sidebar
-					= link_to "Novidades do sítio", root_path, class: "title"
-					= render :partial => 'items', :locals => { :items => @items }
+					- if @items
+						= link_to "Novidades do sítio", root_path, class: "title"
+						.search
+							= form_tag "/loja", :method => :get do
+								= text_field_tag "s", params[:s]
+								= submit_tag "", :name => nil
+						= render :partial => 'items', :locals => { :items => @items }
 					
 		#footer
 			.footer-content

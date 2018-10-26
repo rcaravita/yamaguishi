@@ -784,11 +784,8 @@ body #container #main .square-icon {
 }
 
 body #container #main .search {
-    border-bottom: 1px solid #e1eb83;
-    height: 30px;
-    width: 315px;
-    float: left;
-    padding: 10px
+    height: 60px;
+    width: 100%;
 }
 
 body #container #main .search p {
@@ -798,20 +795,21 @@ body #container #main .search p {
 }
 
 body #container #main .search input[type="text"] {
-    width: 145px;
-    height: 15px;
+    width: 166px;
+    height: 12px;
     margin: 0px
 }
 
 body #container #main .search input[type="submit"] {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     position: relative;
-    left: -5px;
-    top: -2px;
-    background: url("/assets/shared/icons/search-arrow.jpg") no-repeat;
+    left: 0px;
+    top: -3px;
+    background: url("/assets/shared/icons/search.png") no-repeat;
     border: none;
-    cursor: pointer
+    cursor: pointer;
+    background-size: 20px 20px; 
 }
 
 body #container #main .search input[type="submit"].confirm {
@@ -822,6 +820,8 @@ body #container #main .client {
     width: 388px;
     float: right;
     margin: 10px 20px;
+    position: relative;
+    z-index: 100;
 }
 
 body #container #main .client p {
@@ -877,7 +877,7 @@ body #container #main #content input[type="submit"].big {
 body #container #main #content #contact-form .left-side {
     float: left;
     width: 420px;
-    margin-right: 30px
+    margin-right: 70px;
 }
 
 body #container #main #content #contact-form .left-side input,
@@ -920,7 +920,7 @@ body #container #main #sidebar .item-box {
     height: 190px;
     position: relative;
 }
-body #container #main #sidebar .item-box:nth-child(even) {
+body #container #main #sidebar .item-box:nth-child(2n+1) {
     clear: both;
 }
 
@@ -1070,8 +1070,7 @@ body #footer .footer-content .message {
 
 #product {
     padding: 20px;
-    float: right;
-    width: 720px;
+    float: left;
     overflow: auto
 }
 
@@ -1084,15 +1083,13 @@ body #footer .footer-content .message {
     line-height: 1.2em
 }
 
-#product .item {
-    height: 50px
-}
-
 #product .item a.add {
     background: #1c7935;
     padding: 10px;
     width: 200px;
-    color: white
+    color: white;
+    display: inline-block;
+    line-height: 24px;
 }
 
 #product .item a.add:hover {
@@ -1176,7 +1173,11 @@ body #footer .footer-content .message {
 }
 
 
-.website-contact_form_new-view #sidebar {
+.website-contact_form_new-view #sidebar,
+.website-page-view.loja #sidebar,
+.website-category-view #sidebar,
+.website-product-view #sidebar,
+.website-order-view #sidebar, .website-order-view .client {
 	display: none;
 }
 
@@ -1185,7 +1186,91 @@ body #footer .footer-content .message {
 	margin-top: 1px;
 }
 .website-contact_form_new-view #container #main #content .right-side{
-	margin-top: 60px;
+	margin-top: 62px;
 	float: left;
-	width: 460px;
+	width: 390px;
+}
+.website-contact_form_new-view #container #main #content .right-side p {
+	font-size: 12px;
+}
+
+
+.website-page-view.loja #container #main,
+.website-category-view #container #main,
+.website-product-view #container #main {
+	padding-bottom: 0;
+}
+.website-page-view.loja #container #main #content,
+.website-category-view #container #main #content,
+.website-product-view #container #main #content {
+	width: 910px;
+	overflow: hidden;
+	padding-bottom: 60px;
+}
+
+.website-page-view.loja #container #main #content #categories,
+.website-category-view #container #main #content #categories,
+.website-product-view #container #main #content #categories {
+	float:left;
+	width: 210px;
+	margin-left: -20px;
+	padding: 20px 20px 200px 20px;
+	background-color: #F6F8F3;
+	margin-top: -8px;
+	padding-bottom: 500em;
+	margin-bottom: -500em;
+}
+.website-page-view.loja #container #main #content #categories li,
+.website-category-view #container #main #content #categories li,
+.website-product-view #container #main #content #categories li {
+	list-style-type: none;
+	margin: 0 0 10px 0;
+}
+.website-page-view.loja #container #main #content #categories li.active,
+.website-category-view #container #main #content #categories li.active,
+.website-product-view #container #main #content #categories li.active {
+	color: #d22f00;
+	font-weight: bold;
+}
+.website-page-view.loja #container #main #content #categories li a:hover,
+.website-category-view #container #main #content #categories li a:hover,
+.website-product-view #container #main #content #categories li a:hover {
+	color: #d22f00;
+}
+.website-page-view.loja #container #main #content #home,
+.website-category-view #container #main #content #home,
+.website-product-view #container #main #content #home {
+	float: left;
+	width: 660px;
+	margin-left: 20px;
+	margin-top: 70px;
+	padding-bottom: 500em;
+	margin-bottom: -500em;
+}
+
+.website-product-view .banner {
+	display: none;
+}
+.website-product-view #container #main #content {
+	margin-top: 10px;
+}
+
+.website-order-view #container #main #content {
+	margin-top: 20px;
+}
+
+
+.website-clients-sessions-new-view #new_client .field{
+    width: 220px;
+}
+.website-clients-sessions-new-view #new_client .field.remember{
+    clear: left;
+}
+.website-clients-sessions-new-view #new_client .field.remember input{
+    float:left;
+    width: auto;
+    margin-right: 10px;
+}
+.website-clients-sessions-new-view #new_client .field input{
+    width: 200px;
 }

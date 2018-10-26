@@ -1,11 +1,19 @@
-#product
-	.left= image_tag @admin_product.items.first.image.url(:medium)
-	%h1.title= @admin_product.name
-	- if @admin_product.visible
-		- for item in @admin_product.items do
-			- if item.visible
-				.item{id: "item_#{item.id}"}
-					= link_to "COMPRAR #{number_to_human(item.quantity)} #{item.unity} por #{number_to_currency(item.value)} - #{item.producer.name if item.producer}", add_to_cart_path(item.id), remote: true, class: "add"
-	- else
-		%h3= "[produto indisponível]" 
-	.description= @admin_product.description
+#categories.loja
+	.search
+		= form_tag "/loja", :method => :get do
+			= text_field_tag "s", params[:s]
+			= submit_tag "", :name => nil
+	= render partial: "/website/categories"
+#home.loja
+
+	#product
+		.left= image_tag @admin_product.items.first.image.url(:medium)
+		%h1.title= @admin_product.name
+		- if @admin_product.visible
+			- for item in @admin_product.items do
+				- if item.visible
+					.item{id: "item_#{item.id}"}
+						= link_to "COMPRAR #{number_to_human(item.quantity)} #{item.unity} por #{number_to_currency(item.value)} - #{item.producer.name if item.producer}", add_to_cart_path(item.id), remote: true, class: "add"
+		- else
+			%h3= "[produto indisponível]" 
+		.description= @admin_product.description

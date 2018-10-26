@@ -53,5 +53,11 @@ class ApplicationController < ActionController::Base
 			"website"
 		end
 	end
+
+	# Controllers can call this to add classes to the body tag
+	def add_body_css_class(css_class)
+		@body_css_classes ||= []
+		@body_css_classes << css_class
+	end
 	
 end

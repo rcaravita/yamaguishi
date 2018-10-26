@@ -1,6 +1,14 @@
 = content_for :banner do
 	= render partial: "nivo-slider"
-	
-%h1= @category.name
 
-= render :partial => 'items', :locals => { :items => @items }
+#categories.loja
+	.search
+		= form_tag "/loja", :method => :get do
+			= text_field_tag "s", params[:s]
+			= submit_tag "", :name => nil
+	= render partial: "/website/categories"
+#home.loja
+
+	%h1= @category.name
+
+	= render :partial => 'items', :locals => { :items => @items }
