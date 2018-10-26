@@ -49,6 +49,7 @@ class WebsiteController < ApplicationController
 		#when "passo-a-passo"
 		#	render "/website/pages/passo-a-passo"
 		else
+			@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
 			begin
 				@page = Admin::Page.find_by_link(params[:page])
 				render "/website/pages/generic"
