@@ -32,7 +32,7 @@
 			ga('create', 'UA-57364846-1', 'auto');
 			ga('send', 'pageview');
 		
-	%body
+	%body{:class => body_css_class}
 		#container
 			#header
 				.top
@@ -91,6 +91,7 @@
 					= render partial: "/website/categories"
 				.col.message
 					-#= Admin::Page.find_by_link("pedido").content.html_safe
+				.col.clear
 
 			-#.clear
 			-#
