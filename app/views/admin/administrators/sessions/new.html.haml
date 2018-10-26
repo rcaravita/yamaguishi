@@ -16,8 +16,7 @@
 			%label Senha
 			= f.password_field :password
 			
-		.field
-			%label &nbsp
+		.field.remember
 			- if devise_mapping.rememberable?
 				= f.check_box :remember_me
 				Lembrar-me

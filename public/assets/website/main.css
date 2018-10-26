@@ -436,8 +436,8 @@ a:visited {
 }
 
 h1 {
-    font-size: 28px;
-    line-height: 42px;
+    font-size: 24px;
+    line-height: 36px;
     margin: 10px 0px 28px 0px;
 }
 
@@ -1019,11 +1019,12 @@ body #container #main #sidebar .item-box a.add.added:hover {
 }
 
 body #footer {
-    height: 160px;
-    background: #b4c26a url("/assets/shared/footer.jpg") top left repeat-x;
+    height: auto;
+    background: #fff url("/assets/shared/footer.jpg") top left repeat-x;
     padding-top: 30px;
     font-size: 0.7em;
-    line-height: 1.5em
+    line-height: 1.5em;
+    background-position: 0 -12px;
 }
 
 body #footer a {
@@ -1172,4 +1173,19 @@ body #footer .footer-content .message {
 
 .toggled {
     display: none
+}
+
+
+.website-contact_form_new-view #sidebar {
+	display: none;
+}
+
+.website-contact_form_new-view #container #main #content {
+	width: 910px;
+	margin-top: 1px;
+}
+.website-contact_form_new-view #container #main #content .right-side{
+	margin-top: 60px;
+	float: left;
+	width: 460px;
 }
