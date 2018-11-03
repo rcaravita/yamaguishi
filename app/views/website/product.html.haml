@@ -1,9 +1,13 @@
-#categories.loja
-	.search
-		= form_tag "/loja", :method => :get do
-			= text_field_tag "s", params[:s]
-			= submit_tag "", :name => nil
-	= render partial: "/website/categories"
+- if @categories
+	= content_for :banner do
+		= render partial: "nivo-slider"
+
+	#categories.loja
+		.search
+			= form_tag "/loja", :method => :get do
+				= text_field_tag "s", params[:s]
+				= submit_tag "", :name => nil
+		= render partial: "/website/categories"
 #home.loja
 
 	#product
