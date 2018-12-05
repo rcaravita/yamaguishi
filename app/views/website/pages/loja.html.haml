@@ -31,6 +31,8 @@
 		-#%h3= link_to "Veja o passo-a-passo para fazer pedidos aqui.", "/passo-a-passo"
 
 		.space
+		.space
+		.space
 
 		.left{:style => "margin-right:10px;"}= image_tag "shared/delivery-right.png", width: 40
 		%h2#delivery{:style => "margin:0px;"} Entrega em Domicílio
@@ -58,7 +60,7 @@
 		%h4.toggle
 			= link_to "Tabela de Rotas para Entrega em Domicílio", "javascript:void(0);"
 
-		%table.formatted.toggled
+		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
 			%thead
 				%tr
 					%th Nome
@@ -84,6 +86,9 @@
 					-#%th
 					
 		.space
+		.space
+		.space
+		.space
 
 		.left{:style => "margin-right:10px;"}= image_tag "shared/feira-organica-right.png", width: 40
 		%h2#feira-organica{:style => "margin:0px;"} Feiras Orgânicas
@@ -91,15 +96,14 @@
 		%h4.toggle
 			= link_to "Tabela de Feiras Orgânicas", "javascript:void(0);"
 
-		%table.formatted.toggled
+		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
 			%thead
 				%tr
-					%th{width: 120} Local
-					%th{width: 90} Cidade
-					%th{width: 160} Endereço
-					
-					%th Informações
-					%th{width: 50}
+					%th{:style => "width:120px"} Local
+					%th{:style => "width:50px"} Cidade
+					%th{:style => "width:140px"} Endereço
+					%th{:style => "width:200px"} Informações
+					%th{:style => "width:30px"}
 			%tbody
 				- for shop in @fairs do
 					%tr
@@ -118,6 +122,7 @@
 							%br
 							= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
 							
+			
 			%tfoot
 				%tr
 					%th
@@ -127,6 +132,9 @@
 					%th
 
 		.space
+		.space
+		.space
+		.space
 
 		.left{:style => "margin-right:10px;"}= image_tag "shared/ponto-de-venda-right.png", width: 40
 		%h2#ponto-de-venda{:style => "margin:0px;"} Pontos de Venda
@@ -134,7 +142,7 @@
 		%h4.toggle
 			= link_to "Tabela de Pontos de Venda", "javascript:void(0);"
 			
-		%table.formatted.toggled
+		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
 			%thead
 				%tr
 					%th{width: 120} Local

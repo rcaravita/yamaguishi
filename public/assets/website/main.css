@@ -476,11 +476,12 @@ p {
 }
 
 table.formatted {
-    width: 100%
+    width: 100%;
+    table-layout: fixed;
 }
 
 table.formatted td {
-    padding: 10px
+    padding: 3px 6px;
 }
 
 table.formatted tr:nth-child(even) {
@@ -492,7 +493,7 @@ table.formatted tr:nth-child(odd) {
 }
 
 table.formatted thead th {
-    padding: 3px 18px 3px 10px;
+    padding: 3px 6px;
     border-bottom: 2px solid #CCC;
     font-weight: normal;
     cursor: pointer;
