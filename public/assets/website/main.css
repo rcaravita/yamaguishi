@@ -127,6 +127,10 @@ table {
     border-spacing: 0
 }
 
+#header #mobile-menu-btn {
+	display: none;
+}
+
 .map_container {
     padding: 6px;
     border-width: 1px;
@@ -1272,4 +1276,305 @@ body #footer .footer-content .message {
 }
 .website-clients-sessions-new-view #new_client .field input{
     width: 200px;
+}
+
+
+@media screen and (max-width: 768px) {
+	body #container #header .top {
+		height: 63px;
+	}
+	#header .top img {
+		margin-left: -69px;
+	}
+
+	body #container,
+	body #footer,
+	body #footer .footer-content {
+		width: 100%;
+		overflow: hidden;
+		min-width: 360px;
+	}
+
+	body #container #header .banner {
+		height: 140px;
+		overflow: hidden;
+	}
+
+	body #container #header #mobile-menu-btn {
+		display: block;
+		border: none;
+		background: #b0d06b;
+		position: fixed;
+		z-index: 102;
+		top: 13px;
+		right: 10px;
+		padding: 10px 10px 14px 10px;
+		width: 42px;
+		height: 40px;
+		-webkit-transition: all 300ms ease 0s;
+		transition: all 300ms ease 0s;
+		font-size: 24px;
+		cursor: pointer;
+		z-index: 1001;
+	}
+
+	body #container #header #mobile-menu-btn .icon-bar {
+		display: block;
+		height: 2px;
+		background-color: #393a32;
+		margin-top: 3px;
+	}
+
+	body #container #header .menu {
+		height: auto;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 100%;
+		width: 100%;
+		overflow: auto;
+		padding: 0;
+			padding-top: 0px;
+		background-color: #393a32;
+		-webkit-transition: left 200ms ease 0s;
+		transition: left 200ms ease 0s;
+		margin-left: 0;
+		padding-top: 80px;
+		z-index: 1000;
+	}
+	
+	body #container #header .menu li {
+		display: block;
+		width: 100%;
+		border-bottom: 1px solid #a0a28d;
+		margin: 0;
+	}
+
+	body #container #header .menu li a, body #container #header .menu li a.last {
+		width: 100%;
+		border: none;
+		text-align: left;
+		padding-left: 8px;
+	}
+
+
+	body #container #header.menu-opened #mobile-menu-btn {
+		background: #151908;
+	}
+	body #container #header.menu-opened .menu {
+		left: 0;
+	}
+	body #container #header.menu-opened .banner {
+		display: none;
+	}
+
+	body #container #header.menu-opened #mobile-menu-btn {
+		background: #151908;
+	}
+
+	body #container #main .client {
+		position: fixed;
+		top: 0;
+		right: 80px;
+		margin-top: 7px;
+		background-color: RGBA(176,208,107, 0.8);
+		width: 280px;
+		padding-right: 8px;
+	}
+
+	body #container #main #content {
+		margin-top: 0px;
+		width: 480px;
+	}
+	body #container #main #content #home {
+		width: 100%;
+	}
+
+	body.website-clients-registrations-new-view #container #main #content {
+		width: 680px;
+	}
+
+	body #container #main #sidebar {
+		width: 206px;
+	}
+
+	.website-page-view.loja #container #main #content,
+	.website-category-view #container #main #content,
+	.website-product-view #container #main #content {
+		width: calc(100% - 20px);
+		padding-right: 0;
+	}
+
+	.website-page-view.loja #container #main #content #home,
+	.website-category-view #container #main #content #home,
+	.website-product-view #container #main #content #home {
+		width: 460px;
+		margin-top: -4px;
+	}
+
+	body.website-page-view #container #main #content #home img {
+		width: 100%;
+		height: auto;
+	}
+
+	.website-contact_form_new-view #container #main #content {
+		width: calc(100% - 40px);
+	}
+
+	body #container #main #content #contact-form .left-side {
+		width: 380px;
+		margin-right: 30px;
+	}
+
+	body #container #main #content #contact-form .left-side input,
+	body #container #main #content #contact-form .left-side textarea {
+		width: 350px;
+	}
+
+	.website-contact_form_new-view #container #main #content .right-side {
+		width: 300px;
+	}
+
+	.website-page-view.loja #container #main #content #home .table,
+	.website-category-view #container #main #content #home .table,
+	.website-product-view #container #main #content #home .table{
+		overflow: auto;
+		clear: both;
+	}
+}
+
+@media screen and (max-width: 415px) {
+
+	body {
+		font-size: 12px;
+	}
+	
+	body #container #header .banner {
+		height: 64px;
+	}
+
+	.theme-bar .nivo-controlNav {
+		height: 12px;
+	}
+
+	.theme-bar .nivo-directionNav a {
+		font-size: 10px;
+		bottom: 2px;
+	}
+
+	body #container #main .client {
+		position: relative;
+		top: auto;
+		right: auto;
+		margin-top: 7px;
+		background-color: transparent;
+		width: 280px;
+		float: left;
+		margin-left: 10px;
+	}
+
+	body #container #main .client p {
+		float: left;
+		font-size: 12px;
+	}
+
+	body #container #main .cart {
+		text-align: left;
+		font-size: 12px;
+	}
+
+	body #container #main .cart div.right {
+		float: left;
+	}
+
+	body #container #main #content {
+		padding-left: 10px;
+		padding-right: 10px;
+		width: calc(100% - 20px);
+	}
+
+	body #container #main #sidebar {
+		width: calc(100% - 20px);
+		padding: 0 10px;
+		border: none;
+	}
+
+	body #container #main #sidebar .item-box {
+		margin-left: 0;
+		margin-right: 28px;
+	}
+
+	body #container #main #sidebar .item-box:nth-child(2n+1) {
+		clear: none;
+	}
+
+	body #container #main #sidebar .items .item-box:nth-child(3n+1) {
+		clear: both;
+	}
+	body #container #main #sidebar .items .item-box:nth-child(3n) {
+		margin-right: 0px;
+	}
+
+	body #footer {
+		font-size: 11px;
+	}
+
+	body #footer .footer-content .fb {
+		margin-right: 10px;
+		position: absolute;
+		bottom: 20px;
+		left: 10px;
+		width: calc(100% - 20px);
+	}
+	body #footer .footer-content {
+		height: 520px;
+		position: relative;
+	}
+
+	.website-page-view.loja #container #main #content #categories,
+	.website-category-view #container #main #content #categories,
+	.website-product-view #container #main #content #categories {
+		width: 100%;
+		padding: 20px 10px;
+		margin-left: -10px;
+		margin-bottom: 0;
+		float: none;
+	}
+
+	body #container #main .search {
+		height: 40px;
+	}
+
+	#container #main #content #categories .categories {
+		width: 100%;
+		height: 80px;
+	}
+
+	.website-page-view.loja #container #main #content #categories li,
+	.website-category-view #container #main #content #categories li,
+	.website-product-view #container #main #content #categories li {
+		float: left;
+		margin-bottom: 0px;
+	}
+	.website-page-view.loja #container #main #content #categories li:after,
+	.website-category-view #container #main #content #categories li:after,
+	.website-product-view #container #main #content #categories li:after {
+		content: ' / ';
+		margin-left: 2px;
+		margin-right: 6px;
+	}
+
+	.website-page-view.loja #container #main #content,
+	.website-category-view #container #main #content,
+	.website-product-view #container #main #content {
+		padding-right: 10px;
+	}
+
+	.website-page-view.loja #container #main #content #home,
+	.website-category-view #container #main #content #home,
+	.website-product-view #container #main #content #home {
+		width: 100%;
+		margin-top: 0;
+		margin-left: 0;
+	}
 }
