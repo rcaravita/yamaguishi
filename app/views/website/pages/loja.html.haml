@@ -60,30 +60,31 @@
 		%h4.toggle
 			= link_to "Tabela de Rotas para Entrega em Domicílio", "javascript:void(0);"
 
-		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
-			%thead
-				%tr
-					%th Nome
-					%th Locais
-					%th{width: 90} Dia
-					%th{width: 90} Taxa de Entrega
-					-#%th Rota
-					
-			%tbody
-				- for route in @routes do
+		.table
+			%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
+				%thead
 					%tr
-						%td= route.description
-						%td= route.route_markers.map(&:name).join(", ")
-						%td= I18n.translate(Date::DAYNAMES[route.day])
-						%td= number_to_currency(route.value)
-						-#%td= route.name
-			%tfoot
-				%tr
-					%th
-					%th
-					%th
-					%th
-					-#%th
+						%th Nome
+						%th Locais
+						%th{width: 90} Dia
+						%th{width: 90} Taxa de Entrega
+						-#%th Rota
+						
+				%tbody
+					- for route in @routes do
+						%tr
+							%td= route.description
+							%td= route.route_markers.map(&:name).join(", ")
+							%td= I18n.translate(Date::DAYNAMES[route.day])
+							%td= number_to_currency(route.value)
+							-#%td= route.name
+				%tfoot
+					%tr
+						%th
+						%th
+						%th
+						%th
+						-#%th
 					
 		.space
 		.space
@@ -96,40 +97,41 @@
 		%h4.toggle
 			= link_to "Tabela de Feiras Orgânicas", "javascript:void(0);"
 
-		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
-			%thead
-				%tr
-					%th{:style => "width:120px"} Local
-					%th{:style => "width:50px"} Cidade
-					%th{:style => "width:140px"} Endereço
-					%th{:style => "width:200px"} Informações
-					%th{:style => "width:30px"}
-			%tbody
-				- for shop in @fairs do
+		.table
+			%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
+				%thead
 					%tr
-						%td
-							%b= shop.name
-						%td= shop.city
-						%td
-							= "#{shop.address}#{', ' unless shop.number.blank?}"
-							= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
-							%br
-							= shop.quarter
-						
-						%td= shop.description
-						%td
-							= link_to "mapa", "javascript:findMarker('#{shop.id}')"
-							%br
-							= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
+						%th{:style => "width:120px"} Local
+						%th{:style => "width:50px"} Cidade
+						%th{:style => "width:140px"} Endereço
+						%th{:style => "width:200px"} Informações
+						%th{:style => "width:30px"}
+				%tbody
+					- for shop in @fairs do
+						%tr
+							%td
+								%b= shop.name
+							%td= shop.city
+							%td
+								= "#{shop.address}#{', ' unless shop.number.blank?}"
+								= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
+								%br
+								= shop.quarter
 							
-			
-			%tfoot
-				%tr
-					%th
-					%th
-					%th
-					%th
-					%th
+							%td= shop.description
+							%td
+								= link_to "mapa", "javascript:findMarker('#{shop.id}')"
+								%br
+								= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
+								
+				
+				%tfoot
+					%tr
+						%th
+						%th
+						%th
+						%th
+						%th
 
 		.space
 		.space
@@ -141,38 +143,39 @@
 
 		%h4.toggle
 			= link_to "Tabela de Pontos de Venda", "javascript:void(0);"
-			
-		%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
-			%thead
-				%tr
-					%th{width: 120} Local
-					%th{width: 90} Cidade
-					%th{width: 240} Endereço
-					
-					%th Telefone
-					%th{width: 50}
-			%tbody
-				- for shop in @shops do
+
+		.table
+			%table.formatted.toggled{:style => "font-size:12px; width: 650px !important;"}
+				%thead
 					%tr
-						%td
-							%b= shop.name
-						%td= shop.city
-						%td
-							= "#{shop.address}#{', ' unless shop.number.blank?}"
-							= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
-							%br
-							= shop.quarter
-						%td= shop.phone
-						%td
-							= link_to "mapa", "javascript:findMarker('#{shop.id}')"
-							%br
-							= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
-							-#= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.gmaps4rails_address}", target: :blank
-			%tfoot
-				%tr
-					%th
-					%th
-					%th
-					%th
-					%th
-			
+						%th{width: 120} Local
+						%th{width: 90} Cidade
+						%th{width: 240} Endereço
+						
+						%th Telefone
+						%th{width: 50}
+				%tbody
+					- for shop in @shops do
+						%tr
+							%td
+								%b= shop.name
+							%td= shop.city
+							%td
+								= "#{shop.address}#{', ' unless shop.number.blank?}"
+								= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
+								%br
+								= shop.quarter
+							%td= shop.phone
+							%td
+								= link_to "mapa", "javascript:findMarker('#{shop.id}')"
+								%br
+								= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
+								-#= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.gmaps4rails_address}", target: :blank
+				%tfoot
+					%tr
+						%th
+						%th
+						%th
+						%th
+						%th
+				

@@ -32,6 +32,19 @@
 
 			ga('create', 'UA-57364846-1', 'auto');
 			ga('send', 'pageview');
+
+			$( document ).ready(function() {
+				$('#mobile-menu-btn').on('click', function(evt) {
+					if($('#header').attr("class") == "menu-opened") { 
+						$("#header").removeClass("menu-opened");
+					}
+					else {
+						$("#header").addClass("menu-opened")
+					}
+				});
+			});
+
+			
 		
 	%body{:class => body_css_class}
 		#container
@@ -47,6 +60,11 @@
 						%li= link_to "Cursos", "/cursos", class: current_class?('/cursos')
 						%li= link_to "Blog", "/blog", class: current_class?('/blog')
 						%li= link_to "Atendimento", "/atendimento", class: current_class?('/atendimento') + ' last'
+
+				%button#mobile-menu-btn
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
 				.banner
 					= yield :banner
 					
@@ -78,7 +96,8 @@
 							= form_tag "/loja", :method => :get do
 								= text_field_tag "s", params[:s]
 								= submit_tag "", :name => nil
-						= render :partial => 'items', :locals => { :items => @items }
+						.items
+							= render :partial => 'items', :locals => { :items => @items }
 					
 		#footer
 			.footer-content
