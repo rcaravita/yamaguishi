@@ -1359,17 +1359,13 @@ body #footer .footer-content .message {
 
 
 	body #container #header.menu-opened #mobile-menu-btn {
-		background: #151908;
+		background: #9ea290;
 	}
 	body #container #header.menu-opened .menu {
 		left: 0;
 	}
 	body #container #header.menu-opened .banner {
 		display: none;
-	}
-
-	body #container #header.menu-opened #mobile-menu-btn {
-		background: #151908;
 	}
 
 	body #container #main .client {
@@ -1576,5 +1572,50 @@ body #footer .footer-content .message {
 		width: 100%;
 		margin-top: 0;
 		margin-left: 0;
+	}
+
+	body #container #main #content .item-box {
+		width: 104px;
+	}
+
+	body #container #main #content .item-box .image {
+		height: 104px;
+	}
+
+	body #container #main #content .item-box .image a img {
+		height: 104px;
+	}
+
+	.website-contact_form_new-view #container #main #content {
+		width: calc(100% - 20px);
+	}
+
+	body #container #main #content #contact-form .left-side {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	body #container #main #content #contact-form .left-side input,
+	body #container #main #content #contact-form .left-side textarea {
+		width: calc(100% - 12px);
+	}
+	body #container #main #content #contact-form .field {
+		padding: 0;
+	}
+
+	.website-contact_form_new-view #container #main #content .right-side {
+		width: 100%;
+	}
+
+	body.website-clients-registrations-new-view #container #main #content {
+		width: calc(100% - 20px);
+	}
+	body.website-clients-registrations-new-view #container #main #content #new_client .field {
+		padding: 0;
+		float: left;
+		clear: both;
+	}
+	body.website-clients-registrations-new-view #container #main #content #new_client .button {
+		margin-bottom: 10px;
 	}
 }
