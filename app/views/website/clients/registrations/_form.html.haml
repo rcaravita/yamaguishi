@@ -82,10 +82,15 @@
 		= a.text_field :quarter
 	.field.left
 		%label Cidade
-		= a.text_field :city
+		= a.select :city, ['Jaguariúna', 'Campinas', 'Mogi-Mirim', 'Pedreira', 'Amparo', 'Paulínia', 'Valinhos', 'Vinhedo', 'Jundiaí', 'Itatiba', 'Holambra']
 	.field.left
 		%label Estado
-		= a.text_field :state
+		= a.select :state, ['SP']
+
+	.clear
+
+	.field
+		%span{:style => "font-size:10px"} *Para a cidade de Holambra, os pedidos são entregues na feira de sábado (ou então retirados na Yamaguishi)
 		
 
 
