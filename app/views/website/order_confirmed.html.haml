@@ -7,8 +7,10 @@
 	%p
 		Seu pedido número
 		= @order.id.to_s.rjust(6, "0")
-		foi confirmado e está programado para ser entregue
-		= l @order.delivery_date, format: :delivery
+		foi confirmado
+		%b
+			e está programado para ser entregue
+			= l @order.delivery_date, format: :delivery
 - else
 	%p
 		Seu pedido número

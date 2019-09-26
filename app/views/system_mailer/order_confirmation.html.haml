@@ -33,6 +33,10 @@
 		%p
 			%b
 				= @order.delivery ? "Entrega em Domicílio" : "Retira na Vila Yamaguishi"
+			%br
+			- if !@order.delivery
+				%i
+					* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
 		
 		%p
 			- if @order.delivery
