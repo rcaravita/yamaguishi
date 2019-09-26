@@ -26,21 +26,24 @@ module Store
 	
 	def get_delivery_date(delivery)
 				
-		today = (Time.now - 7.hours).to_date # para pedidos realizados entre 0h e 7h da manha
+		#today = (Time.now - 7.hours).to_date # para pedidos realizados entre 0h e 7h da manha - OLD CODE
+		#today = (Time.now + 6.hours).to_date - TEST CODE
+
+		today = (Time.now + 1.hours).to_date # horário para o servidor, que está 3 horas adiantado já
 		#puts "Today: #{today}"
 		
 		if delivery == false #RETIRA
 			#logger.info "# RETIRA"
 			
-			date = today + 1.day # 24h de antecedencia
+			date = today + 2.days # 48h de antecedencia
 			
-			if date.wday == 6 # sabado (6) -> segunda (1) da proxima semana
-				date = Date.commercial(date.year, date.next_week.cweek, 1)
-				#puts "Sabado"
-			elsif date.wday == 0 # domingo (0) -> segunda (1) desta semana
-				date = Date.commercial(date.year, date.next_week.cweek, 1)
+			if date.wday == 0 # domingo (0) -> terça (2) desta semana
+				date = Date.commercial(date.year, date.next_week.cweek, 2)
 				#puts "Domingo"
-			else # segunda a sexta...
+			elsif date.wday == 1 # domingo (1) -> terça (2) desta semana
+				date = Date.commercial(date.year, date.next_week.cweek, 2)
+				#puts "Domingo"
+			else # terça a sexta...
 				date = date
 				#puts "Semana"
 			end

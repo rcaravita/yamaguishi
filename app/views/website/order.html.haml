@@ -79,15 +79,18 @@
 						%td{:width => 300}
 							- if @order.delivery_date
 								- if @order.delivery == true
-									= l(@order.delivery_date, format: :delivery)
+									%b
+										= l(@order.delivery_date, format: :delivery)
 									%br
 									= "(#{@order.client.route.name})"
 								- else
 									%p
-										%u
-											Disponível a partir das 14h de
+										%b
+											Disponível a partir das 8h de
 											= "#{l(get_delivery_date(false), format: :delivery)}."
-										Atendemos de segunda a sexta-feira das 8h às 17h.
+										%br
+										%i
+											Atendemos de segunda a sexta-feira das 8h às 17h, e de sábado das 8h às 11h
 									= f.date_select :delivery_date
 							- else
 								A Confirmar
