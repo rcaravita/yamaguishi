@@ -29,7 +29,7 @@ module Store
 		#today = (Time.now - 7.hours).to_date # para pedidos realizados entre 0h e 7h da manha - OLD CODE
 		#today = (Time.now + 6.hours).to_date - TEST CODE
 
-		today = (Time.now + 1.hours).to_date # horário para o servidor, que está 3 horas adiantado já
+		today = (Time.now + 4.hours).to_date # horário para o servidor
 		#puts "Today: #{today}"
 		
 		if delivery == false #RETIRA
