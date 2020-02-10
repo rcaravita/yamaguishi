@@ -51,15 +51,16 @@
 		#container
 			#header
 				.top
-					= link_to image_tag("shared/top.jpg"), root_path
+					.logo
+						= link_to image_tag("shared/logo2.png"), root_path
 				.menu
 					.center
 						%li= link_to "Início", "/", class: current_class?('/')
 						%li= link_to "Loja", "/loja", class: current_class?('/loja')
 						%li= link_to "Notícias", "/noticias", class: current_class?('/noticias')
-						%li= link_to "A Vila", "/a-vila", class: current_class?('/a-vila')
+						%li= link_to "A Comunidade", "/a-comunidade", class: current_class?('/a-comunidade')
 						%li= link_to "Cursos", "/cursos", class: current_class?('/cursos')
-						%li= link_to "Blog", "/blog", class: current_class?('/blog')
+						%li= link_to "Visitas", "/visitas", class: current_class?('/visitas')
 						%li= link_to "Atendimento", "/atendimento", class: current_class?('/atendimento') + ' last'
 
 				%button#mobile-menu-btn
@@ -107,10 +108,10 @@
 				.col.left
 					%li= link_to "Página Inicial", "/"
 					%li= link_to "Loja", "/loja"
-					%li= link_to "A Vila", "/a-vila"
+					%li= link_to "A Comunidade", "/a-comunidade"
 					%li= link_to "Associação", "/associacao"
 					%li= link_to "Cursos", "/cursos"
-					%li= link_to "Blog", "/blog"
+					%li= link_to "Visitas", "/visitas"
 					%li= link_to "Atendimento", "/atendimento", class: "last"
 					%li= link_to "Página do Cliente", "/cliente", class: "last"
 				.col.left

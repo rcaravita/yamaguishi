@@ -676,14 +676,20 @@ body #container {
 }
 
 body #container #header .top {
-    height: 105px;
+    height: 151px;
+    background-color: #f4f4e5;
+}
+
+body #container #header .top .logo img {
+    height: 92px;
+    margin-top: 10px;
 }
 
 body #container #header .menu {
     height: 40px;
     background-color: #b0d06b;
     position: absolute;
-    top: 64px;
+    top: 110px;
     width: 100%;
     left: 0;
     font-family: maiandra, Arial, sans-serif;
@@ -1281,10 +1287,12 @@ body #footer .footer-content .message {
 
 @media screen and (max-width: 768px) {
 	body #container #header .top {
-		height: 63px;
+		height: 80px;
 	}
-	#header .top img {
-		margin-left: -69px;
+
+	body #container #header .top .logo img {
+		height: 63px;
+		margin-left: 10px;
 	}
 
 	body #container,
