@@ -40,8 +40,8 @@ module Store
 			if date.wday == 0 # domingo (0) -> terça (2) desta semana
 				date = Date.commercial(date.year, date.next_week.cweek, 2)
 				#puts "Domingo"
-			elsif date.wday == 1 # domingo (1) -> terça (2) desta semana
-				date = Date.commercial(date.year, date.next_week.cweek, 2)
+			elsif date.wday == 1 # segunda (1) -> terça (2) desta semana
+				date = Date.commercial(date.year, date.cweek, 2)
 				#puts "Domingo"
 			else # terça a sexta...
 				date = date
