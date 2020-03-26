@@ -1,7 +1,7 @@
 module Store
 	
 	def order
-		
+		@data = Admin::Administrator.find(1)
 	end
 	
 	def search(string)

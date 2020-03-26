@@ -2,129 +2,131 @@
 	= render partial: "nivo-slider"
 
 #order
+	- if @data.active?
 
-	= form_for @order, url: order_update_url, html: {name: 'order_form'} do |f|
-	
+		= form_for @order, url: order_update_url, html: {name: 'order_form'} do |f|
 
-	
-		%h1.left Minha Cesta
 
-		- if current_client && !@order.order_items.empty?
-			.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
-		- else
-			.right= f.submit "Login para continuar", class: "submit big", style: "background: #d22f00;", name: "order_submit" unless @order.order_items.empty?
-		
-		%table
-			%thead
-				%tr
-					%th{:width => 30}
-					%th{:width => 30} qtde
-					%th produto
-					%th{:width => 90} valor
-					%th{:width => 80} excluir
-			%tbody
-				= f.fields_for :order_items do |item|
-					%tr
-						%td= image_tag item.object.item.image(:mini), class: "image"
-						%td= item.text_field :quantity, style: "width: 35px;"
-						%td= item.object.name
-						%td= number_to_currency(item.object.total_value)
-						%td= item.check_box :_destroy
-				%tr
-					%td.total{colspan: 3} Total dos Produtos
-					%td.total= number_to_currency(@order.items_value)
-					%td.total= f.submit "Atualizar", class: "update"
-		
-		
-		- if current_client && !@order.order_items.empty?
-			-# CLIENTE LOGADO E PRODUTOS NA CESTA
-			
-			%h2 Detalhes da Entrega
-	
-			= f.radio_button :delivery, true, disabled: current_client.route_id == 19
-			Entrega em Domicílio
-			
-			= f.radio_button :delivery, false
-			Retira na Vila Yamaguishi
+			%h1.left Minha Cesta
+
+			- if current_client && !@order.order_items.empty?
+				.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
+			- else
+				.right= f.submit "Login para continuar", class: "submit big", style: "background: #d22f00;", name: "order_submit" unless @order.order_items.empty?
 
 			%table
 				%thead
 					%tr
-						-#%th cliente
-						%th endereço
-						%th= @order.delivery == true ? 'data de entrega' : 'data de retirada'
-						%th{colspan: 2} taxa de entrega
+						%th{:width => 30}
+						%th{:width => 30} qtde
+						%th produto
+						%th{:width => 90} valor
+						%th{:width => 80} excluir
 				%tbody
+					= f.fields_for :order_items do |item|
+						%tr
+							%td= image_tag item.object.item.image(:mini), class: "image"
+							%td= item.text_field :quantity, style: "width: 35px;"
+							%td= item.object.name
+							%td= number_to_currency(item.object.total_value)
+							%td= item.check_box :_destroy
 					%tr
-						%td
-							- if @order.delivery
-								
-								-# ENTREGA
-								= current_client.main_address.full_address
-								%br
-								= "#{current_client.addresses.first.quarter} - #{current_client.addresses.first.city}/#{current_client.addresses.first.state}"
-								%br
-								= "#{current_client.addresses.first.postcode}"
-								%br
-								= link_to "[alterar endereço]", client_path
-							
-							- else
-							
-								-# RETIRA
-								Rod. SP-340 Km 138
-								%br
-								Jaguariúna - SP - CEP 13820-000
-								%br das 7h às 15h
-								
-						%td{:width => 300}
-							- if @order.delivery_date
-								- if @order.delivery == true
-									%b
-										= l(@order.delivery_date, format: :delivery)
+						%td.total{colspan: 3} Total dos Produtos
+						%td.total= number_to_currency(@order.items_value)
+						%td.total= f.submit "Atualizar", class: "update"
+
+
+			- if current_client && !@order.order_items.empty?
+				-# CLIENTE LOGADO E PRODUTOS NA CESTA
+
+				%h2 Detalhes da Entrega
+
+				= f.radio_button :delivery, true, disabled: current_client.route_id == 19
+				Entrega em Domicílio
+
+				= f.radio_button :delivery, false
+				Retira na Vila Yamaguishi
+
+				%table
+					%thead
+						%tr
+							-#%th cliente
+							%th endereço
+							%th= @order.delivery == true ? 'data de entrega' : 'data de retirada'
+							%th{colspan: 2} taxa de entrega
+					%tbody
+						%tr
+							%td
+								- if @order.delivery
+
+									-# ENTREGA
+									= current_client.main_address.full_address
 									%br
-									= "(#{@order.client.route.name})"
+									= "#{current_client.addresses.first.quarter} - #{current_client.addresses.first.city}/#{current_client.addresses.first.state}"
+									%br
+									= "#{current_client.addresses.first.postcode}"
+									%br
+									= link_to "[alterar endereço]", client_path
+
 								- else
-									%p
+
+									-# RETIRA
+									Rod. SP-340 Km 138
+									%br
+									Jaguariúna - SP - CEP 13820-000
+									%br das 7h às 15h
+
+							%td{:width => 300}
+								- if @order.delivery_date
+									- if @order.delivery == true
 										%b
-											Disponível a partir das 8h de
-											= "#{l(get_delivery_date(false), format: :delivery)}."
+											= l(@order.delivery_date, format: :delivery)
 										%br
-										%i
-											Atendemos de segunda a sexta-feira das 8h às 17h, e de sábado das 8h às 11h
-									= f.date_select :delivery_date
-							- else
-								A Confirmar
-						%td{:width => 90}= @order.delivery_date ? number_to_currency(@order.delivery_value) : "A Confirmar"
-						%td{:width => 80}
-					%tr
-						%td.total{colspan: 2} Total do Pedido
-						%td.total= number_to_currency(@order.total_value)
-						%td.total
-							-#= f.submit "Atualizar", class: "update"
+										= "(#{@order.client.route.name})"
+									- else
+										%p
+											%b
+												Disponível a partir das 8h de
+												= "#{l(get_delivery_date(false), format: :delivery)}."
+											%br
+											%i
+												Atendemos de segunda a sexta-feira das 8h às 17h, e de sábado das 8h às 11h
+										= f.date_select :delivery_date
+								- else
+									A Confirmar
+							%td{:width => 90}= @order.delivery_date ? number_to_currency(@order.delivery_value) : "A Confirmar"
+							%td{:width => 80}
+						%tr
+							%td.total{colspan: 2} Total do Pedido
+							%td.total= number_to_currency(@order.total_value)
+							%td.total
+								-#= f.submit "Atualizar", class: "update"
 
-			- if !@order.delivery_date.present?
-				%li Após a confirmação do pedido informaremos a data de entrega e o valor do frete.
-			%li Pagamento em dinheiro ou cheque no ato da entrega.
-			%li= "Número do pedido: #{@order.id.to_s.rjust(6, '0')}"
+				- if !@order.delivery_date.present?
+					%li Após a confirmação do pedido informaremos a data de entrega e o valor do frete.
+				%li Pagamento em dinheiro ou cheque no ato da entrega.
+				%li= "Número do pedido: #{@order.id.to_s.rjust(6, '0')}"
 
-			.space
-			.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
-			.space
-						
-		- else
-			
-			.space
-			.right= f.submit "Login para continuar", class: "submit big", style: "background: #d22f00;", name: "order_submit" unless @order.order_items.empty?
-			.space
-		
-		- unless current_client
+				.space
+				.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
+				.space
+
+			- else
+
+				.space
+				.right= f.submit "Login para continuar", class: "submit big", style: "background: #d22f00;", name: "order_submit" unless @order.order_items.empty?
+				.space
+
+			- unless current_client
+				.box
+					As datas e formas de entrega, incluindo o valor do frete, dependem da identificação do cliente, e serão apresentados na etapa seguinte. Após clicar em "Finalizar Pedido" você ainda terá opção de revisa-lo antes de confirmar. Para mais informações consulte a página
+					= link_to "Como Comprar.", "/loja"
+
 			.box
-				As datas e formas de entrega, incluindo o valor do frete, dependem da identificação do cliente, e serão apresentados na etapa seguinte. Após clicar em "Finalizar Pedido" você ainda terá opção de revisa-lo antes de confirmar. Para mais informações consulte a página
-				= link_to "Como Comprar.", "/loja"
-					
-		.box
-			= Admin::Page.find_by_link("pedido").content.html_safe
-		
-		.left= link_to "Comprar Mais", root_path, class: "button"
-		.left= link_to "Excluir Pedido", order_destroy_path, class: "button", confirm: "Deseja excluir este pedido?" unless @order.order_items.empty?
-		
+				= Admin::Page.find_by_link("pedido").content.html_safe
+
+			.left= link_to "Comprar Mais", root_path, class: "button"
+			.left= link_to "Excluir Pedido", order_destroy_path, class: "button", confirm: "Deseja excluir este pedido?" unless @order.order_items.empty?
+
+	- else
+		%h2 Devido a situação atual o site está momentaneamente fechado para novos pedidos

@@ -24,6 +24,7 @@ class Admin::Client < ActiveRecord::Base
 	
 	validate :validate_document, :validate_password
 	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+	validates :name, length: { minimum: 10, too_short: "Por favor, preencha seu nome e sobrenome" }
 
 	def validate_document
 		case self.kind
