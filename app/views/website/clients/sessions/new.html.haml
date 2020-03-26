@@ -4,30 +4,33 @@
 #login
 
 	%h2 Login
-	
-	= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-		#error_explanation
-			%ul
-				- flash.each do |name, msg|
-					%li= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-					
-		.field.left
-			%label E-mail
-			= f.email_field :email, :autofocus => true
-			
-		.field.left
-			%label Senha
-			= f.password_field :password
-			
-		.field.remember
-			- if devise_mapping.rememberable?
-				= f.check_box :remember_me
-				Lembrar-me
-		.divider
-		
-		.actions
-			.right= f.submit "Login", class: "login big"
-			.left= link_to "Primeira compra? Cadastre-se", new_registration_path(resource_name), class: "button signup"
-			.left= link_to "Esqueceu a senha?", new_password_path(resource_name), class: "button"
-			
-	-#= render "website/clients/shared/links"
+	- if @data.active?
+
+		= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+			#error_explanation
+				%ul
+					- flash.each do |name, msg|
+						%li= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+
+			.field.left
+				%label E-mail
+				= f.email_field :email, :autofocus => true
+
+			.field.left
+				%label Senha
+				= f.password_field :password
+
+			.field.remember
+				- if devise_mapping.rememberable?
+					= f.check_box :remember_me
+					Lembrar-me
+			.divider
+
+			.actions
+				.right= f.submit "Login", class: "login big"
+				.left= link_to "Primeira compra? Cadastre-se", new_registration_path(resource_name), class: "button signup"
+				.left= link_to "Esqueceu a senha?", new_password_path(resource_name), class: "button"
+
+		-#= render "website/clients/shared/links"
+	- else
+		%h2 Devido a situação atual o site está momentaneamente fechado para novos pedidos

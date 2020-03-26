@@ -4,9 +4,9 @@ class Website::Clients::SessionsController < Devise::SessionsController
 	
 	before_filter :define_order
 	
-	#def new
-	#	 super
-	#end
+	def new
+		@data = Admin::Administrator.find(1)
+	end
 
 	#def create
 	#	email = params[:client][:email]

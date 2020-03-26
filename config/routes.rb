@@ -32,6 +32,7 @@ Yamaguishi::Application.routes.draw do
 		resources :items
 		resources :producers
 		resources :products
+		resources :administrators
 		resources :categories do
 			collection { post :sort }
 		end
