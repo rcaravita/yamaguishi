@@ -4,6 +4,13 @@
 
 .divider
 
+.filters
+	= check_box_tag :new, "1", false, {class: 'filter', data: {status: 1}}
+	Novos clientes
+
+
+%br
+
 %table{class: "dynamic-table-clients", data: {source: '/admin/clients.json'}}
 	%thead
 		%tr

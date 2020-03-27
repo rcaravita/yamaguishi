@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 class ClientsDatatable
-	
+
 	delegate :params, :h, :l, :t, :link_to, :number_to_currency, :number_to_human, :check_box_tag, to: :@view
 
 	def initialize(view)
@@ -11,7 +11,7 @@ class ClientsDatatable
 	def as_json(options = {})
 		{
 			draw: params[:draw].to_i,
-			recordsTotal: Admin::Client.count,
+			recordsTotal: params[:filters] ? Admin::Client.where(:new => filter).count : Admin::Client.count,
 			recordsFiltered: clients.total_entries,
 			data: client
 		}
@@ -34,7 +34,11 @@ private
 	end
 
 	def fetch_clients
-		clients = Admin::Client.includes(:route).order("#{sort_column} #{sort_direction}")
+		if params[:filters]
+			clients = Admin::Client.includes(:route).where(:new => filter).order("#{sort_column} #{sort_direction}")
+		else
+			clients = Admin::Client.includes(:route).order("#{sort_column} #{sort_direction}")
+		end
 		clients = clients.page(page).per_page(per_page)
 		unless params[:search][:value].empty?
 			clients = clients.where("admin_clients.id LIKE :search OR admin_clients.name LIKE :search OR admin_routes.name LIKE :search OR admin_clients.email LIKE :search", search: "%#{params[:search][:value]}%")
@@ -57,5 +61,13 @@ private
 	def sort_direction
 		params[:order]["0"][:dir] == "desc" ? "desc" : "asc"
 	end
-	
+
+	def filter
+		result = ""
+		params[:filters].each do |key, value|
+			result = value.to_i
+		end
+		result
+	end
+
 end

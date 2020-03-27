@@ -9,6 +9,7 @@ class Website::Clients::RegistrationsController < Devise::RegistrationsControlle
 			resource = build_resource({})
 			resource.addresses.build
 			resource.kind = "0"
+			resource.new = 1
 			respond_with resource
 	end
 
