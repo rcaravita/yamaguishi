@@ -24,7 +24,7 @@
 	= f.phone_field :phone
 .field
 	%label Celular
-	= f.phone_field :mobile	
+	= f.phone_field :mobile
 
 .clear
 
@@ -47,6 +47,11 @@
 .field
 	%label Senha (confirmação)
 	= f.password_field :password_confirmation
+
+.space
+.field
+	= f.check_box :new
+	Novo cliente
 
 .space
 .field
@@ -91,9 +96,9 @@
 	.field.left
 		%label Cidade
 		= a.text_field :city
-		
+
 	.clear
-		
+
 	.field
 		%label Estado
 		= a.text_field :state

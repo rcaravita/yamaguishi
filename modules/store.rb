@@ -108,7 +108,7 @@ module Store
 			@order.client_id = current_client.id
 			@order.status = 1 unless @order.order_items.empty?
 
-			if current_client.route
+			if !current_client.new
 				@order.new_client = 0
 			end
 

@@ -11,7 +11,7 @@ class ClientsDatatable
 	def as_json(options = {})
 		{
 			draw: params[:draw].to_i,
-			recordsTotal: params[:filters] ? Admin::Client.where(:yamasis_id => filter).count : Admin::Client.count,
+			recordsTotal: params[:filters] ? Admin::Client.where(:new => filter).count : Admin::Client.count,
 			recordsFiltered: clients.total_entries,
 			data: client
 		}
@@ -35,7 +35,7 @@ private
 
 	def fetch_clients
 		if params[:filters]
-			clients = Admin::Client.includes(:route).where(:yamasis_id => filter).order("#{sort_column} #{sort_direction}")
+			clients = Admin::Client.includes(:route).where(:new => filter).order("#{sort_column} #{sort_direction}")
 		else
 			clients = Admin::Client.includes(:route).order("#{sort_column} #{sort_direction}")
 		end
@@ -65,7 +65,7 @@ private
 	def filter
 		result = ""
 		params[:filters].each do |key, value|
-			result = nil
+			result = value.to_i
 		end
 		result
 	end

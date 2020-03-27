@@ -6,22 +6,22 @@ class Admin::Client < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  
+
 	attr_accessible :name,
 		:kind, :phone, :mobile, :email, :rg, :cpf, :cnpj, :aniversary, :gender, :optin, :route_id,
-		:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me
-	
-	
+		:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new
+
+
 	has_many :addresses, :as => :addressable, :dependent => :destroy
 	accepts_nested_attributes_for :addresses, :allow_destroy => true
-	
+
 	has_many :orders, :dependent => :destroy
 	accepts_nested_attributes_for :orders, :allow_destroy => true
-	
+
 	belongs_to :route
-	
+
 	validates_presence_of :name, :kind, :phone
-	
+
 	validate :validate_document, :validate_password
 	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 	validates :name, length: { minimum: 10, too_short: "Por favor, preencha seu nome e sobrenome" }
@@ -34,7 +34,7 @@ class Admin::Client < ActiveRecord::Base
 			validates_cnpj :cnpj
 		end
 	end
-	
+
 	def validate_password
 		unless self.password_confirmation == self.password
 			errors.add(:password, "não coincide com a confirmação.")
@@ -51,7 +51,7 @@ class Admin::Client < ActiveRecord::Base
 		end
 		return s
 	end
-	
+
 	def document
 		case self.kind
 		when "0"
@@ -61,23 +61,23 @@ class Admin::Client < ActiveRecord::Base
 		end
 		return s
 	end
-	
+
 	def main_address
 		self.addresses.first
 	end
-	
+
 	def self.import(file)
 		spreadsheet = open_spreadsheet(file)
 		header = spreadsheet.row(1)
-		
+
 		(2..spreadsheet.last_row).each do |i|
 			row = Hash[[header, spreadsheet.row(i)].transpose]
-			
+
 			client = Admin::Client.new do |c|
 				c.id = row["client_id"]
 				c.kind = row["client_kind"]
 				begin
-					unless row["client_aniversary"].blank? 
+					unless row["client_aniversary"].blank?
 						da = Date.strptime(row["client_aniversary"], "%d/%m/%Y")
 					end
 				end
@@ -85,13 +85,13 @@ class Admin::Client < ActiveRecord::Base
 				#c.aniversary = row["client_aniversary"].to_formatted_s(:db) unless row["client_aniversary"].blank?
 				c.password = row["cpf"]
 			end
-			
+
 			client.attributes = row.to_hash.slice(*accessible_attributes)
-			
+
 			#unless client.save(validate: false)
 			#	logger.info client.errors.to_yaml
 			#end
-			
+
 			client.addresses << Admin::Address.new(
 				complete_address: row["complete_address"],
 				quarter: row["quarter"],
@@ -100,17 +100,17 @@ class Admin::Client < ActiveRecord::Base
 				postcode: row["postcode"],
 				kind: row["address_kind"]
 			)
-			
+
 			unless client.save(validate: false)
 				logger.info client.errors.to_yaml
 			end
-			
+
 		end
-		
+
 	end
-	
+
 	protected
-	
+
 	def self.open_spreadsheet(file)
 		case File.extname(file.original_filename)
 		when ".csv" then Roo::CSV.new(file.path, nil, :ignore)
@@ -119,7 +119,7 @@ class Admin::Client < ActiveRecord::Base
 		else raise "Unknown file type: #{file.original_filename}"
 		end
 	end
-	
+
   def password_required?
 		# CONDICIONAR ESTE MÉTODO AO ROLE ADMIN OU NA ACTION EDIT COM O CAMPO EM BRANCO
     self.new_record?
