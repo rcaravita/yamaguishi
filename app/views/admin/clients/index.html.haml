@@ -4,6 +4,13 @@
 
 .divider
 
+.filters
+	= check_box_tag :sem_codigo, nil, false, {class: 'filter', data: {status: nil}}
+	Sem código definido
+
+
+%br
+
 %table{class: "dynamic-table-clients", data: {source: '/admin/clients.json'}}
 	%thead
 		%tr

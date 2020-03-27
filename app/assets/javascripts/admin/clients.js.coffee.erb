@@ -1,19 +1,38 @@
-$(document).ready ->
-	
+$ ->
+
+	get_filters = () ->
+		result = {}
+		$.each $("input:checked.filter"), (key, el) ->
+			result[$(el).attr('id')] = $(el).attr('data-status')
+		result
+
+	oTable = ''
+
+	draw_table = () ->
+		oTable = $('.dynamic-table-clients').dataTable
+			sPaginationType: "full_numbers"
+			oLanguage: { "sUrl": "<%= asset_path('shared/datatables-PT-BR.txt') %>"}
+			bStateSave: true
+			serverSide: true
+			#processing: true
+			ajax:
+				url: $('.dynamic-table-clients').data('source'),
+				data:
+					filters: get_filters()
+			columns: [
+				{ "name": "admin_clients.yamasis_id" },
+				{ "name": "admin_clients.name" },
+				{ "name": "admin_routes.name", "searchable": true, "orderable": true }
+			]
+
+	draw_table()
+
+	$('.filter').change ->
+		oTable.api().destroy()
+		draw_table()
+
 	$("input[name*='admin_client[kind]']").change ->
 		#alert $(this).attr('scope')
 		$("input#document").attr('name', "admin_client[#{$(this).attr('scope')}]")
 
-	oTable = $('.dynamic-table-clients').dataTable
-		sPaginationType: "full_numbers"
-		oLanguage: { "sUrl": "<%= asset_path('shared/datatables-PT-BR.txt') %>"}
-		bStateSave: true
-		serverSide: true
-		#processing: true
-		ajax:
-			url: $('.dynamic-table-clients').data('source')
-		columns: [
-			{ "name": "admin_clients.yamasis_id" },
-			{ "name": "admin_clients.name" },
-			{ "name": "admin_routes.name", "searchable": true, "orderable": true }
-		]
+

@@ -1,4 +1,4 @@
-%h1 Site ativo
+%h1 Controle de acesso ao site e aos pedidos
 
 
 = nested_form_for @data, :multipart => true do |f|
@@ -9,13 +9,21 @@
 				- @data.errors.full_messages.each do |msg|
 					%li= msg
 
-	.field.left
-		%label Site ativo
+	.field
+		%label Site ativo (permite acesso ao site e a realização de pedidos)
 		= f.check_box :active
 
-	.field.left
-		%label Novos usuários
+	.field
+		%label Novos usuários (permite cadastro de novos usuários)
 		= f.check_box :new_users
+
+	.field
+		%label Data variável (não atribui uma data automaticamente ao pedido)
+		= f.check_box :variable_date
+
+	.field
+		%label Apenas retirada (permite apenas retirada no sítio para novos clientes)
+		= f.check_box :only_pickup
 
 	.divider
 
