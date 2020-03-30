@@ -10,7 +10,10 @@
 			%h1.left Minha Cesta
 
 			- if current_client && !@order.order_items.empty?
-				.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
+				- if @order.total_value < 80 && @order.delivery
+					%span{:class => 'right', :style => 'margin-top: 16px; color: #d22f00'} O valor mínimo para pedidos é de R$80,00
+				- else
+					.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
 			- else
 				.right= f.submit "Login para continuar", class: "submit big", style: "background: #d22f00;", name: "order_submit" unless @order.order_items.empty?
 
@@ -114,7 +117,10 @@
 				%li= "Número do pedido: #{@order.id.to_s.rjust(6, '0')}"
 
 				.space
-				.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
+				- if @order.total_value < 80 && @order.delivery
+					%span{:class => 'right', :style => 'margin-top: 16px; color: #d22f00'} O valor mínimo para pedidos é de R$80,00
+				- else
+					.right= f.submit "Confirmar Pedido", class: "confirm big", style: "background: #d22f00;", name: "order_confirmed"
 				.space
 
 			- else
