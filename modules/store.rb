@@ -56,7 +56,10 @@ module Store
 				#current_client = Admin::Client.find(8) #rota 2 terca-feira
 				#current_client = Admin::Client.find(407) #rota 6 quarta-feira
 				date = today + 2.days # 48h de antecedencia
-				if date.wday > current_client.route.day # proxima semana
+				if current_client.route.day == 0
+					date = Date.commercial(date.year, date.next_week.cweek, 1)
+					date = date - 1.days
+				elsif date.wday > current_client.route.day # proxima semana
 					date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
 				elsif date.wday == 0 #domingo
 					date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
