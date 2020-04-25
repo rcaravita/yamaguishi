@@ -1,25 +1,47 @@
 @font-face
 {
-    font-family: maiandra;
-	src: local(maiandra), url('/Maiandra.ttf') format("truetype");
+	font-family: maiandra;
+	src: local(maiandra), url('/fonts/Maiandra.ttf') format("truetype");
+}
+
+@font-face {
+	font-family: 'Lucida';
+	font-weight: 400;
+	font-style: normal;
+	src: url("/fonts/LucidaSans.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Lucida';
+	font-weight: 700;
+	font-style: normal;
+	src: url("/fonts/LucidaSans-Bold.otf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Lucida';
+	font-weight: 400;
+	font-style: italic;
+	src: url("/fonts/LucidaSans-Italic.ttf") format("truetype");
 }
 
 body {
-	font: normal normal normal 1em/1.5em maiandra, Arial, sans-serif;
-	//background: #CCC url(image-path('website/bg-body.jpg'));
-	color: $verde;
-	font-size: 1em;
+	font-size: 14px;
+	line-height: 22px;
+	font-family: "Lucida";
+	font-weight: 400;
+	background-color: #F4F4E5;
 }
 
 a, a:visited {
 	//text-decoration: none;
-	color: $verde;
+	color: rgb(28, 121, 53);
 	&:hover {
-		color: $vermelho;
+		color: rgb(28, 121, 53);
 	}
 }
 
-h1 { font-size: 1.8em; line-height: 1.8em; margin: 10px 0px;}
+h1 { font-size: 24px; line-height: 36px; margin: 10px 0px 28px 0px;}
 h2 { font-size: 1.6em; line-height: 1.6em; margin: 10px 0px;}
 h3 { font-size: 1.4em; line-height: 1.4em; margin: 10px 0px;}
 h4 { font-size: 1.2em; line-height: 1.2em; margin: 10px 0px;}
@@ -30,14 +52,15 @@ p {margin: 0px 0px 10px 0px;}
 
 table.formatted {
 	width: 100%;
+	table-layout: fixed;
 	td {
-		padding: 10px;
+		padding: 3px 6px;
 		//border-bottom: 1px solid $cinza;
 	}
 	tr:nth-child(even) {background: #E2EFCC;}
 	tr:nth-child(odd) {background: white;}
 	thead th {
-		padding: 3px 18px 3px 10px;
+		padding: 3px 6px;
 		border-bottom: 2px solid #CCC;
 		font-weight: normal;
 		cursor: pointer;
@@ -159,5 +182,5 @@ label {
 			//not working
 		}
 	}
-	
+
 }

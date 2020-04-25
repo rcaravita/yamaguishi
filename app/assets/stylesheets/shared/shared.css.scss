@@ -10,8 +10,7 @@
 
 #product {
 	padding: 20px;
-	float: right;
-	width: 720px;
+	float: left;
 	overflow: auto;
 	img {
 		margin: 0px 20px 20px 0px;
@@ -22,13 +21,14 @@
 		line-height: 1.2em;
 	}
 	.item {
-		height: 50px;
 		a.add {
 			background: $verde;
 			padding: 10px;
 			//margin: 30px 0px;
 			width: 200px;
 			color: white;
+			display: inline-block;
+			line-height: 24px;
 			&:hover {
 				background: $amarelo;
 			}
