@@ -121,8 +121,8 @@ shared/datatables-PT-BR.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed
 shared/datatables-PT-BR/index.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed31088.txt
 website/main.js: website/main-dcb921be1932a4658575290dc279aa6a.js
 website/main/index.js: website/main-dcb921be1932a4658575290dc279aa6a.js
-admin/main.css: admin/main-9cc233ff95b2f71c89b06efe695955c5.css
-admin/main/index.css: admin/main-9cc233ff95b2f71c89b06efe695955c5.css
+admin/main.css: admin/main-c69c1cef5fc1223766ad99645439a0b4.css
+admin/main/index.css: admin/main-c69c1cef5fc1223766ad99645439a0b4.css
 shared/nivo-slider/bar/arrows.png: shared/nivo-slider/bar/arrows-1a3288bf434dd6fc2867dfb75efb9795.png
 shared/nivo-slider/bar/arrows/index.png: shared/nivo-slider/bar/arrows-1a3288bf434dd6fc2867dfb75efb9795.png
 shared/nivo-slider/bar/bullets.png: shared/nivo-slider/bar/bullets-f86bf9d0c5852fa5303cad3fb60fe69c.png
@@ -147,8 +147,8 @@ shared/nivo-slider/light/bullets.png: shared/nivo-slider/light/bullets-8c4a64d4f
 shared/nivo-slider/light/bullets/index.png: shared/nivo-slider/light/bullets-8c4a64d4f2cb2686b470b5d46eaa7943.png
 shared/nivo-slider/light/loading.gif: shared/nivo-slider/light/loading-859d255230abfdde405e23cbde6ac898.gif
 shared/nivo-slider/light/loading/index.gif: shared/nivo-slider/light/loading-859d255230abfdde405e23cbde6ac898.gif
-website/main.css: website/main-e82860cb5522961fe01e3aeea43a8f40.css
-website/main/index.css: website/main-e82860cb5522961fe01e3aeea43a8f40.css
+website/main.css: website/main-3ef953af9a47b0e927b9b12c701cf153.css
+website/main/index.css: website/main-3ef953af9a47b0e927b9b12c701cf153.css
 tinymce.js: tinymce-ed903b42fd6747a8eb44c543d9b29885.js
 tinymce/index.js: tinymce-ed903b42fd6747a8eb44c543d9b29885.js
 tinymce/langs/readme.md: tinymce/langs/readme.md
