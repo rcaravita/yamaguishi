@@ -4,9 +4,9 @@ $ ->
 		$.each $("input:checked.filter"), (key, el) ->
 			result[$(el).attr('id')] = $(el).attr('data-status')
 		result
-	
+
 	oTable = ''
-	
+
 	draw_table = () ->
 		oTable = $('.dynamic-table-orders').dataTable
 			sPaginationType: "full_numbers"
@@ -27,25 +27,25 @@ $ ->
 				{ "name": "admin_orders.delivery_date", "searchable": false, "orderable": true },
 				{ "name": "admin_orders._atendido", "searchable": false, "orderable": false },
 				{ "name": "admin_orders.confirmed_at", "searchable": false, "orderable": true },
-				{ "name": "admin_orders.updated_at", "searchable": false, "orderable": true }
+				#{ "name": "admin_orders.updated_at", "searchable": false, "orderable": true }
 			]
-			
+
 	set_status_event = () ->
 		$(".toggleStatus").click ->
 			$.post "/admin/orders/"+ this.name + "/toggleStatus",
 				(data) ->
 					$('#notice').html "Status do pedido alterado."
-					
+
 	draw_table()
 	set_status_event()
-	
+
 	$('.filter').change ->
 		oTable.api().destroy()
 		draw_table()
-		
+
 	$(".dynamic-table-orders").on "draw.dt", ->
 		#console.log "Redraw occurred at: " + new Date().getTime()
 		table_callbacks()
-	
+
 	table_callbacks = () ->
 		set_status_event()
