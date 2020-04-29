@@ -55,6 +55,8 @@ shared/arrow-down.png: shared/arrow-down-2b2c28e57040f893145a076204dbcb0f.png
 shared/arrow-down/index.png: shared/arrow-down-2b2c28e57040f893145a076204dbcb0f.png
 shared/arrow-right.png: shared/arrow-right-06fcdd99c4fff5b1f8cf93bfebb26190.png
 shared/arrow-right/index.png: shared/arrow-right-06fcdd99c4fff5b1f8cf93bfebb26190.png
+shared/aviso.jpg: shared/aviso-186d9da87ed6e2bde7116e1cb3c0472e.jpg
+shared/aviso/index.jpg: shared/aviso-186d9da87ed6e2bde7116e1cb3c0472e.jpg
 shared/bg.jpg: shared/bg-5b8e94c1ba06863f4537131c4a5d963d.jpg
 shared/bg/index.jpg: shared/bg-5b8e94c1ba06863f4537131c4a5d963d.jpg
 shared/delivery-right.png: shared/delivery-right-b8f386ef1c38184583adc0c25d410b41.png
