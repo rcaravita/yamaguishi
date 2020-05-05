@@ -2,7 +2,7 @@
 
 class OrdersDatatable
 
-	delegate :params, :h, :l, :t, :link_to, :number_to_currency, :number_to_human, :number_to_human, :number_to_human, :check_box_tag, to: :@view
+	delegate :params, :h, :l, :t, :link_to, :number_to_currency, :number_to_human, :check_box_tag, to: :@view
 
 	def initialize(view)
 		@view = view
