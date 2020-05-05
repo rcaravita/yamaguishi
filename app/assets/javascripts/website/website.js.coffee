@@ -14,25 +14,30 @@
 				$("#client_addresses_attributes_0_address").val($(data).find('tipo_logradouro').text() + ' ' + $(data).find('logradouro').text())
 			when '2'
 				$("#client_addresses_attributes_0_state").val($(data).find('uf').text())
-				$("#client_addresses_attributes_0_city").val($(data).find('cidade').text())		
+				$("#client_addresses_attributes_0_city").val($(data).find('cidade').text())
 			else
 				alert('CEP não encontrado.')
 	return false;
-	
+
 $(document).ready ->
-	
+
 	$("input[name='admin_client[kind]']").change ->
 		#alert $(this).attr('scope')
 		$("input#document").attr('name', "admin_client[#{$(this).attr('scope')}]")
-		
+
 	$("input[name='client[kind]']").change ->
 		#alert $(this).attr('scope')
 		$("input#document").attr('name', "client[#{$(this).attr('scope')}]")
-		
+
 	$("input[name*='admin_order[delivery]']").change ->
 		#alert 'hi'
 		$("form[name*='order_form']").submit()
-		
+
+
+	$("select[name*='admin_order[pickup]']").change ->
+		#alert 'hi'
+		$("form[name*='order_form']").submit()
+
 	$(".toggle").click ->
 		$(this).next('.toggled').toggle()
-	
+

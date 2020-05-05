@@ -24,7 +24,7 @@ module Store
 		return @items
 	end
 
-	def get_delivery_date(delivery)
+	def get_delivery_date(delivery, pickup)
 
 		#today = (Time.now - 7.hours).to_date # para pedidos realizados entre 0h e 7h da manha - OLD CODE
 		#today = (Time.now + 6.hours).to_date - TEST CODE
@@ -36,19 +36,45 @@ module Store
 			date = nil
 		else
 			if delivery == false #RETIRA
-				#logger.info "# RETIRA"
+				if pickup == 1
+					#logger.info "# RETIRA"
 
-				date = today + 2.days # 48h de antecedencia
+					date = today + 2.days # 48h de antecedencia
 
-				if date.wday == 0 # domingo (0) -> terça (2) desta semana
-					date = Date.commercial(date.year, date.next_week.cweek, 2)
-					#puts "Domingo"
-				elsif date.wday == 1 # segunda (1) -> terça (2) desta semana
-					date = Date.commercial(date.year, date.cweek, 2)
-					#puts "Domingo"
-				else # terça a sexta...
-					date = date
-					#puts "Semana"
+					if date.wday == 0 # domingo (0) -> terça (2) desta semana
+						date = Date.commercial(date.year, date.next_week.cweek, 2)
+						#puts "Domingo"
+					elsif date.wday == 1 # segunda (1) -> terça (2) desta semana
+						date = Date.commercial(date.year, date.cweek, 2)
+						#puts "Domingo"
+					else # terça a sexta...
+						date = date
+						#puts "Semana"
+					end
+				else
+					date = today + 2.days # 48h de antecedencia
+					if pickup ==  2
+						if date.wday > 3 # proxima semana
+							date = Date.commercial(date.year, date.next_week.cweek, 3)
+						else
+							date = Date.commercial(date.year, date.cweek, 3)
+						end
+					end
+					if pickup ==  3
+						if date.wday > 0 # proxima semana
+							date = Date.commercial(date.year, date.next_week.cweek, 1)
+						else
+							date = Date.commercial(date.year, date.cweek, 1)
+						end
+						date = date - 1.days
+					end
+					if pickup ==  4
+						if date.wday > 5 # proxima semana
+							date = Date.commercial(date.year, date.next_week.cweek, 5)
+						else
+							date = Date.commercial(date.year, date.cweek, 5)
+						end
+					end
 				end
 			else # DELIVERY
 				#logger.info "# DELIVERY"
@@ -101,7 +127,7 @@ module Store
 
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
-			@order.delivery_date = get_delivery_date(false)
+			@order.delivery_date = get_delivery_date(false, @order.pickup)
 		else # entrega em domicilio
 			@order.delivery_value = 0
 			@order.delivery_date = nil
@@ -116,14 +142,14 @@ module Store
 			end
 
 			if current_client.route && @order.delivery == true #delivery com rota definida
-				@order.delivery_date = get_delivery_date(true)
+				@order.delivery_date = get_delivery_date(true, 0)
 				@order.delivery_value = current_client.route.value
 			end
 
 			if current_client.route_id == 19 #rota de retirada
 				@order.delivery = 0
 				@order.delivery_value = 0
-				@order.delivery_date = get_delivery_date(false)
+				@order.delivery_date = get_delivery_date(false, @order.pickup)
 			end
 		end
 
