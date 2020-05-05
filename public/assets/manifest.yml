@@ -121,8 +121,8 @@ admin/main.js: admin/main-5b85b7462c3eaaa052a50ba40c08ae05.js
 admin/main/index.js: admin/main-5b85b7462c3eaaa052a50ba40c08ae05.js
 shared/datatables-PT-BR.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed31088.txt
 shared/datatables-PT-BR/index.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed31088.txt
-website/main.js: website/main-dcb921be1932a4658575290dc279aa6a.js
-website/main/index.js: website/main-dcb921be1932a4658575290dc279aa6a.js
+website/main.js: website/main-ed3fc7e9e98be5ecf11ed1cf9789c42b.js
+website/main/index.js: website/main-ed3fc7e9e98be5ecf11ed1cf9789c42b.js
 admin/main.css: admin/main-c69c1cef5fc1223766ad99645439a0b4.css
 admin/main/index.css: admin/main-c69c1cef5fc1223766ad99645439a0b4.css
 shared/nivo-slider/bar/arrows.png: shared/nivo-slider/bar/arrows-1a3288bf434dd6fc2867dfb75efb9795.png
