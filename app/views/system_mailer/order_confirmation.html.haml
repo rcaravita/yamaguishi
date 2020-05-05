@@ -11,7 +11,7 @@
 		%p seu pedido foi recebido com sucesso.
 
 		%hr
-		
+
 		%p
 			Número do pedido:
 			%b= @order.id.to_s.rjust(6, "0")
@@ -29,15 +29,25 @@
 		%p
 			%u
 				Detalhes da entrega:
-			
+
 		%p
 			%b
-				= @order.delivery ? "Entrega em Domicílio" : "Retira na Vila Yamaguishi"
+				= @order.delivery ? "Entrega em Domicílio" : "Retirada"
 			%br
 			- if !@order.delivery
-				%i
-					* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
-		
+				- if @order.pickup == 1
+					%i
+						* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
+				- if @order.pickup == 2
+					%i
+						na Feira do Bosque dos Jequitibás, a partir das 8h
+				- if @order.pickup == 3
+					%i
+						na Feira do Parque Ecológico, a partir das 8h
+				- if @order.pickup == 4
+					%i
+						na Feira do Centro de Convivência, a partir das 8h
+
 		%p
 			- if @order.delivery
 				= @order.client.main_address.full_address
@@ -46,16 +56,17 @@
 				%br
 				= "#{@order.client.addresses.first.postcode}"
 			- else
-				%b Vila Yamaguishi
-				%br
-				Rod. SP-340 Km 138
-				%br
-				Jaguariúna - SP - CEP 13820-000
-				%br das 7h às 15h
-		
+				- if @order.pickup == 1
+					%b Vila Yamaguishi
+					%br
+					Rod. SP-340 Km 138
+					%br
+					Jaguariúna - SP - CEP 13820-000
+					%br das 7h às 15h
+
 		%p
 			= "Telefone: #{@order.client.phone}" if @order.client.phone
-		
+
 		%table{:border => "0", :cellspacing => "0"}
 			- @order.order_items.each do |oi|
 				%tr
@@ -77,7 +88,7 @@
 				%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
 					%b
 						= @order.delivery_date ? number_to_currency(@order.delivery_value) : "A Confirmar"
-					
+
 			%tr
 				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
 				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}

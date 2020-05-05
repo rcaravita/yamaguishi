@@ -5,11 +5,11 @@
 	%h1
 		= "Pedido #{@admin_order.status_to_s} #"
 		= @admin_order.id.to_s.rjust(6, "0")
-		
+
 	- if [2,3].include?(@admin_order.status)
 		= check_box_tag(:atendido, true, @admin_order.status == 3, class: "toggleStatus", name: @admin_order.id)
 		Pedido Atendido
-		
+
 	%table
 		%thead
 			%tr
@@ -32,11 +32,19 @@
 				%td.total{colspan: 3} Total dos Produtos
 				%td.total= number_to_currency(@admin_order.items_value)
 				-#%td.total= f.submit "Atualizar", class: "update"
-				
+
 	%h2 Detalhes da Entrega
 
-	%h4= @admin_order.delivery ? "Entrega em Domicílio" : "Retira na Vila Yamaguishi"
-	
+	%h4= @admin_order.delivery ? "Entrega em Domicílio" : "Retirada"
+	- if @admin_order.pickup == 1
+		%h5= "Retira na Vila yamaguishi"
+	- if @admin_order.pickup == 2
+		%h5= "Retira na Feira do Bosque dos Jequitibás"
+	- if @admin_order.pickup == 3
+		%h5= "Retira na Feira do Parque Ecológico"
+	- if @admin_order.pickup == 4
+		%h5= "Retira Feira do Centro de Convivência"
+
 	%table
 		%thead
 			%tr
@@ -67,7 +75,7 @@
 						= "#{@admin_client.main_address.postcode}"
 					- else
 						[retira]
-						
+
 				%td
 					- if @admin_order.delivery_date
 						= l(@admin_order.delivery_date, format: :delivery)

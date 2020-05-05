@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
 class OrdersDatatable
-	
-	delegate :params, :h, :l, :t, :link_to, :number_to_currency, :number_to_human, :check_box_tag, to: :@view
+
+	delegate :params, :h, :l, :t, :link_to, :number_to_currency, :number_to_human, :number_to_human, :number_to_human, :check_box_tag, to: :@view
 
 	def initialize(view)
 		@view = view
@@ -68,7 +68,7 @@ private
 	def sort_direction
 		params[:order]["0"][:dir] == "desc" ? "desc" : "asc"
 	end
-	
+
 	def filter
 		result = []
 		params[:filters].each do |key, value|
@@ -76,5 +76,5 @@ private
 		end
 		result
 	end
-	
+
 end

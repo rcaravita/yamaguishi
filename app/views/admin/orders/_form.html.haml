@@ -7,19 +7,19 @@
 					%li= msg
 
 
-	
+
 	.field.left
 		-#%label.left Cliente
 		= f.collection_select :client_id, Admin::Client.order('name'), :id, :name, prompt: "Selecione o cliente"
-		
+
 	.right
 		= f.select :status, [["Aberto", "0"], ["Assinado", "1"], ["Confirmado", "2"], ["Atendido", "3"], ["Cancelado", "4"]], prompt: true
-	
+
 	.space
 	.divider
-	
+
 	- if @admin_order.client
-	
+
 		.left
 			%p
 				= @admin_order.client.yamasis_id.blank? ? "Cód: Indefinido" : "Cód: #{@admin_order.client.yamasis_id.to_s.rjust(6, "0")}"
@@ -33,7 +33,7 @@
 
 		.left{style: "margin-left: 20px;"}
 			%p
-				= @admin_order.client.route ? @admin_order.client.route.name : "Rota Indefinida" 
+				= @admin_order.client.route ? @admin_order.client.route.name : "Rota Indefinida"
 
 			%p
 				= @admin_order.client.main_address.full_address
@@ -41,11 +41,11 @@
 				= "#{@admin_order.client.main_address.quarter} - #{@admin_order.client.main_address.city}/#{@admin_order.client.main_address.state}"
 				%br
 				= "#{@admin_order.client.main_address.postcode}"
-	
+
 	.divider
-	
+
 	%h2 Produtos
-	
+
 	%table
 		%thead
 			%tr
@@ -67,11 +67,14 @@
 
 	%h2 Detalhes da Entrega
 
-	= f.radio_button :delivery, false
-	Retira na Vila Yamaguishi
 	= f.radio_button :delivery, true
 	Entrega em Domicílio
-	
+	= f.radio_button :delivery, false
+	Retirada
+
+	- if !@admin_order.delivery
+		= f.select :pickup, [['Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3]]
+
 	%table
 		%thead
 			%tr
@@ -88,7 +91,7 @@
 					%td= f.date_select :delivery_date, prompt: true
 					%td= f.text_field :delivery_value, size: 5
 					%td
-				
+
 			%tr
 				%td.total
 				%td.total
