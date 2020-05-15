@@ -25,7 +25,7 @@
 					%td= item.text_field :quantity, style: "width: 35px;", type: "number", class: "ajax-input"
 					%td= item.object.name
 					%td= number_to_currency(item.object.total_value)
-					%td= link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, "produto/excluir/#{item.object.id}", :confirm => 'Você tem certeza que deseja remover este(s) produto(s) da cesta?', :method => :delete, :remote=>true, :class=>'delete_item'
+					%td= link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, "produto/excluir/#{item.object.id}", :method => :delete, :remote=>true, :class=>'delete_item'
 			%tr
 				%td.total{colspan: 3} Total dos Produtos
 				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)

@@ -1,33 +1,33 @@
 # encoding: UTF-8
 
 class WebsiteController < ApplicationController
-	
+
 	include Store
 	helper_method Store.instance_methods
-	
+
 	before_filter :define_order #from Store module
-	
+
 	before_filter :define_order_details, except: [:order_confirmed] #from Store module
-		
+
 	def index
 		@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
 	end
-	
+
 	def category
 		@category = Admin::Category.find_by_link(params[:link])
 		@items = @category.available_items
 		#render action: :index
 	end
-	
+
 	def product
 		@admin_product = Admin::Product.find_by_link(params[:link])
 	end
-	
+
 	def client
 		redirect_to root_path and return unless current_client
 		@client = current_client
 	end
-	
+
 	def page
 		case params[:page]
 		when "loja"
@@ -68,7 +68,7 @@ class WebsiteController < ApplicationController
 			end
 		end
 	end
-	
+
 	def find_local
 		if params[:postcode].blank?
 			render :js => "alert('Informe um local válido para consulta.');"
@@ -76,7 +76,7 @@ class WebsiteController < ApplicationController
 			render :js => "findAddress('#{params[:postcode]}');"
 		end
 	end
-	
+
 	def where_to_buy #called by js, render js do place the found locals
 		lat = params[:lat]
 		lng = params[:lng]
@@ -84,7 +84,12 @@ class WebsiteController < ApplicationController
 		@shops = Admin::Shop.where(:kind => "Ponto de Venda").near([lat, lng], 20, :units => :km).limit(4)
 		@route = Admin::RouteMarker.near([lat, lng], 30, :units => :km).first.route if Admin::RouteMarker.near([lat, lng], 30, :units => :km).first
 	end
-	
+
+	def client_orders
+		@client = current_client
+		@client_orders = @client.orders.order('created_at DESC').where(status: [2,3,4])
+	end
+
 	def contact_form_new
 		@contact = ContactForm.new
 		render "/website/pages/atendimento"
@@ -101,5 +106,5 @@ class WebsiteController < ApplicationController
 			render template: "/website/pages/atendimento"
 		end
 	end
-	
+
 end

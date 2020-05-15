@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@keyframes highlight {
+    0% {
+        background-color:  RGB(135, 164, 74)
+    }
+    100% {
+        background-color: RGB(176, 208, 107)
+    }
+}
+
+.highlight {
+    animation: highlight 1s;
+}
+
 .arrow-right {
 	width: 0;
 	height: 0;
@@ -228,15 +241,21 @@ body {
 				}
 			}
 			.client {
-				width: 388px;
-				float: right;
-				margin: 10px 20px;
-				position: relative;
-				z-index: 100;
+				position: fixed;
+				top: 10px;
+				background-color: RGBA(176,208,107, 0.9);
+				width: 280px;
+				border-radius: 10px;
+				padding: 4px 16px;
+				left: calc(50% + 280px);
+				margin-left: -140px; /* Negative half of width. */
+				z-index: 1;
+
+
 				p {
 					margin: 0px;
 					float: right;
-					font-size: 14px;
+					font-size: 11px;
 				}
 			}
 			.cart {
@@ -245,7 +264,7 @@ body {
 				text-align: right;
 				color: #000;
 				font-weight: bold;
-				font-size: 14px;
+				font-size: 12px;
 				clear: both;
 				div {display: inline;}
 				a {
@@ -260,7 +279,7 @@ body {
 				width: 660px;
 				padding: 10px 20px;
 				overflow: auto;
-				margin: -70px 0px 0px 0px;
+				margin: 0px 0px 0px 0px;
 
 				#home {
 					width: 560px;
@@ -413,7 +432,7 @@ body {
 .website-page-view.loja #sidebar,
 .website-category-view #sidebar,
 .website-product-view #sidebar,
-.website-order-view #sidebar, .website-order-view .client {
+.website-order-view #sidebar {
 	display: none;
 }
 
@@ -603,12 +622,8 @@ body {
 
 	body #container #main .client {
 		position: fixed;
-		top: 0;
 		right: 80px;
-		margin-top: 7px;
-		background-color: RGBA(176,208,107, 0.8);
-		width: 280px;
-		padding-right: 8px;
+		left: auto;
 	}
 
 	body #container #main #content .item-box {
@@ -737,19 +752,15 @@ body {
 	}
 
 	body #container #main .client {
-		position: relative;
 		top: auto;
-		right: auto;
-		margin-top: 7px;
-		background-color: transparent;
-		width: 280px;
-		float: left;
-		margin-left: 10px;
+		bottom: 20px;
+		left: 10px;
+		margin-left: 0
 	}
 
 	body #container #main .client p {
 		float: left;
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	body #container #main .cart {
@@ -820,7 +831,7 @@ body {
 	}
 
 	#container #main #content #categories .categories {
-		width: 100%;
+		width: 100% !important;
 		height: 80px;
 	}
 
