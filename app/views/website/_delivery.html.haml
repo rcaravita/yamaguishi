@@ -1,0 +1,156 @@
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px; color: white; font-weight:bold;'} 1. Lista de produtos
+.arrow-right.left
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
+.arrow-right.left.enabled
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Pedido finalizado
+
+.space
+= form_for @order, :remote => true, url: order_confirmed_url, html: {name: 'order_form'} do |f|
+
+	%h3.left Produtos
+	%table
+		%thead
+			%tr
+				%th{:width => 30}
+				%th{:width => 30} qtde
+				%th produto
+				%th{:width => 90} valor
+		%tbody
+			= f.fields_for :order_items do |item|
+				%tr
+					%td= image_tag item.object.item.image(:mini), class: "image"
+					%td= item.object.quantity
+					%td= item.object.name
+					%td= number_to_currency(item.object.total_value)
+			%tr
+				%td.total{colspan: 3} Total dos Produtos
+				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
+				%td.total
+
+
+
+	.space
+	%h2{:style => 'margin-bottom: 20px;'}
+		Detalhes da Entrega - Pedido
+		= "#{@order.id.to_s.rjust(6, '0')}"
+
+	= f.radio_button :delivery, true, disabled: current_client.route_id == 19 || (@data.only_pickup && @order.new_client)
+	Entrega em Domicílio
+
+	= f.radio_button :delivery, false
+	Retirada
+
+	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3]], {}, disabled: @order.delivery
+
+	- if @data.only_pickup && @order.new_client
+		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, estamos disponibilizando apenas a opção para retirada no sítio
+
+	%table{:style => 'margin-top: 20px;'}
+		%thead
+			%tr
+				-#%th cliente
+				%th{:width => 140} endereço
+				%th{:width => 220}= @order.delivery == true ? 'data de entrega' : 'data de retirada'
+				%th{:width => 90} taxa de entrega
+		%tbody
+			%tr
+				%td
+					- if @order.delivery
+
+						-# ENTREGA
+						= current_client.main_address.full_address
+						%br
+						= "#{current_client.addresses.first.quarter} - #{current_client.addresses.first.city}/#{current_client.addresses.first.state}"
+						%br
+						= "#{current_client.addresses.first.postcode}"
+						%br
+						= link_to "[alterar endereço]", client_path
+
+					- else
+
+						- if @order.pickup == 1
+							-# RETIRA
+							Rod. SP-340 Km 138
+							%br
+							Jaguariúna - SP - CEP 13820-000
+							%br das 7h às 15h
+						- if @order.pickup == 2
+							-# RETIRA
+							Feira do Bosque dos Jequitibás
+						- if @order.pickup == 3
+							-# RETIRA
+							Feira do Parque Ecológico
+						- if @order.pickup == 4
+							-# RETIRA
+							Feira do Centro de Convivência
+
+
+				%td{:width => 220}
+					- if @order.delivery_date
+						- if @order.delivery == true
+							%b
+								= l(@order.delivery_date, format: :delivery)
+							%br
+							= "(#{@order.client.route.name})"
+						- else
+							- if @order.pickup == 1
+								%p
+									-#%b
+									-#	Disponível a partir das 8h de
+									-#	= "#{l(get_delivery_date(false, 1), format: :delivery)}."
+									-#%br
+									%b
+										Selecione a data da retirada
+								= f.date_select :delivery_date
+								.space
+								%i
+									Atendemos de segunda a sexta-feira das 8h às 17h, e de sábado das 8h às 11h
+							- elsif @order.pickup == 2
+								%p
+									%b
+										Disponível entre 7h-10h de
+										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
+							- elsif @order.pickup == 3
+								%p
+									%b
+										Disponível entre 7h-11h de
+										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
+					- else
+						- if @data.variable_date
+							%span{:style => 'color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, a data de entrega/retirada será informada por e-mail, assim como o valor do frete, caso haja
+						- elsif !@order.delivery_date.present?
+							Após a confirmação do pedido informaremos a data de entrega/retirada e o valor do frete.
+
+				%td{:width => 90}= @order.delivery_date ? number_to_currency(@order.delivery_value) : ""
+			%tr
+				%td.total{colspan: 2} Total do Pedido
+				%td.total= number_to_currency(@order.total_value)
+
+
+	.space
+	.right
+		= link_to "Continuar comprando", "/loja", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
+		- if (@order.items_value >= 80 || !@order.delivery) && current_client
+			ou
+			= link_to "Fechar Pedido", "pedido/fechar", :remote=>true, :confirm => 'Você rem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+	.space
+
+.box
+	= Admin::Page.find_by_link("pedido").content.html_safe
+.space
+.left= link_to "Excluir Pedido", order_destroy_path, class: "button", confirm: "Deseja excluir este pedido?" unless @order.order_items.empty?
+
+:javascript
+	$(document).ready( function() {
+		$(document).off( "change", "select");
+		$(document).off( "change", "input");
+
+		$(document).on('change', 'select', function() {
+			$("form[name*='order_form']").submit()
+		});
+		$(document).on('change', 'input', function() {
+			$("form[name*='order_form']").submit()
+		});
+	});

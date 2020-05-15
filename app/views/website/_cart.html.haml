@@ -1,0 +1,55 @@
+%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px; color: white; font-weight:bold;'} 1. Lista de produtos
+.arrow-right.left.enabled
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
+.arrow-right.left
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Pedido finalizado
+
+.space
+
+= form_for @order, :remote => true, url: order_update_url, html: {name: 'order_form'} do |f|
+	%h1.left Minha Cesta
+	%table
+		%thead
+			%tr
+				%th{:width => 30}
+				%th{:width => 30} qtde
+				%th produto
+				%th{:width => 90} valor
+				%th{:width => 80}
+		%tbody
+			= f.fields_for :order_items do |item|
+				%tr
+					%td= image_tag item.object.item.image(:mini), class: "image"
+					%td= item.text_field :quantity, style: "width: 35px;", type: "number", class: "ajax-input"
+					%td= item.object.name
+					%td= number_to_currency(item.object.total_value)
+					%td= link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, "produto/excluir/#{item.object.id}", :confirm => 'Você tem certeza que deseja remover este(s) produto(s) da cesta?', :method => :delete, :remote=>true, :class=>'delete_item'
+			%tr
+				%td.total{colspan: 3} Total dos Produtos
+				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
+				%td.total
+
+
+
+	.space
+
+	.right
+		= link_to "Continuar comprando", "/loja", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
+		- if current_client
+			ou
+			= link_to "Confirmar Pedido", "pedido/confirmar", :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+	.space
+
+.box
+	= Admin::Page.find_by_link("pedido").content.html_safe
+.space
+.left= link_to "Excluir Pedido", order_destroy_path, class: "button", confirm: "Deseja excluir este pedido?" unless @order.order_items.empty?
+
+:javascript
+	$(document).ready( function() {
+		$(".ajax-input").on('input',  function() {
+			$("form[name*='order_form']").submit();
+		});
+	});

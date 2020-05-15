@@ -1,6 +1,13 @@
-= content_for :banner do
-	= render partial: "nivo-slider"
-	
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px; color: white; font-weight:bold;'} 1. Lista de produtos
+.arrow-right.left
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
+.arrow-right.left
+.arrow-left.left
+%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Pedido finalizado
+
+.space
+
 %h2 Pedido confirmado!
 
 - if @order.delivery_date.present?
