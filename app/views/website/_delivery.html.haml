@@ -118,7 +118,7 @@
 										Disponível entre 7h-11h de
 										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
 					- else
-						- if @data.variable_date
+						- if get_variable_date
 							%span{:style => 'color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, a data de entrega/retirada será informada por e-mail, assim como o valor do frete, caso haja
 						- elsif !@order.delivery_date.present?
 							Após a confirmação do pedido informaremos a data de entrega/retirada e o valor do frete.
@@ -156,5 +156,15 @@
 
 		$('#confirm_order').bind('ajax:beforeSend', function(evt, xhr, settings) {
 			$("#confirm_order").addClass("disabled");
+		})
+
+		$('#confirm_order').bind('ajax:error', function(e, xhr, status, error) {
+			var errors = $.parseJSON(xhr.responseText);
+			errorText = "Encontramos alguns erros que precisam ser corrigidos: \n";
+			for ( error in errors ) {
+				errorText += errors[error] + "\n";
+			}
+			alert(errorText);
+			$("#confirm_order").removeClass("disabled");
 		})
 	});

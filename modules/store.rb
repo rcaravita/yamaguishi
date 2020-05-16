@@ -1,7 +1,12 @@
 module Store
 
 	def order
+
+	end
+
+	def get_variable_date
 		@data = Admin::Administrator.find(1)
+		return @data.variable_date
 	end
 
 	def search(string)
@@ -32,7 +37,7 @@ module Store
 		today = (Time.now + 5.hours).to_date # horário para o servidor
 		#puts "Today: #{today}"
 
-		if @data.variable_date
+		if get_variable_date
 			date = nil
 		else
 			if delivery == false #RETIRA
@@ -212,13 +217,18 @@ module Store
 		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
 		@order.confirmed_at = Time.now
 		@order.status = 2
-		@order.save!
-		SystemMailer.order_confirmation(@order, @order.client).deliver
-		session[:order] = nil
+		if @order.save
+			SystemMailer.order_confirmation(@order, @order.client).deliver
+			session[:order] = nil
 
-		respond_to do |format|
-			format.js
-			format.html { redirect_to order_path, notice: 'Update successfully' }
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		else
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
 		end
 	end
 

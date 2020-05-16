@@ -1,10 +1,14 @@
 pt:
-    activerecord: 
-        attributes: 
-            client: 
+    activerecord:
+        attributes:
+            client:
                 password: senha
                 password_confirmation: confirmação da senha
-                
+            order:
+                delivery_date: 'erro de data'
+        errors:
+            messages:
+                record_invalid: 'Registro inválido'
     devise:
         failure:
             already_authenticated: 'Você já está logado.'
@@ -120,7 +124,7 @@ pt:
         thousand:
             one: "t"
             other: "t"
-            
+
     distance:
       centi:
         one: "cm"
@@ -148,7 +152,7 @@ pt:
         - Sex
         - Sáb
         abbr_month_names:
-        - 
+        -
         - Jan
         - Fev
         - Mar
@@ -177,7 +181,7 @@ pt:
             number: ! '%d/%b/%y'
             export: ! '%d/%m/%Y'
         month_names:
-        - 
+        -
         - Janeiro
         - Fevereiro
         - Março
