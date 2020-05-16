@@ -97,10 +97,10 @@
 						- else
 							- if @order.pickup == 1
 								%p
-									-#%b
-									-#	Disponível a partir das 8h de
-									-#	= "#{l(get_delivery_date(false, 1), format: :delivery)}."
-									-#%br
+									%i
+										Disponível a partir das 8h de
+										= "#{l(get_delivery_date(false, 1), format: :delivery)}."
+									%br
 									%b
 										Selecione a data da retirada
 								= f.date_select :delivery_date
@@ -134,7 +134,7 @@
 		= link_to "Continuar comprando", "/loja", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 		- if (@order.items_value >= 80 || !@order.delivery) && current_client
 			ou
-			= link_to "Fechar Pedido", "pedido/fechar", :remote=>true, :confirm => 'Você rem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+			= link_to "Fechar Pedido", "pedido/fechar", :id => 'confirm_order', :remote=>true, :confirm => 'Você rem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 	.space
 
 .box
@@ -153,4 +153,8 @@
 		$(document).on('change', 'input', function() {
 			$("form[name*='order_form']").submit()
 		});
+
+		$('#confirm_order').bind('ajax:beforeSend', function(evt, xhr, settings) {
+			$("#confirm_order").addClass("disabled");
+		})
 	});

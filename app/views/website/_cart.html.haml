@@ -39,7 +39,7 @@
 		= link_to "Continuar comprando", "/loja", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 		- if current_client
 			ou
-			= link_to "Confirmar Pedido", "pedido/confirmar", :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+			= link_to "Confirmar Pedido", "pedido/confirmar", id:"confirm_order", :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 	.space
 
 .box
@@ -51,5 +51,8 @@
 	$(document).ready( function() {
 		$(".ajax-input").on('input',  function() {
 			$("form[name*='order_form']").submit();
+		});
+		$("#confirm_order").on('click',  function() {
+			$("#confirm_order").addClass("disabled");
 		});
 	});
