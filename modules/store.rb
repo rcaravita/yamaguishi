@@ -125,7 +125,9 @@ module Store
 
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
-			@order.delivery_date = get_delivery_date(false, @order.pickup)
+			if !@order.delivery_date
+				@order.delivery_date = get_delivery_date(false, @order.pickup)
+			end
 		else # entrega em domicilio
 			@order.delivery_value = 0
 			@order.delivery_date = nil
@@ -197,8 +199,6 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 
 		if @order.update_attributes(params[:admin_order])
-			define_order_details
-
 			respond_to do |format|
 				format.js
 				format.html { redirect_to order_path, notice: 'Update successfully' }
