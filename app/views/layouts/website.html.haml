@@ -79,7 +79,7 @@
 					.cart
 						#notice= notice
 						-#.left= session[:previous_url]
-						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
+						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path
 
 				#content
 					= yield

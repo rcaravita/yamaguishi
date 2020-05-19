@@ -42,7 +42,7 @@
 	= f.radio_button :delivery, false
 	Retirada
 
-	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3]], {}, disabled: @order.delivery
+	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3], ['Feira Holambra', 4]], {}, disabled: @order.delivery
 
 	- if @data.only_pickup && @order.new_client
 		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, estamos disponibilizando apenas a opção para retirada no sítio
@@ -76,15 +76,25 @@
 							%br
 							Jaguariúna - SP - CEP 13820-000
 							%br das 7h às 15h
-						- if @order.pickup == 2
+						- elsif @order.pickup == 2
 							-# RETIRA
-							Feira do Bosque dos Jequitibás
-						- if @order.pickup == 3
+							=link_to "Pq. Bosque dos Jequitibás", "https://goo.gl/maps/3RzWHAPjYk7emSYS6", target: "_blank"
+							%br
+							Estac. Bosque
+							%br
+							Av. Aquidabã
+						- elsif @order.pickup == 3
 							-# RETIRA
-							Feira do Parque Ecológico
-						- if @order.pickup == 4
+							=link_to "Pq. Ecológico Monsenhor Emílio J.Salim", "https://goo.gl/maps/ZPPhwzQTHskPdcL26", target: "_blank"
+							%br
+							Rod. Heitor Penteado, 1000, Vila Brandina
+						- elsif @order.pickup == 4
 							-# RETIRA
-							Feira do Centro de Convivência
+							=link_to "Feira Holambra", "https://goo.gl/maps/TssKeosMXMjWPRYRA", target: "_blank"
+							%br
+							Praça Vitória Régia
+							%br
+							em frente a R. Primavera, 936
 
 
 				%td{:width => 220}
@@ -116,6 +126,11 @@
 								%p
 									%b
 										Disponível entre 7h-11h de
+										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
+							- elsif @order.pickup == 4
+								%p
+									%b
+										Disponível entre 8h-10h de
 										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
 					- else
 						- if get_variable_date

@@ -40,13 +40,13 @@
 						* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
 				- if @order.pickup == 2
 					%i
-						na Feira do Bosque dos Jequitibás, a partir das 8h
+						na Feira do Bosque dos Jequitibás, entre 7h e 10h
 				- if @order.pickup == 3
 					%i
-						na Feira do Parque Ecológico, a partir das 8h
+						na Feira do Parque Ecológico, entre 7h e 11h
 				- if @order.pickup == 4
 					%i
-						na Feira do Centro de Convivência, a partir das 8h
+						na Feira de Holambra, entre 8h e 10h
 
 		%p
 			- if @order.delivery
@@ -63,7 +63,22 @@
 					%br
 					Jaguariúna - SP - CEP 13820-000
 					%br das 7h às 15h
-
+				- elsif @order.pickup == 2
+					%b Pq. Bosque dos Jequitibás
+					%br
+					Estac. Bosque
+					%br
+					Av. Aquidabã, 974
+				- elsif @order.pickup == 3
+					%b Pq. Ecológico Monsenhor Emílio J.Salim
+					%br
+					Rod. Heitor Penteado, 1000, Vila Brandina
+				- elsif @order.pickup == 4
+					%b Feira Holambra
+					%br
+					Praça Vitória Régia
+					%br
+					em frente a R. Primavera, 936
 		%p
 			= "Telefone: #{@order.client.phone}" if @order.client.phone
 

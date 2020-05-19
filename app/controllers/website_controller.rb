@@ -7,7 +7,7 @@ class WebsiteController < ApplicationController
 
 	before_filter :define_order #from Store module
 
-	before_filter :define_order_details, except: [:order_confirmed] #from Store module
+	before_filter :define_order_details, except: [:order_confirmed, :order_checkout] #from Store module
 
 	def index
 		@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)

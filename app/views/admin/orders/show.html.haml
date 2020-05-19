@@ -37,13 +37,13 @@
 
 	%h4= @admin_order.delivery ? "Entrega em Domicílio" : "Retirada"
 	- if @admin_order.pickup == 1
-		%h5= "Retirada no Sítio Yamaguishi"
-	- if @admin_order.pickup == 2
-		%h5= "Retirada na Feira do Bosque dos Jequitibás"
-	- if @admin_order.pickup == 3
-		%h5= "Retirada na Feira do Parque Ecológico"
-	- if @admin_order.pickup == 4
-		%h5= "Retirada Feira do Centro de Convivência"
+		%h5= "Sítio Yamaguishi"
+	- elsif @admin_order.pickup == 2
+		%h5= "Feira do Bosque dos Jequitibás"
+	- elsif @admin_order.pickup == 3
+		%h5= "Feira do Parque Ecológico"
+	- elsif @admin_order.pickup == 4
+		%h5= "Feira Holambra"
 
 	%table
 		%thead

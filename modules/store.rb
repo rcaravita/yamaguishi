@@ -66,16 +66,14 @@ module Store
 						else
 							date = Date.commercial(date.year, date.cweek, 3)
 						end
-					end
-					if pickup ==  3
+					elsif pickup ==  3
 						date = Date.commercial(date.year, date.next_week.cweek, 1)
 						date = date - 1.days
-					end
-					if pickup ==  4
-						if date.wday > 5 # proxima semana
-							date = Date.commercial(date.year, date.next_week.cweek, 5)
+					elsif pickup ==  4
+						if date.wday > 6 # proxima semana
+							date = Date.commercial(date.year, date.next_week.cweek, 6)
 						else
-							date = Date.commercial(date.year, date.cweek, 5)
+							date = Date.commercial(date.year, date.cweek, 6)
 						end
 					end
 				end
@@ -130,9 +128,7 @@ module Store
 
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
-			if !@order.delivery_date
-				@order.delivery_date = get_delivery_date(false, @order.pickup)
-			end
+			@order.delivery_date = get_delivery_date(false, @order.pickup)
 		else # entrega em domicilio
 			@order.delivery_value = 0
 			@order.delivery_date = nil
@@ -204,6 +200,9 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 
 		if @order.update_attributes(params[:admin_order])
+			if params[:admin_order] && !params[:admin_order]["delivery_date(1i)"]
+				define_order_details
+			end
 			respond_to do |format|
 				format.js
 				format.html { redirect_to order_path, notice: 'Update successfully' }

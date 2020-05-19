@@ -11,6 +11,7 @@
 				%th valor
 				%th data
 				%th entrega
+				%th local
 				%th status
 		%tbody
 			- @client_orders.each do |client_order|
@@ -19,4 +20,16 @@
 					%td= number_to_currency(client_order.total_value)
 					%td= client_order.confirmed_at.present? ? l(client_order.confirmed_at, format: :delivery) : "A Confirmar"
 					%td= client_order.delivery_date.present? ? l(client_order.delivery_date, format: :delivery) : "A Confirmar"
+					%td
+						- if client_order.delivery
+							Casa do cliente
+						- else
+							- if client_order.pickup == 1
+								Retirada no Sítio Yamaguishi
+							- elsif client_order.pickup == 2
+								Retirada na Feira do Bosque
+							- elsif client_order.pickup == 3
+								Retirada no Parque Ecológico
+							- elsif client_order.pickup == 4
+								Retirada na Feira de Holambra
 					%td= client_order.status_to_s
