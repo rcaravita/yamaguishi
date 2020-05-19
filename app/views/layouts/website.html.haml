@@ -86,13 +86,15 @@
 
 				#sidebar
 					- if @items
-						= link_to "Novidades do sítio", root_path, class: "title"
+						= link_to "Algumas novidades do sítio", "/loja", class: "title"
 						.search
 							= form_tag "/loja", :method => :get do
 								= text_field_tag "s", params[:s]
 								= submit_tag "", :name => nil
 						.items
 							= render :partial => 'items', :locals => { :items => @items }
+						.space
+						= link_to "Veja mais produtos", "/loja", style: "font-weight: bold"
 
 		#footer
 			.footer-content
