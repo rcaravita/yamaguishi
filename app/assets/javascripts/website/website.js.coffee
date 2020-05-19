@@ -32,3 +32,9 @@ $(document).ready ->
 	$(".toggle").click ->
 		$(this).next('.toggled').toggle()
 
+	$(window).scroll ->
+		if ($(window).scrollTop() > 345)
+			$("#step_by_step").addClass("fixed")
+		else
+			$("#step_by_step").removeClass("fixed")
+
