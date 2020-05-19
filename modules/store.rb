@@ -1,7 +1,12 @@
 module Store
 
 	def order
+
+	end
+
+	def get_variable_date
 		@data = Admin::Administrator.find(1)
+		return @data.variable_date
 	end
 
 	def search(string)
@@ -32,7 +37,7 @@ module Store
 		today = (Time.now + 5.hours).to_date # horário para o servidor
 		#puts "Today: #{today}"
 
-		if @data.variable_date
+		if get_variable_date
 			date = nil
 		else
 			if delivery == false #RETIRA
@@ -61,16 +66,14 @@ module Store
 						else
 							date = Date.commercial(date.year, date.cweek, 3)
 						end
-					end
-					if pickup ==  3
+					elsif pickup ==  3
 						date = Date.commercial(date.year, date.next_week.cweek, 1)
 						date = date - 1.days
-					end
-					if pickup ==  4
-						if date.wday > 5 # proxima semana
-							date = Date.commercial(date.year, date.next_week.cweek, 5)
+					elsif pickup ==  4
+						if date.wday > 6 # proxima semana
+							date = Date.commercial(date.year, date.next_week.cweek, 6)
 						else
-							date = Date.commercial(date.year, date.cweek, 5)
+							date = Date.commercial(date.year, date.cweek, 6)
 						end
 					end
 				end
@@ -170,26 +173,62 @@ module Store
 		end
 	end
 
+	def remove_item
+		item = Admin::OrderItem.find(params[:id])
+		item.destroy
+
+		@order.update_total
+
+		respond_to do |format|
+			format.js
+			format.html { redirect_to order_path, notice: 'Update successfully' }
+		end
+	end
+
 	def order_update
 		if @order.update_attributes(params[:admin_order])
-			if params[:order_submit].present? #BOTAO FINALIZAR PEDIDO (SEM LOGIN)
-				session[:previous_url] = "/pedido"
-				redirect_to new_client_session_path
-			elsif params[:order_confirmed].present? #BOTAO CONFIRMAR PEDIDO (COM LOGIN)
-				redirect_to order_confirmed_path
-			else #BOTAO ATUALIZAR
-				redirect_to order_path
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
 			end
+		else
+			redirect_to order_path
 		end
 	end
 
 	def order_confirmed
 		redirect_to root_path and return if @order.order_items.empty?
+
+		if @order.update_attributes(params[:admin_order])
+			if params[:admin_order] && !params[:admin_order]["delivery_date(1i)"]
+				define_order_details
+			end
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		end
+
+	end
+
+	def order_checkout
+		redirect_to root_path and return if @order.order_items.empty?
+		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
 		@order.confirmed_at = Time.now
 		@order.status = 2
-		@order.save!
-		SystemMailer.order_confirmation(@order, @order.client).deliver
-		session[:order] = nil
+		if @order.save
+			SystemMailer.order_confirmation(@order, @order.client).deliver
+			session[:order] = nil
+
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		else
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		end
 	end
 
 	def order_destroy

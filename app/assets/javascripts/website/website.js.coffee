@@ -29,15 +29,12 @@ $(document).ready ->
 		#alert $(this).attr('scope')
 		$("input#document").attr('name', "client[#{$(this).attr('scope')}]")
 
-	$("input[name*='admin_order[delivery]']").change ->
-		#alert 'hi'
-		$("form[name*='order_form']").submit()
-
-
-	$("select[name*='admin_order[pickup]']").change ->
-		#alert 'hi'
-		$("form[name*='order_form']").submit()
-
 	$(".toggle").click ->
 		$(this).next('.toggled').toggle()
+
+	$(window).scroll ->
+		if ($(window).scrollTop() > 345)
+			$("#step_by_step").addClass("fixed")
+		else
+			$("#step_by_step").removeClass("fixed")
 

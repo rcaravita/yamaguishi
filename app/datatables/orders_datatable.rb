@@ -25,7 +25,7 @@ private
 				link_to(admin_order.id.to_s.rjust(6, "0"), admin_order),
 				admin_order.client ? (admin_order.client.yamasis_id ? admin_order.client.yamasis_id.to_s.rjust(6, "0") : "") : "",
 				admin_order.client ? link_to(admin_order.client.name, admin_order.client) : "",
-				admin_order.delivery ? (admin_order.client ? admin_order.client.route.try(:name) : "") : "[retira]",
+				admin_order.delivery ? (admin_order.client ? admin_order.client.route.try(:name) : "") : (admin_order.pickup == 1 ? "RETIRADA Sítio" : (admin_order.pickup == 2 ? "RETIRADA Feira Bosque" : (admin_order.pickup == 3 ? "RETIRADA Pq. Ecológico" : "RETIRADA Feira Holambra"))),
 				number_to_currency(admin_order.total_value),
 				admin_order.delivery_date.present? ? l(admin_order.delivery_date, format: :number) : "",
 				#admin_order.status_to_s,

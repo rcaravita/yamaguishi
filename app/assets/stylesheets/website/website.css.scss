@@ -2,6 +2,64 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@keyframes highlight {
+    0% {
+        background-color:  RGB(135, 164, 74)
+    }
+    100% {
+        background-color: RGB(176, 208, 107)
+    }
+}
+
+a.disabled {
+	pointer-events: none;
+	cursor: not-allowed;
+	background-color: rgba(28, 121, 53, 0.4) !important;
+	color: #ccc !important;
+}
+
+.highlight {
+    animation: highlight 1s;
+}
+
+#step_by_step {
+	width: 100%;
+	background-color: #F4F4E5;
+}
+
+#step_by_step.fixed {
+	position: fixed;
+	top: 15px;
+	z-index: 99;
+}
+#step_by_step h5 {
+	margin: 5px 0;
+}
+
+.arrow-right {
+	width: 0;
+	height: 0;
+	border-top: 17px solid transparent;
+	border-bottom: 17px solid transparent;
+	border-left: 17px solid #ccc;
+	margin-top:5px;
+}
+.arrow-right.enabled {
+	border-left: 17px solid #b0d06b;
+}
+
+.arrow-left {
+	margin-top:5px;
+	width: 0;
+	height: 0;
+	border-top: 17px solid transparent;
+	border-bottom: 17px solid transparent;
+	border-left: 17px solid #F4F4E5;
+	margin-right: -17px;
+	z-index: 1;
+	position: relative;
+}
+
 body {
 	#container {
 		width: 950px;
@@ -204,15 +262,21 @@ body {
 				}
 			}
 			.client {
-				width: 388px;
-				float: right;
-				margin: 10px 20px;
-				position: relative;
+				position: fixed;
+				top: 10px;
+				background-color: RGBA(176,208,107, 0.9);
+				width: 280px;
+				border-radius: 10px;
+				padding: 4px 16px;
+				left: calc(50% + 280px);
+				margin-left: -140px; /* Negative half of width. */
 				z-index: 100;
+
+
 				p {
 					margin: 0px;
 					float: right;
-					font-size: 14px;
+					font-size: 11px;
 				}
 			}
 			.cart {
@@ -221,7 +285,7 @@ body {
 				text-align: right;
 				color: #000;
 				font-weight: bold;
-				font-size: 14px;
+				font-size: 12px;
 				clear: both;
 				div {display: inline;}
 				a {
@@ -236,7 +300,7 @@ body {
 				width: 660px;
 				padding: 10px 20px;
 				overflow: auto;
-				margin: -70px 0px 0px 0px;
+				margin: 0px 0px 0px 0px;
 
 				#home {
 					width: 560px;
@@ -389,7 +453,7 @@ body {
 .website-page-view.loja #sidebar,
 .website-category-view #sidebar,
 .website-product-view #sidebar,
-.website-order-view #sidebar, .website-order-view .client {
+.website-order-view #sidebar {
 	display: none;
 }
 
@@ -456,7 +520,6 @@ body {
 	float: left;
 	width: 620px;
 	margin-left: 30px;
-	margin-top: 70px;
 	padding-bottom: 500em;
 	margin-bottom: -500em;
 }
@@ -579,12 +642,8 @@ body {
 
 	body #container #main .client {
 		position: fixed;
-		top: 0;
 		right: 80px;
-		margin-top: 7px;
-		background-color: RGBA(176,208,107, 0.8);
-		width: 280px;
-		padding-right: 8px;
+		left: auto;
 	}
 
 	body #container #main #content .item-box {
@@ -713,19 +772,15 @@ body {
 	}
 
 	body #container #main .client {
-		position: relative;
 		top: auto;
-		right: auto;
-		margin-top: 7px;
-		background-color: transparent;
-		width: 280px;
-		float: left;
-		margin-left: 10px;
+		bottom: 20px;
+		left: 10px;
+		margin-left: 0
 	}
 
 	body #container #main .client p {
 		float: left;
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	body #container #main .cart {
@@ -796,7 +851,7 @@ body {
 	}
 
 	#container #main #content #categories .categories {
-		width: 100%;
+		width: 100% !important;
 		height: 80px;
 	}
 
@@ -826,5 +881,22 @@ body {
 		width: 100%;
 		margin-top: 0;
 		margin-left: 0;
+	}
+
+	#step_by_step.fixed {
+		bottom: 15px;
+		top: auto;
+		bottom: 82px;
+	}
+
+	#step_by_step h5 {
+		font-size: 0.8em;
+	}
+
+
+	.arrow-right, .arrow-left {
+		border-top-width: 15px;
+		border-bottom-width: 15px;
+		border-left-width: 15px;
 	}
 }

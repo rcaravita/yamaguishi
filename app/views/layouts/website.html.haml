@@ -78,6 +78,7 @@
 						- if client_signed_in?
 							= current_client.name.split.first(2).join(" ")
 							= link_to "[minha conta]", client_path
+							= link_to "[pedidos]", client_orders_path
 							= link_to "[logout]", destroy_client_session_path, method: :delete, class: "last"
 						- else
 							= link_to "login", new_client_session_path
@@ -87,20 +88,22 @@
 					.cart
 						#notice= notice
 						-#.left= session[:previous_url]
-						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path unless request.fullpath =~ /\/pedido/
+						.right= link_to "Minha Cesta (<span class='quantity'>#{@order.items_quantity}</span> items) <span class='value'>#{number_to_currency(@order.items_value)}</span>".html_safe, order_path
 
 				#content
 					= yield
 
 				#sidebar
 					- if @items
-						= link_to "Novidades do sítio", root_path, class: "title"
+						= link_to "Algumas novidades do sítio", "/loja", class: "title"
 						.search
 							= form_tag "/loja", :method => :get do
 								= text_field_tag "s", params[:s]
 								= submit_tag "", :name => nil
 						.items
 							= render :partial => 'items', :locals => { :items => @items }
+						.space
+						= link_to "Veja mais produtos", "/loja", style: "font-weight: bold"
 
 		#footer
 			.footer-content
