@@ -50,7 +50,7 @@
 
 :javascript
 	$(document).ready( function() {
-		$(".ajax-input").on('input',  function() {
+		$(".ajax-input").on('change',  function() {
 			$("form[name*='order_form']").submit();
 		});
 		$("#confirm_order").on('click',  function() {
