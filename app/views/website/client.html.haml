@@ -1,9 +1,14 @@
 = content_for :banner do
 	= render partial: "/website/nivo-slider"
-	
+
 #cadastro
-	%h1 Minha Conta
-	
+	.left
+		%h2 Minha Conta
+	.right
+		%h3{style: 'margin-top: 14px;'}
+			= link_to "Meus pedidos", client_orders_path
+	.space
+
 	= form_for @client, url: client_registration_url do |f|
 
 		- if @client.errors.any?
@@ -14,9 +19,9 @@
 			-#			%li= msg
 			.error_explanation{style: "color: #d22f00;"}
 				%h3 Verifique o preenchimento dos campos abaixo:
-							
+
 		= render partial: "/website/clients/registrations/form", locals: {f: f}
-		
+
 	-#%h2= @client.name
 	-#.left
 	-#	%p
@@ -29,7 +34,7 @@
 	-#		= @client.phone
 	-#.left{style: "margin-left: 20px;"}
 	-#	%p
-	-#		= @client.route ? @client.route.name : "Rota Indefinida" 
+	-#		= @client.route ? @client.route.name : "Rota Indefinida"
 	-#	%p
 	-#		= @client.main_address.full_address
 	-#		-#= "#{@client.addresses.first.address}, #{@client.addresses.first.number}"
@@ -38,5 +43,5 @@
 	-#		= "#{@client.main_address.quarter} - #{@client.main_address.city}/#{@client.main_address.state}"
 	-#		%br
 	-#		= "#{@client.main_address.postcode}"
-	-#		
+	-#
 	-#.divider
