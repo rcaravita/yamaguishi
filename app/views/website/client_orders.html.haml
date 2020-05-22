@@ -2,7 +2,11 @@
 	= render partial: "nivo-slider"
 
 #order
-	%h2 Meu histórico de pedidos
+	.left
+		%h2 Meus pedidos
+	.right
+		%h3{style: 'margin-top: 14px;'}
+			= link_to "Minha conta", client_path
 
 	%table
 		%thead

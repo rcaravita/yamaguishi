@@ -5,7 +5,7 @@
 	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
 	.arrow-right.left
 	.arrow-left.left
-	%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Confrimação
+	%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Confirmação
 
 .space
 
@@ -29,3 +29,11 @@
 %p Você receberá uma confirmação por e-mail.
 
 %p= link_to "Retornar à Loja", root_path
+
+
+:javascript
+	$(document).ready( function() {
+		if ($(window).scrollTop() > 345) {
+			$("#step_by_step").addClass("fixed")
+		}
+	});
