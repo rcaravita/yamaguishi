@@ -200,7 +200,9 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 
 		if @order.update_attributes(params[:admin_order])
-			if params[:admin_order] && params[:admin_order]['pickup'] != "1"
+			if (params[:admin_order] && params[:admin_order]['pickup'] != "1")
+				define_order_details
+			elsif (params[:admin_order] && params[:admin_order]['delivery'] == "true")
 				define_order_details
 			end
 			respond_to do |format|
