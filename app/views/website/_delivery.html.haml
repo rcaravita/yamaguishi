@@ -5,7 +5,7 @@
 	%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
 	.arrow-right.left.enabled
 	.arrow-left.left
-	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Confrimação
+	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Confirmação
 
 .space
 = form_for @order, :remote => true, url: order_confirmed_url, html: {name: 'order_form'} do |f|
