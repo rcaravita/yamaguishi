@@ -147,7 +147,7 @@
 
 	.space
 	.right
-		= link_to "Continuar comprando", "/loja", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
+		= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 		- if (@order.items_value >= 80 || !@order.delivery) && current_client
 			ou
 			= link_to "Fechar Pedido", "pedido/fechar", :id => 'confirm_order', :remote=>true, :confirm => 'Você rem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
@@ -172,7 +172,7 @@
 
 		$('#confirm_order').bind('ajax:beforeSend', function(evt, xhr, settings) {
 			$("#confirm_order").addClass("disabled");
-		})
+		});
 
 		$('#confirm_order').bind('ajax:error', function(e, xhr, status, error) {
 			var errors = $.parseJSON(xhr.responseText);
@@ -182,5 +182,9 @@
 			}
 			alert(errorText);
 			$("#confirm_order").removeClass("disabled");
-		})
+		});
+
+		if ($(window).scrollTop() > 345) {
+			$("#step_by_step").addClass("fixed")
+		}
 	});

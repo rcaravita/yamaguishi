@@ -29,3 +29,11 @@
 %p Você receberá uma confirmação por e-mail.
 
 %p= link_to "Retornar à Loja", root_path
+
+
+:javascript
+	$(document).ready( function() {
+		if ($(window).scrollTop() > 345) {
+			$("#step_by_step").addClass("fixed")
+		}
+	});
