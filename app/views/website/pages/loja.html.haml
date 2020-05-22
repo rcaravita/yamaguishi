@@ -57,6 +57,8 @@
 		-#	= link_to "Consulte-nos", "/atendimento"
 		-#	para entregas em outras regiões.
 
+		.space
+
 		%h4.toggle
 			= link_to "Tabela de Rotas para Entrega em Domicílio", "javascript:void(0);"
 
@@ -69,7 +71,7 @@
 						%th{width: 90} Dia
 						%th{width: 90} Taxa de Entrega
 						-#%th Rota
-						
+
 				%tbody
 					- for route in @routes do
 						%tr
@@ -85,7 +87,7 @@
 						%th
 						%th
 						-#%th
-					
+
 		.space
 		.space
 		.space
@@ -117,14 +119,14 @@
 								= "#{shop.number}#{' - ' unless shop.complement.blank?}#{shop.complement}"
 								%br
 								= shop.quarter
-							
+
 							%td= shop.description
 							%td
 								= link_to "mapa", "javascript:findMarker('#{shop.id}')"
 								%br
 								= link_to "rota", "http://maps.google.com/maps?saddr=&daddr=#{shop.latitude},#{shop.longitude}", target: :blank
-								
-				
+
+
 				%tfoot
 					%tr
 						%th
@@ -151,7 +153,7 @@
 						%th{width: 120} Local
 						%th{width: 90} Cidade
 						%th{width: 240} Endereço
-						
+
 						%th Telefone
 						%th{width: 50}
 				%tbody
@@ -178,4 +180,4 @@
 						%th
 						%th
 						%th
-				
+
