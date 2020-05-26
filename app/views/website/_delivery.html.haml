@@ -1,39 +1,39 @@
 #step_by_step
-	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px; color: white; font-weight:bold;'} 1. Produtos
+	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px; color: white; font-weight:bold;'}
+		= link_to '1. Produtos', 'pedido', style: 'color: white; text-decoration: none;'
 	.arrow-right.left
 	.arrow-left.left
-	%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
+	%h5{:class => 'left', :style => 'background-color:#7f974a; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
 	.arrow-right.left.enabled
 	.arrow-left.left
 	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 3. Confirmação
-
 .space
-= form_for @order, :remote => true, url: order_confirmed_url, html: {name: 'order_form'} do |f|
+= form_for @order, :remote => true, url: order_update_delivery_url, html: {name: 'order_form'} do |f|
 
-	%h3.left Produtos
-	%table
-		%thead
-			%tr
-				%th{:width => 30}
-				%th{:width => 30} qtde
-				%th produto
-				%th{:width => 90} valor
-		%tbody
-			= f.fields_for :order_items do |item|
-				%tr
-					%td= image_tag item.object.item.image(:mini), class: "image"
-					%td= item.object.quantity
-					%td= item.object.name
-					%td= number_to_currency(item.object.total_value)
-			%tr
-				%td.total{colspan: 3} Total dos Produtos
-				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
-				%td.total
-
-
-
-	.space
-	%h2{:style => 'margin-bottom: 20px;'}
+	-#%h3.left Produtos
+	-#%table
+	-#	%thead
+	-#		%tr
+	-#			%th{:width => 30}
+	-#			%th{:width => 30} qtde
+	-#			%th produto
+	-#			%th{:width => 90} valor
+	-#	%tbody
+	-#		= f.fields_for :order_items do |item|
+	-#			%tr
+	-#				%td= image_tag item.object.item.image(:mini), class: "image"
+	-#				%td= item.object.quantity
+	-#				%td= item.object.name
+	-#				%td= number_to_currency(item.object.total_value)
+	-#		%tr
+	-#			%td.total{colspan: 3} Total dos Produtos
+	-#			%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
+	-#			%td.total
+	-#
+	-#
+	-#
+	-#.space
+	%h2{:id => 'delivery_details', :style => 'margin-bottom: 20px;'}
 		Detalhes da Entrega - Pedido
 		= "#{@order.id.to_s.rjust(6, '0')}"
 
@@ -150,7 +150,7 @@
 		= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 		- if (@order.items_value >= 80 || !@order.delivery) && current_client
 			ou
-			= link_to "Fechar Pedido", "pedido/fechar", :id => 'confirm_order', :remote=>true, :confirm => 'Você tem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+			= link_to "Confirmar e Fechar", "pedido/fechar", :id => 'confirm_order', :remote=>true, :confirm => 'Você tem certeza que deseja fechar o pedido com as opções selecionadas?', class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 	.space
 
 .box
@@ -187,4 +187,6 @@
 		if ($(window).scrollTop() > 345) {
 			$("#step_by_step").addClass("fixed")
 		}
+
+
 	});

@@ -196,8 +196,8 @@ module Store
 		end
 	end
 
-	def order_confirmed
-		redirect_to root_path and return if @order.order_items.empty?
+	def update_order
+		updated = false
 
 		if @order.update_attributes(params[:admin_order])
 			if (params[:admin_order] && params[:admin_order]['pickup'] != "1")
@@ -205,6 +205,28 @@ module Store
 			elsif (params[:admin_order] && params[:admin_order]['delivery'] == "true")
 				define_order_details
 			end
+			updated = true
+		end
+
+		updated
+	end
+
+	def order_confirmed
+		redirect_to root_path and return if @order.order_items.empty?
+
+		if update_order
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		end
+
+	end
+
+	def order_update_delivery
+		redirect_to root_path and return if @order.order_items.empty?
+
+		if update_order
 			respond_to do |format|
 				format.js
 				format.html { redirect_to order_path, notice: 'Update successfully' }

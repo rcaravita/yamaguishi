@@ -1,5 +1,5 @@
 #step_by_step
-	%h5{:class => 'left', :style => 'background-color:#b0d06b; padding:10px; color: white; font-weight:bold;'} 1. Produtos
+	%h5{:class => 'left', :style => 'background-color:#7f974a; padding:10px; color: white; font-weight:bold;'} 1. Produtos
 	.arrow-right.left.enabled
 	.arrow-left.left
 	%h5{:class => 'left', :style => 'background-color:#cccccc; padding:10px 10px 10px 27px; color: white; font-weight:bold;'} 2. Entrega
@@ -40,7 +40,7 @@
 		= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 		- if current_client
 			ou
-			= link_to "Confirmar Pedido", "pedido/confirmar", id:"confirm_order", :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
+			= link_to "Avançar", "pedido/confirmar", id:"confirm_order", :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 	.space
 
 .box
