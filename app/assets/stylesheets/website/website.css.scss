@@ -103,18 +103,19 @@ body {
 					a {
 						display: block;
 						text-decoration: none;
-						width: 135px;
+						width: 115px;
 						text-align: center;
 						padding: 8px 0px;
 						border-right: 1px solid white;
 						color: white;
+						font-size: 12px;
 						&:hover {
 							//color: $vermelho;
 							background-color: #1c7935;
 						}
 						&.last {
 							border-right: none;
-							width: 134px;
+							width: 137px;
 						}
 						&.active {
 							background-color: #1c7935;
