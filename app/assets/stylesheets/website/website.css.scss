@@ -60,6 +60,14 @@ a.disabled {
 	position: relative;
 }
 
+select:disabled{
+   opacity: 0.5;
+   background: #dddddd;
+}
+span.current {
+	font-weight: bold;
+}
+
 body {
 	#container {
 		width: 950px;

@@ -38,10 +38,12 @@
 		= "#{@order.id.to_s.rjust(6, '0')}"
 
 	= f.radio_button :delivery, true, disabled: current_client.route_id == 19 || (@data.only_pickup && @order.new_client)
-	Entrega em Domicílio
+	%span{:class => ('current' if @order.delivery)} Entrega em Domicílio
+
+	.space
 
 	= f.radio_button :delivery, false
-	Retirada
+	%span{:class => ('current' if !@order.delivery)} Retirada
 
 	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3], ['Feira Holambra', 4]], {}, disabled: @order.delivery
 
