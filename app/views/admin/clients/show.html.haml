@@ -3,7 +3,7 @@
 
 %h1= @admin_client.name
 .left
-	
+
 	%p
 		= @admin_client.yamasis_id.blank? ? "Cód: Indefinido" : "Cód: #{@admin_client.yamasis_id.to_s.rjust(6, "0")}"
 
@@ -13,10 +13,10 @@
 		= mail_to @admin_client.email
 		%br
 		= @admin_client.phone
-	
-.left{style: "margin-left: 20px;"}
+
+.left{style: "margin-left: 40px;"}
 	%p
-		= @admin_client.route ? @admin_client.route.name : "Rota Indefinida" 
+		= @admin_client.route ? @admin_client.route.name : "Rota Indefinida"
 
 	%p
 		= @admin_client.main_address.full_address
@@ -24,6 +24,14 @@
 		= "#{@admin_client.main_address.quarter} - #{@admin_client.main_address.city}/#{@admin_client.main_address.state}"
 		%br
 		= "#{@admin_client.main_address.postcode}"
+.left{style: "margin-left: 40px;"}
+	%p
+		= @admin_client.new ? "Novo cliente" : "Cliente antigo"
+	%p
+		= @admin_client.accept_delivery ? "Pode receber em casa" : "Não está habilitado a receber pedido em casa"
+	%p
+		= @admin_client.accept_pickup ? "Pode retirar" : "Não está habilitado a retirar o pedido"
+
 
 .clear
 
@@ -49,7 +57,7 @@
 				%td= link_to admin_order.id.to_s.rjust(6, "0"), admin_order
 				%td= number_to_currency(admin_order.total_value)
 				%td= admin_order.delivery_date.present? ? l(admin_order.delivery_date, format: :delivery) : "A Confirmar"
-				
+
 				%td= admin_order.status_to_s
 				-#%td= link_to 'Show', admin_order
 				-#%td= link_to 'Edit', edit_admin_order_path(admin_order)

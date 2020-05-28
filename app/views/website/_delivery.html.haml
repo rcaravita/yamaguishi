@@ -37,18 +37,21 @@
 		Detalhes da Entrega - Pedido
 		= "#{@order.id.to_s.rjust(6, '0')}"
 
-	= f.radio_button :delivery, true, disabled: current_client.route_id == 19 || (@data.only_pickup && @order.new_client)
-	%span{:class => ('current' if @order.delivery)} Entrega em Domicílio
+	= f.radio_button :delivery, true, disabled: (current_client.route_id == 19) || (!current_client.accept_delivery) || (@data.only_pickup && current_client.new)
+	%span{class: "#{'current' if @order.delivery} #{'disabled' if !current_client.accept_delivery}"} Entrega em Domicílio
 
 	.space
 
-	= f.radio_button :delivery, false
+	= f.radio_button :delivery, false,  disabled: !current_client.accept_pickup
 	%span{:class => ('current' if !@order.delivery)} Retirada
 
-	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3], ['Feira Holambra', 4]], {}, disabled: @order.delivery
+	= f.select :pickup, [['Sítio Yamaguishi', 1], ['Feira do Bosque', 2], ['Feira do Parque Ecológico', 3], ['Feira Holambra', 4]], {}, disabled: @order.delivery || !current_client.accept_pickup
 
-	- if @data.only_pickup && @order.new_client
+	- if @data.only_pickup && current_client.new
 		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, estamos disponibilizando apenas a opção para retirada no sítio
+
+	- if !current_client.accept_delivery
+		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Se deseja receber em domicílio, entre em contato via Whatsapp (19 99625-5579) para alterar a rota
 
 	%table{:style => 'margin-top: 20px;'}
 		%thead
