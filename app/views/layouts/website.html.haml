@@ -57,7 +57,8 @@
 				.menu
 					.center
 						%li= link_to "Início", "/", class: current_class?('/')
-						%li= link_to "Loja", "/loja", class: current_class?('/loja')
+						%li= link_to "Loja", "/c/verduras-e-folhas", class: ('active' if action_name == 'category' || action_name == 'product')
+						%li= link_to "Como comprar", "/como-comprar", class: current_class?('/como-comprar')
 						%li= link_to "Notícias", "/noticias", class: current_class?('/noticias')
 						%li= link_to "A Comunidade", "/a-comunidade", class: current_class?('/a-comunidade')
 						%li= link_to "Cursos", "/cursos", class: current_class?('/cursos')
@@ -95,7 +96,7 @@
 
 				#sidebar
 					- if @items
-						= link_to "Algumas novidades do sítio", "/loja", class: "title"
+						= link_to "Algumas novidades do sítio", "/c/verduras-e-folhas", class: "title"
 						.search
 							= form_tag "/loja", :method => :get do
 								= text_field_tag "s", params[:s]
@@ -103,7 +104,7 @@
 						.items
 							= render :partial => 'items', :locals => { :items => @items }
 						.space
-						= link_to "Veja mais produtos", "/loja", style: "font-weight: bold"
+						= link_to "Veja mais produtos", "/c/verduras-e-folhas", style: "font-weight: bold"
 
 		#footer
 			.footer-content
@@ -111,7 +112,8 @@
 					<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2FVilaYamaguishiOrganico&amp;width=200&amp;height=300&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;show_border=false&amp;header=false&amp;appId=130658133800179" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:300px;" allowTransparency="true"></iframe>
 				.col.left
 					%li= link_to "Página Inicial", "/"
-					%li= link_to "Loja", "/loja"
+					%li= link_to "Loja", "/c/verduras-e-folhas"
+					%li= link_to "Como comprar", "/como-comprar"
 					%li= link_to "A Comunidade", "/a-comunidade"
 					%li= link_to "Associação", "/associacao"
 					%li= link_to "Cursos", "/cursos"

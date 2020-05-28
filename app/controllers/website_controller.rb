@@ -30,7 +30,7 @@ class WebsiteController < ApplicationController
 
 	def page
 		case params[:page]
-		when "loja"
+		when "como-comprar"
 			add_body_css_class('loja');
 			if params[:s]
 				redirect_to :back and return if params[:s].blank?

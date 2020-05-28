@@ -9,7 +9,8 @@ class Admin::Client < ActiveRecord::Base
 
 	attr_accessible :name,
 		:kind, :phone, :mobile, :email, :rg, :cpf, :cnpj, :aniversary, :gender, :optin, :route_id,
-		:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new
+		:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new,
+		:accept_delivery, :accept_pickup
 
 
 	has_many :addresses, :as => :addressable, :dependent => :destroy

@@ -124,8 +124,6 @@ module Store
 
 	def define_order_details
 
-		@order.new_client = 1
-
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
 			@order.delivery_date = get_delivery_date(false, @order.pickup)
@@ -135,12 +133,17 @@ module Store
 		end
 
 		if current_client
+			if !current_client.accept_delivery
+				@order.delivery = false
+				@order.delivery_value = 0
+				@order.delivery_date = get_delivery_date(false, @order.pickup)
+			elsif !current_client.accept_pickup
+				@order.delivery = true
+				@order.delivery_value = 0
+			end
+
 			@order.client_id = current_client.id
 			@order.status = 1 unless @order.order_items.empty?
-
-			if !current_client.new
-				@order.new_client = 0
-			end
 
 			if current_client.route && @order.delivery == true #delivery com rota definida
 				@order.delivery_date = get_delivery_date(true, 0)
@@ -154,7 +157,7 @@ module Store
 			end
 		end
 
-		if @order.new_client && @data.only_pickup
+		if current_client.new && @data.only_pickup
 			@order.delivery = false
 		end
 
