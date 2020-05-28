@@ -157,10 +157,6 @@ module Store
 			end
 		end
 
-		if current_client.new && @data.only_pickup
-			@order.delivery = false
-		end
-
 		@order.save!
 
 	end
