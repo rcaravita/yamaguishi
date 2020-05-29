@@ -59,9 +59,7 @@ module Store
 				else
 					date = today + 2.days # 48h de antecedencia
 					if pickup ==  2
-						if date.wday == 0
-							date = Date.commercial(date.year, date.next_week.cweek, 3)
-						elsif date.wday > 3 # proxima semana
+						if date.wday > 3 || date.wday == 0 # proxima semana
 							date = Date.commercial(date.year, date.next_week.cweek, 3)
 						else
 							date = Date.commercial(date.year, date.cweek, 3)
@@ -70,7 +68,7 @@ module Store
 						date = Date.commercial(date.year, date.next_week.cweek, 1)
 						date = date - 1.days
 					elsif pickup ==  4
-						if date.wday > 6 # proxima semana
+						if date.wday > 6 || date.wday == 0  # proxima semana
 							date = Date.commercial(date.year, date.next_week.cweek, 6)
 						else
 							date = Date.commercial(date.year, date.cweek, 6)
