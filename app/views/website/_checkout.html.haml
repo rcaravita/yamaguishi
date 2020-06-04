@@ -16,9 +16,22 @@
 		Seu pedido número
 		= @order.id.to_s.rjust(6, "0")
 		foi confirmado
-		%b
-			e está programado para ser entregue
-			= l @order.delivery_date, format: :delivery
+		- if @order.delivery
+			%b
+				e está programado para ser entregue
+				= l @order.delivery_date, format: :delivery
+		- else
+			%b
+				e está programado para ser retirado
+				= l @order.delivery_date, format: :delivery
+			- if @order.pickup == 1
+				na Vila Yamaguishi
+			- elsif @order.pickup == 2
+				na Feira do Bosque dos Jequitibás, entre 7h e 10h
+			- elsif @order.pickup == 3
+				na Feira do Parque Ecológico, entre 7h e 11h
+			- elsif @order.pickup == 4
+				na Feira de Holambra, entre 8h e 10h
 - else
 	%p
 		Seu pedido número
