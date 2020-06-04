@@ -14,11 +14,17 @@ class Admin::Order < ActiveRecord::Base
 	after_save :update_total
 
 	validates_presence_of :client_id
-	validate :yamaguishi_date
+	validate :yamaguishi_date, :pickup_option
 
 	def yamaguishi_date
 		if status == 2 && delivery == false && pickup == 1 && delivery_date < get_delivery_date(false, 1)
 			errors.add(:delivery_date, "Data de entrega/retirada invalida")
+		end
+	end
+
+	def pickup_option
+		if status == 2 && delivery == false && (pickup != 1 && pickup != 2 && pickup != 3 && pickup != 4)
+			errors.add(:pickup, "Escolha uma opcao valida para retirada")
 		end
 	end
 

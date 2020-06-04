@@ -41,7 +41,7 @@ module Store
 			date = nil
 		else
 			if delivery == false #RETIRA
-				if pickup == 1
+				if pickup == 1  #VILA YAMAGUISHI
 					#logger.info "# RETIRA"
 
 					date = today + 2.days # 48h de antecedencia
@@ -58,16 +58,16 @@ module Store
 					end
 				else
 					date = today + 2.days # 48h de antecedencia
-					if pickup ==  2
+					if pickup ==  2 #BOSQUE
 						if date.wday > 3 || date.wday == 0 # proxima semana
 							date = Date.commercial(date.year, date.next_week.cweek, 3)
 						else
 							date = Date.commercial(date.year, date.cweek, 3)
 						end
-					elsif pickup ==  3
+					elsif pickup ==  3 #PARQUE ECOLÓGICO
 						date = Date.commercial(date.year, date.next_week.cweek, 1)
 						date = date - 1.days
-					elsif pickup ==  4
+					elsif pickup ==  4 #HOLAMBRA
 						if date.wday > 6 || date.wday == 0  # proxima semana
 							date = Date.commercial(date.year, date.next_week.cweek, 6)
 						else
@@ -235,6 +235,7 @@ module Store
 	def order_checkout
 		redirect_to root_path and return if @order.order_items.empty?
 		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
+
 		@order.confirmed_at = Time.now
 		@order.status = 2
 		if @order.save
