@@ -12,8 +12,16 @@ class SystemMailer < ActionMailer::Base
 		@order = order
 		@client = client
 		mail(:to => "#{@client.name} <#{@client.email}>",
-			:bcc => "siteyamaguishi@gmail.com, produtos@yamaguishi.com.br",
+			:bcc => "produtos@yamaguishi.com.br",
 			:subject => "Confirmação de Pedido ##{@order.id.to_s.rjust(6, '0')}",
+			:reply_to => "#{@client.name} <#{@client.email}>")
+	end
+
+	def order_cancel(order, client)
+		@order = order
+		@client = client
+		mail(:to => "produtos@yamaguishi.com.br",
+			:subject => "Cancelamento do Pedido ##{@order.id.to_s.rjust(6, '0')}",
 			:reply_to => "#{@client.name} <#{@client.email}>")
 	end
 
@@ -28,7 +36,6 @@ class SystemMailer < ActionMailer::Base
 
 		@new = new
 		mail(:to => "produtos@yamaguishi.com.br",
-			:bcc => "siteyamaguishi@gmail.com",
 			:subject => "Alteração de Cliente ##{@new.yamasis_id.to_s.rjust(6, '0')} [#{@new.name}]",
 			:reply_to => "#{@new.name} <#{@new.email}>")
 	end
@@ -37,7 +44,6 @@ class SystemMailer < ActionMailer::Base
 		@contact = contact
 		mail	:subject => "[Mensagem do Site] #{contact.subject}",
 					:to => "produtos@yamaguishi.com.br",
-					:bcc => "siteyamaguishi@gmail.com",
 					:reply_to => "#{@contact.name} <#{@contact.email}>"
 	end
 
