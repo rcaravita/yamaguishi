@@ -37,7 +37,14 @@
 								Retirada no Parque Ecológico
 							- elsif client_order.pickup == 4
 								Retirada na Feira de Holambra
-					%td= client_order.status_to_s
+					%td
+						- if client_order.status == 3 && client_order.delivery_date.present?
+							- if Time.now >= client_order.delivery_date
+								Entregue
+							- else
+								=client_order.status_to_s
+						- else
+							=client_order.status_to_s
 					%td
 						- if client_order.status == 2
 							=link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, order_cancel_path(client_order.id), class: "delete_item", confirm: "Deseja realmente cancelar este pedido?"
