@@ -55,9 +55,13 @@ Yamaguishi::Application.routes.draw do
 	match "/pedido" => "Website#order", as: :order #Store module
 	match "/pedido/atualizar" => "Website#order_update", as: :order_update #Store module
 	match "/pedido/confirmar" => "Website#order_confirmed", as: :order_confirmed #Store module
+	match "/pedido/mesclar" => "Website#order_merge", as: :order_merge #Store module
+	match "/pedido/manter" => "Website#order_keep", as: :order_keep #Store module
+	match "/pedido/manter_outro" => "Website#order_keep_other", as: :order_keep_other #Store module
 	match "/pedido/entrega" => "Website#order_update_delivery", as: :order_update_delivery #Store module
 	match "/pedido/fechar" => "Website#order_checkout", as: :order_checkout #Store module
 	match "/pedido/excluir" => "Website#order_destroy", as: :order_destroy #Store module
+	match "/pedido/cancelar/:id" => "Website#order_cancel", as: :order_cancel #Store module
 	match "/pedido/adicionar/:id" => "Website#add_to_cart", as: :add_to_cart #Store module
 	match "/produto/excluir/:id" => "Website#remove_item", as: :remove_item #Store module
 

@@ -13,7 +13,7 @@
 		= f.collection_select :client_id, Admin::Client.order('name'), :id, :name, prompt: "Selecione o cliente"
 
 	.right
-		= f.select :status, [["Aberto", "0"], ["Assinado", "1"], ["Confirmado", "2"], ["Atendido", "3"], ["Cancelado", "4"]], prompt: true
+		= f.select :status, [["Aberto", "0"], ["Assinado", "1"], ["Confirmado", "2"], ["Agendado", "3"], ["Cancelado", "4"]], prompt: true
 
 	.space
 	.divider

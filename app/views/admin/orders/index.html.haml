@@ -10,7 +10,7 @@
 	= check_box_tag :confirmado, "2", true, {class: 'filter', data: {status: 2}}
 	Confirmado
 	= check_box_tag :atendido, "3", false, {class: 'filter', data: {status: 3}}
-	Atendido
+	Agendado
 	= check_box_tag :cancelado, "4", false, {class: 'filter', data: {status: 4}}
 	Cancelado
 
@@ -25,7 +25,7 @@
 			%th rota
 			%th{nowrap: true} valor
 			%th entrega
-			%th atendido
+			%th agendado
 			%th envio
 			-#%th atualizado
 			-#%th

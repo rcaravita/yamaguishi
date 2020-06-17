@@ -8,7 +8,7 @@
 
 	- if [2,3].include?(@admin_order.status)
 		= check_box_tag(:atendido, true, @admin_order.status == 3, class: "toggleStatus", name: @admin_order.id)
-		Pedido Atendido
+		Pedido Agendado
 
 	%table
 		%thead

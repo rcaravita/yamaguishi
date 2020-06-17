@@ -1,0 +1,93 @@
+!!!
+%html
+	%head
+		%meta{:content => "text/html", :charset => "UTF-8", "http-equiv" => "Content-Type"}
+
+	%body
+		%p Informamos que o seguinte pedido foi cancelado/excluído pelo cliente.
+
+		%hr
+
+		%p
+			Número do pedido:
+			%b= @order.id.to_s.rjust(6, "0")
+
+		%p
+			Data da entrega:
+			%b
+				- if @order.delivery_date
+					= l(@order.delivery_date, format: :delivery)
+					- if @order.delivery == true
+						= " (#{@order.client.route.name})"
+				- else
+					A Confirmar
+
+		%p
+			%u
+				Detalhes da entrega:
+
+		%p
+			%b
+				= @order.delivery ? "Entrega em Domicílio" : "Retirada"
+			%br
+			- if !@order.delivery
+				- if @order.pickup == 1
+					%i
+						* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
+				- if @order.pickup == 2
+					%i
+						na Feira do Bosque dos Jequitibás, entre 7h e 10h
+				- if @order.pickup == 3
+					%i
+						na Feira do Parque Ecológico, entre 7h e 11h
+				- if @order.pickup == 4
+					%i
+						na Feira de Holambra, entre 8h e 10h
+
+		%p
+			- if @order.delivery
+				= @order.client.main_address.full_address
+				%br
+				= "#{@order.client.addresses.first.quarter} - #{@order.client.addresses.first.city}/#{@order.client.addresses.first.state}"
+				%br
+				= "#{@order.client.addresses.first.postcode}"
+			- else
+				- if @order.pickup == 1
+					%b Vila Yamaguishi
+					%br
+					Rod. SP-340 Km 138
+					%br
+					Jaguariúna - SP - CEP 13820-000
+					%br das 7h às 15h
+				- elsif @order.pickup == 2
+					%b Pq. Bosque dos Jequitibás
+					%br
+					Estac. Bosque
+					%br
+					Av. Aquidabã, 974
+				- elsif @order.pickup == 3
+					%b Pq. Ecológico Monsenhor Emílio J.Salim
+					%br
+					Rod. Heitor Penteado, 1000, Vila Brandina
+				- elsif @order.pickup == 4
+					%b Feira Holambra
+					%br
+					Praça Vitória Régia
+					%br
+					em frente a R. Primavera, 936
+		%p
+			= "Telefone: #{@order.client.phone}" if @order.client.phone
+
+
+		%p Atenciosamente,
+
+		%p
+			%b Yamaguishi Orgânicos
+		%p
+			telefone: (19) 3867-1173
+			%br
+			e-mail: produtos@yamaguishi.com.br
+			%br
+			website: www.yamaguishi.com.br
+			%br
+			facebook: www.facebook.com/VilaYamaguishiOrganico

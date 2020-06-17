@@ -57,7 +57,7 @@ class Admin::Order < ActiveRecord::Base
 			when 2
 				"Confirmado"
 			when 3
-				"Atendido"
+				"Agendado"
 			when 4
 				"Cancelado"
 		end

@@ -71,6 +71,38 @@ span.current {
 	font-weight: bold;
 }
 
+#loading-overlayer {
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0.7;
+	background-color: white;
+	position: fixed;
+	z-index: 10000;
+	min-height: 60px;
+	display: none;
+
+	&.show {
+		display: block;
+	}
+}
+
+#loading-indicator {
+	background: transparent url(image-path('shared/loading.gif')) center no-repeat;
+	height: 13px;
+	width: 100%;
+	position: fixed;
+	top: 20px;
+	margin: auto;
+	z-index: 100001;
+	display: none;
+
+	&.show {
+		display: block;
+	}
+}
+
 body {
 	#container {
 		width: 950px;
