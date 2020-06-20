@@ -69,6 +69,7 @@ Yamaguishi::Application.routes.draw do
 	match "/onde-comprar" => "Website#where_to_buy", as: :where_to_buy
 
 	match "/pedidos" => "Website#client_orders", as: :client_orders
+	match "/area" => "Website#client_area", as: :client_area
 
 	match "/cliente" => "Website#client", as: :client
 

@@ -90,6 +90,11 @@ class WebsiteController < ApplicationController
 		@client_orders = @client.orders.order('created_at DESC').where(status: [2,3,4])
 	end
 
+	def client_area
+		@client = current_client
+		@client_orders = @client.orders.order('created_at DESC').where(status: [2,3,4]).limit(3)
+	end
+
 	def contact_form_new
 		@contact = ContactForm.new
 		render "/website/pages/atendimento"

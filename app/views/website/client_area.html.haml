@@ -3,7 +3,28 @@
 
 #order
 	.left
-		%h2 Meus pedidos
+		%h2 Área do Cliente
+
+	.space
+
+	.current_client{:style => 'float:left; margin-right: 20px; margin-bottom: 20px; background-color: RGBA(0, 0, 124, 0.10); padding: 10px; border-radius:5px; width: 300px;'}
+		%p
+			= current_client.name.split.first(2).join(" ")
+			%br
+			= current_client.phone
+		%p
+			= link_to "editar meus dados", client_path
+
+	- if current_client && !@order.order_items.empty?
+		.current_order{:style => 'float:left; background-color: RGBA(176, 208, 107, 0.9); padding: 10px; border-radius:5px; width: 300px;'}
+			%h5
+				Pedido em edição:
+				= "#{@order.id.to_s.rjust(6, '0')}"
+			= link_to "editar", order_path
+
+	.space
+
+	%h4{:style => 'margin: 30px 0 20px 0;'} Últimos pedidos
 
 	%table
 		%thead
@@ -45,3 +66,9 @@
 					%td
 						- if client_order.status == 2
 							=link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, order_cancel_path(client_order.id), class: "delete_item", confirm: "Deseja realmente cancelar este pedido?"
+
+
+	.space
+	%br
+
+	= link_to "ver todos os pedidos", client_orders_path

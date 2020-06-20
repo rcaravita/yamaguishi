@@ -2,9 +2,9 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery
 
 	layout :layout_by_resource
-	
+
 	#FOR DEVISE
-	
+
 	after_filter :store_location
 
 	def store_location
@@ -16,10 +16,10 @@ class ApplicationController < ActionController::Base
 		if devise_controller? && resource_name == :administrator
 			administrator_root_path
 		else
-			session[:previous_url] || root_path
+			session[:previous_url] || client_area_path
 		end
 	end
-	
+
 	def after_sign_out_path_for(resource)
 		if devise_controller? && resource_name == :administrator
 			administrator_root_path
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 			root_path
 		end
 	end
-	
+
 	def after_sign_up_path_for(resource)
 		if devise_controller? && resource_name == :administrator
 			administrator_root_path
@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 			session[:previous_url] || root_path
 		end
 	end
-	
+
 	def after_update_path_for(resource)
 		if devise_controller? && resource_name == :administrator
 			administrator_root_path
@@ -59,5 +59,5 @@ class ApplicationController < ActionController::Base
 		@body_css_classes ||= []
 		@body_css_classes << css_class
 	end
-	
+
 end
