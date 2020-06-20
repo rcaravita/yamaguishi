@@ -31,19 +31,16 @@
 			%tr
 				%th código
 				%th valor
-				%th data
 				%th entrega
 				%th local
 				%th status
-				%th
 		%tbody
 			- @client_orders.each do |client_order|
 				%tr
-					%td= client_order.id.to_s.rjust(6, "0")
-					%td= number_to_currency(client_order.total_value)
-					%td= client_order.confirmed_at.present? ? l(client_order.confirmed_at, format: :delivery) : "A Confirmar"
-					%td= client_order.delivery_date.present? ? l(client_order.delivery_date, format: :delivery) : "A Confirmar"
-					%td
+					%td{:style => 'font-size:10px;'}= client_order.id.to_s.rjust(6, "0")
+					%td{:style => 'font-size:10px;'}= number_to_currency(client_order.total_value)
+					%td{:style => 'font-size:10px;'}= client_order.delivery_date.present? ? l(client_order.delivery_date, format: :delivery) : "A Confirmar"
+					%td{:style => 'font-size:10px;'}
 						- if client_order.delivery
 							Casa do cliente
 						- else
@@ -55,7 +52,7 @@
 								Retirada no Parque Ecológico
 							- elsif client_order.pickup == 4
 								Retirada na Feira de Holambra
-					%td
+					%td{:style => 'font-size:10px;'}
 						- if client_order.status == 3 && client_order.delivery_date.present?
 							- if Time.now > client_order.delivery_date
 								Entregue
@@ -63,12 +60,7 @@
 								=client_order.status_to_s
 						- else
 							=client_order.status_to_s
-					%td
-						- if client_order.status == 2
-							=link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, order_cancel_path(client_order.id), class: "delete_item", confirm: "Deseja realmente cancelar este pedido?"
-
 
 	.space
-	%br
 
 	= link_to "ver todos os pedidos", client_orders_path

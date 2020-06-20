@@ -33,7 +33,7 @@ $(document).ready ->
 		$(this).next('.toggled').toggle()
 
 	$(window).scroll ->
-		if ($(window).scrollTop() > 345)
+		if ($(window).scrollTop() > 300)
 			$("#step_by_step").addClass("fixed")
 		else
 			$("#step_by_step").removeClass("fixed")
