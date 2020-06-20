@@ -39,7 +39,7 @@
 								Retirada na Feira de Holambra
 					%td
 						- if client_order.status == 3 && client_order.delivery_date.present?
-							- if Time.now >= client_order.delivery_date
+							- if Time.now > client_order.delivery_date
 								Entregue
 							- else
 								=client_order.status_to_s
