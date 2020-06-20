@@ -70,8 +70,7 @@
 				.client
 					%p
 						- if client_signed_in?
-							= current_client.name.split.first(2).join(" ")
-							= link_to "[minha conta]", client_area_path
+							= link_to current_client.name.split.first(2).join(" "), client_area_path, style: "margin-right: 10px;"
 							= link_to "[pedidos]", client_orders_path
 							= link_to "[logout]", destroy_client_session_path, method: :delete, class: "last"
 						- else
