@@ -1,0 +1,66 @@
+= content_for :banner do
+	= render partial: "nivo-slider"
+
+#order
+	.left
+		%h2 Área do Cliente
+
+	.space
+
+	.current_client{:style => 'float:left; margin-right: 20px; margin-bottom: 20px; background-color: RGBA(0, 0, 124, 0.10); padding: 10px; border-radius:5px; width: 300px;'}
+		%p
+			= current_client.name.split.first(2).join(" ")
+			%br
+			= current_client.phone
+		%p
+			= link_to "editar meus dados", client_path
+
+	- if current_client && !@order.order_items.empty?
+		.current_order{:style => 'float:left; background-color: RGBA(176, 208, 107, 0.9); padding: 10px; border-radius:5px; width: 300px;'}
+			%h5
+				Pedido em edição:
+				= "#{@order.id.to_s.rjust(6, '0')}"
+			= link_to "editar", order_path
+
+	.space
+
+	%h4{:style => 'margin: 30px 0 20px 0;'} Últimos pedidos
+
+	%table
+		%thead
+			%tr
+				%th código
+				%th valor
+				%th entrega
+				%th local
+				%th status
+		%tbody
+			- @client_orders.each do |client_order|
+				%tr
+					%td{:style => 'font-size:10px;'}= client_order.id.to_s.rjust(6, "0")
+					%td{:style => 'font-size:10px;'}= number_to_currency(client_order.total_value)
+					%td{:style => 'font-size:10px;'}= client_order.delivery_date.present? ? l(client_order.delivery_date, format: :delivery) : "A Confirmar"
+					%td{:style => 'font-size:10px;'}
+						- if client_order.delivery
+							Casa do cliente
+						- else
+							- if client_order.pickup == 1
+								Retirada no Sítio Yamaguishi
+							- elsif client_order.pickup == 2
+								Retirada na Feira do Bosque
+							- elsif client_order.pickup == 3
+								Retirada no Parque Ecológico
+							- elsif client_order.pickup == 4
+								Retirada na Feira de Holambra
+					%td{:style => 'font-size:10px;'}
+						- if client_order.status == 3 && client_order.delivery_date.present?
+							- if Time.now > client_order.delivery_date
+								Entregue
+							- else
+								=client_order.status_to_s
+						- else
+							=client_order.status_to_s
+
+	.space
+
+	= link_to "ver todos os pedidos", client_orders_path
