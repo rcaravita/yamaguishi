@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 		if devise_controller? && resource_name == :administrator
 			administrator_root_path
 		else
-			session[:previous_url] || client_area_path
+			client_area_path
 		end
 	end
 
