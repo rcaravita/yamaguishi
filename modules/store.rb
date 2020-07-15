@@ -240,8 +240,13 @@ module Store
 		@order.confirmed_at = Time.now
 		@order.status = 2
 
-		if Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
+		if Admin::Order.where(:status => [2], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@order.errors.add(:id, "Outro pedido encontrado")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		elsif Admin::Order.where(:status => [3], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
+			@order.errors.add(:status, "Outro pedido encontrado")
 			respond_to do |format|
 				format.json { render json: @order.errors, status: :unprocessable_entity }
 			end
@@ -281,11 +286,30 @@ module Store
 	end
 
 	def order_keep
+		redirect_to root_path and return if @order.order_items.empty?
+		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
+
 		if @other_order = Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@other_order.status = 4
 			@other_order.save
 		end
-		redirect_to order_path
+
+		@order.confirmed_at = Time.now
+		@order.status = 2
+
+		if @order.save
+			SystemMailer.order_confirmation(@order, @order.client).deliver
+			session[:order] = nil
+
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		else
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		end
 	end
 
 	def order_keep_other

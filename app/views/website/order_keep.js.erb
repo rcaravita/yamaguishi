@@ -1,0 +1,8 @@
+$("#cart").html("<%= escape_javascript(render partial: 'checkout') %>");
+$(document).ready(function () {
+	$([document.documentElement, document.body]).animate({
+		scrollTop: $("#main").offset().top
+	}, 1000);
+	$("#loading-overlayer").removeClass("show");
+	$("#loading-indicator").removeClass("show");
+});
