@@ -140,6 +140,7 @@ module Store
 				@order.delivery_value = 0
 			end
 
+			Admin::Order.where(:status => 1, :client_id => current_client.id).where("id NOT IN (?)", [@order.id]).destroy_all
 			@order.client_id = current_client.id
 			@order.status = 1 unless @order.order_items.empty?
 
