@@ -86,11 +86,13 @@ class WebsiteController < ApplicationController
 	end
 
 	def client_orders
+		redirect_to root_path and return unless current_client
 		@client = current_client
 		@client_orders = @client.orders.order('created_at DESC').where(status: [2,3,4])
 	end
 
 	def client_area
+		redirect_to root_path and return unless current_client
 		@client = current_client
 		@client_orders = @client.orders.order('created_at DESC').where(status: [2,3,4]).limit(3)
 	end
