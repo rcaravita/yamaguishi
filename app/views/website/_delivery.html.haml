@@ -10,29 +10,28 @@
 .space
 = form_for @order, :remote => true, url: order_update_delivery_url, html: {name: 'order_form'} do |f|
 
-	-#%h3.left Produtos
-	-#%table
-	-#	%thead
-	-#		%tr
-	-#			%th{:width => 30}
-	-#			%th{:width => 30} qtde
-	-#			%th produto
-	-#			%th{:width => 90} valor
-	-#	%tbody
-	-#		= f.fields_for :order_items do |item|
-	-#			%tr
-	-#				%td= image_tag item.object.item.image(:mini), class: "image"
-	-#				%td= item.object.quantity
-	-#				%td= item.object.name
-	-#				%td= number_to_currency(item.object.total_value)
-	-#		%tr
-	-#			%td.total{colspan: 3} Total dos Produtos
-	-#			%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
-	-#			%td.total
-	-#
-	-#
-	-#
-	-#.space
+	%h3.left Produtos
+	%table
+		%thead
+			%tr
+				%th{:width => 30}
+				%th{:width => 30} qtde
+				%th produto
+				%th{:width => 90} valor
+		%tbody
+			= f.fields_for :order_items do |item|
+				%tr{class: "#{'not-available' if !item.object.available}"}
+					%td= image_tag item.object.item.image(:mini), class: "image"
+					%td= item.object.quantity
+					%td= item.object.name
+					%td= number_to_currency(item.object.total_value)
+			%tr
+				%td.total{colspan: 3} Total dos Produtos
+				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
+				%td.total
+
+	.space
+
 	%h2{:id => 'delivery_details', :style => 'margin-bottom: 20px;'}
 		Detalhes da Entrega - Pedido
 		= "#{@order.id.to_s.rjust(6, '0')}"

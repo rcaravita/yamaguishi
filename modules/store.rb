@@ -147,6 +147,23 @@ module Store
 			if current_client.route && @order.delivery == true #delivery com rota definida
 				@order.delivery_date = get_delivery_date(true, 0)
 				@order.delivery_value = current_client.route.value
+
+				@order.order_items.each do |i|
+					available = false
+					if i.item.product.routes.length() == 0
+						available = true
+					end
+					i.item.product.routes.each do |r|
+						if current_client.route.id == r.id
+							available = true
+						end
+					end
+					i.available = available
+				end
+			elsif @order.delivery == false
+				@order.order_items.each do |i|
+					i.available = true
+				end
 			end
 
 			if current_client.route_id == 19 #rota de retirada

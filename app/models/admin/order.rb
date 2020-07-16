@@ -43,7 +43,7 @@ class Admin::Order < ActiveRecord::Base
 	end
 
 	def update_total
-		self.update_column(:items_value, self.order_items.sum(:total_value))
+		self.update_column(:items_value, self.order_items.sum(:total_value, :conditions => {:available => true}))
 		self.update_column(:items_quantity, self.order_items.sum(:quantity))
 		self.update_column(:total_value, self.items_value + self.delivery_value)
 	end

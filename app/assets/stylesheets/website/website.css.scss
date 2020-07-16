@@ -11,6 +11,10 @@
     }
 }
 
+tr.not-available {
+	color: #E5E5E5;
+}
+
 a.disabled {
 	pointer-events: none;
 	cursor: not-allowed;

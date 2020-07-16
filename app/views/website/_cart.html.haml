@@ -21,9 +21,9 @@
 				%th{:width => 80}
 		%tbody
 			= f.fields_for :order_items do |item|
-				%tr
+				%tr{class: "#{'not-available' if !item.object.available}"}
 					%td= image_tag item.object.item.image(:mini), class: "image"
-					%td= item.text_field :quantity, style: "width: 35px;", type: "number", class: "ajax-input"
+					%td= item.text_field :quantity, disabled: !item.object.available, style: "width: 35px;", type: "number", class: "ajax-input"
 					%td= item.object.name
 					%td= number_to_currency(item.object.total_value)
 					%td= link_to ('<span class="glyphicon glyphicon-trash"></span>').html_safe, "produto/excluir/#{item.object.id}", :method => :delete, :remote=>true, :class=>'delete_item'
