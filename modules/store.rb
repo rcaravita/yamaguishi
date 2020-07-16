@@ -237,6 +237,15 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
 
+		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
+		if @delivery_date != (@order.delivery_date).to_date
+			@order.errors.add(:delivery_date, "Foi encontrado um erro com a data de entrega, tente novamente")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+			return
+		end
+
 		@order.confirmed_at = Time.now
 		@order.status = 2
 
