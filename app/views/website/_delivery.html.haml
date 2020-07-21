@@ -23,7 +23,10 @@
 				%tr{class: "#{'not-available' if !item.object.available}"}
 					%td= image_tag item.object.item.image(:mini), class: "image"
 					%td= item.object.quantity
-					%td= item.object.name
+					%td
+						= item.object.name
+						- if !item.object.available
+							%span &ndash; (produto indisponível)
 					%td= number_to_currency(item.object.total_value)
 			%tr
 				%td.total{colspan: 3} Total dos Produtos

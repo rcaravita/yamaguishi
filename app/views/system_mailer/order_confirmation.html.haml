@@ -84,13 +84,24 @@
 
 		%table{:border => "0", :cellspacing => "0"}
 			- @order.order_items.each do |oi|
-				%tr
-					%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
-						%b= number_to_human(oi.quantity)
-					%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
-						= oi.name
-					%td{:width => 100, :style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
-						= number_to_currency(oi.total_value)
+				- if !oi.available
+					%tr{:style => ("color: #C8C8C8;")}
+						%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							%b= number_to_human(oi.quantity)
+						%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							= oi.name
+							%span &ndash; (produto indisponível)
+						%td{:width => 100, :style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							= number_to_currency(oi.total_value)
+				- else
+					%tr
+						%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							%b= number_to_human(oi.quantity)
+						%td{:style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							= oi.name
+						%td{:width => 100, :style => ("vertical-align: top; padding: 5px; border-top: 1px solid black;")}
+							= number_to_currency(oi.total_value)
+
 			%tr
 				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")}
 				%td{:style => ("vertical-align: top; padding: 5px; border-top: 2px solid black;")} Valor dos Produtos

@@ -1,8 +1,8 @@
-%tr
+%tr{style: "#{'color: #C8C8C8;' if !oi.object.available}"}
 	%td= oi.object.item.code.to_s.rjust(6, "0") unless oi.object.new_record?
 	-#%td= image_tag oi.object.item.image(:mini), class: "image" unless oi.object.new_record?
-	%td= oi.text_field :quantity, size: 2
+	%td= oi.text_field :quantity, disabled: !oi.object.available, size: 2, style: "#{'color: #C8C8C8;' if !oi.object.available}"
 	-#%td= oi.object.name unless oi.object.new_record?
-	%td= oi.collection_select :item_id, Admin::Item.available, :id, :complete_name, prompt: "Selecione o produto"
+	%td= oi.collection_select :item_id, Admin::Item.available, :id, :complete_name, {prompt: "Selecione o produto"}, {:disabled => !oi.object.available, style: "#{'color: #C8C8C8;' if !oi.object.available}"}
 	%td= number_to_currency(oi.object.total_value)
 	%td= oi.check_box :_destroy

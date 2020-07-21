@@ -29,9 +29,9 @@ private
 				number_to_currency(admin_order.total_value),
 				admin_order.delivery_date.present? ? l(admin_order.delivery_date, format: :number) : "",
 				#admin_order.status_to_s,
-				[2,3].include?(admin_order.status) ? check_box_tag(:atendido, true, admin_order.status == 3, class: "toggleStatus", name: admin_order.id) : "",
-				admin_order.confirmed_at ? l(admin_order.confirmed_at, format: :short) : "",
-				admin_order.updated_at ? l(admin_order.updated_at, format: :short) : ""
+				#[2,3].include?(admin_order.status) ? check_box_tag(:atendido, true, admin_order.status == 3, class: "toggleStatus", name: admin_order.id) : "",
+				admin_order.confirmed_at ? l(admin_order.confirmed_at, format: :short) : ""
+				#admin_order.updated_at ? l(admin_order.updated_at, format: :short) : ""
 			]
 		end
 	end
