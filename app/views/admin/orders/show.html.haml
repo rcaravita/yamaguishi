@@ -21,11 +21,14 @@
 				-#%th{:width => 100} excluir
 		%tbody
 			- @admin_order.order_items.each do |item|
-				%tr
+				%tr{style: "#{'color: #C8C8C8;' if !item.available}"}
 					%td= item.item.code
 					-#%td= image_tag item.item.image(:mini), class: "image"
 					%td= item.quantity
-					%td= item.name
+					%td
+						= item.name
+						- if !item.available
+							%span &ndash; (produto indisponível)
 					%td= number_to_currency(item.total_value)
 					-#%td= item.check_box :_destroy
 			%tr

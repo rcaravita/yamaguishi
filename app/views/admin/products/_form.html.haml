@@ -13,21 +13,30 @@
 	.field.left
 		%label Nome
 		= f.text_field :name
-	
+
+	.space
+
+	.field.left
+		%label Rotas onde o produto estará visível
+		%label (não selecione nenhuma para deixar disponível em todas as rotas)
+		= f.select :route_ids, Admin::Route.all.collect {|x| [x.name, x.id]}, {}, :multiple => true
+
 	.divider
-	
+
 	= f.fields_for :items do |i|
 		= render :partial => "item_fields", :locals => {:i => i}
+
+
 	= f.link_to_add "Adicionar Item", :items, class: "button right"
-	
+
 	.field
 		%label Categoria
 		= f.collection_select :category_id, Admin::Category.all, :id, :name, :prompt => true
-			
+
 	.field
 		%label Descrição
 		= f.text_area :description, cols: 70, rows: 10
-		
+
 	.field
 		%label Link
 		= f.text_field :link

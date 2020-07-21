@@ -10,29 +10,31 @@
 .space
 = form_for @order, :remote => true, url: order_update_delivery_url, html: {name: 'order_form'} do |f|
 
-	-#%h3.left Produtos
-	-#%table
-	-#	%thead
-	-#		%tr
-	-#			%th{:width => 30}
-	-#			%th{:width => 30} qtde
-	-#			%th produto
-	-#			%th{:width => 90} valor
-	-#	%tbody
-	-#		= f.fields_for :order_items do |item|
-	-#			%tr
-	-#				%td= image_tag item.object.item.image(:mini), class: "image"
-	-#				%td= item.object.quantity
-	-#				%td= item.object.name
-	-#				%td= number_to_currency(item.object.total_value)
-	-#		%tr
-	-#			%td.total{colspan: 3} Total dos Produtos
-	-#			%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
-	-#			%td.total
-	-#
-	-#
-	-#
-	-#.space
+	%h3.left Produtos
+	%table
+		%thead
+			%tr
+				%th{:width => 30}
+				%th{:width => 30} qtde
+				%th produto
+				%th{:width => 90} valor
+		%tbody
+			= f.fields_for :order_items do |item|
+				%tr{class: "#{'not-available' if !item.object.available}"}
+					%td= image_tag item.object.item.image(:mini), class: "image"
+					%td= item.object.quantity
+					%td
+						= item.object.name
+						- if !item.object.available
+							%span &ndash; (produto indisponível)
+					%td= number_to_currency(item.object.total_value)
+			%tr
+				%td.total{colspan: 3} Total dos Produtos
+				%td{:class => 'total', :id => 'items_value'}= number_to_currency(@order.items_value)
+				%td.total
+
+	.space
+
 	%h2{:id => 'delivery_details', :style => 'margin-bottom: 20px;'}
 		Detalhes da Entrega - Pedido
 		= "#{@order.id.to_s.rjust(6, '0')}"
@@ -161,9 +163,15 @@
 			%p{:style => 'font-weight:bold; color:red; font-size:14px;'}
 				Foi encontrado um outro pedido aberto (ainda não entregue) com a mesma data de entrega. Você gostaria de:
 			%div{:style => 'margin: 10px 0'}
-				= link_to "Mesclar os pedidos", "pedido/mesclar", class: "button", confirm: "Deseja realmente mesclar os dois pedidos? Nesse caso, os produtos serão somados e você poderá alterar algo, se desejar.", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
-				= link_to "Cancelar o outro pedido e manter este", "pedido/manter", class: "button", confirm: "Deseja realmente cancelar o outro pedido e manter este?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
-				= link_to "Cancelar este pedido", "pedido/manter_outro", class: "button", confirm: "Deseja realmente cancelar este pedido e manter o outro?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
+				= link_to "Mesclar os pedidos", "pedido/mesclar", class: "button actions-links", confirm: "Deseja realmente mesclar os dois pedidos? Nesse caso, os produtos serão somados e você poderá alterar algo, se desejar.", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
+				= link_to "Cancelar o outro pedido e manter este", "pedido/manter", id: "keep", remote: true, class: "button actions-links", confirm: "Deseja realmente cancelar o outro pedido e manter este?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
+				= link_to "Cancelar este pedido", "pedido/manter_outro", class: "button actions-links", confirm: "Deseja realmente cancelar este pedido e manter o outro?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
+		#other_scheduled_order{:style => 'display:none;'}
+			%p{:style => 'font-weight:bold; color:red; font-size:14px;'}
+				Foi encontrado um outro pedido já agendado com a mesma data de entrega. Você gostaria de:
+			%div{:style => 'margin: 10px 0'}
+				= link_to "Fazer este pedido mesmo assim", "pedido/manter",  id: "keep2", remote: true, class: "button actions-links", confirm: "Deseja realmente confirmar também este pedido?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
+				= link_to "Cancelar este pedido", order_destroy_path, class: "button actions-links", confirm: "Deseja realmente cancelar este pedido?", style: 'background-color: #1c7935; color: white; padding: 5px; display:inline-block; margin-bottom:5px;'
 	.space
 
 .box
@@ -188,11 +196,28 @@
 			$("#loading-overlayer").addClass("show");
 			$("#loading-indicator").addClass("show");
 		});
+		$('#keep').bind('ajax:beforeSend', function(evt, xhr, settings) {
+			$("#keep").addClass("disabled");
+			$(".actions-links").addClass("disabled");
+			$("#loading-overlayer").addClass("show");
+			$("#loading-indicator").addClass("show");
+		});
+		$('#keep2').bind('ajax:beforeSend', function(evt, xhr, settings) {
+			$("#keep").addClass("disabled");
+			$(".actions-links").addClass("disabled");
+			$("#loading-overlayer").addClass("show");
+			$("#loading-indicator").addClass("show");
+		});
 
 		$('#confirm_order').bind('ajax:error', function(e, xhr, status, error) {
 			var errors = $.parseJSON(xhr.responseText);
 			if (errors.id) {
 				$("#other_order").show();
+				$("#confirm").hide();
+				alert("Foram encontrados problemas com o seu pedido, verifique a mensagem em vermelho e escolha uma opção")
+			}
+			else if (errors.status) {
+				$("#other_scheduled_order").show();
 				$("#confirm").hide();
 				alert("Foram encontrados problemas com o seu pedido, verifique a mensagem em vermelho e escolha uma opção")
 			}
@@ -202,6 +227,7 @@
 					errorText += errors[error] + "\n";
 				}
 				alert(errorText);
+				location.replace("/pedido")
 			}
 			$("#confirm_order").removeClass("disabled");
 			$("#loading-overlayer").removeClass("show");

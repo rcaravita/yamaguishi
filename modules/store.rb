@@ -140,12 +140,30 @@ module Store
 				@order.delivery_value = 0
 			end
 
+			Admin::Order.where(:status => [0,1], :client_id => current_client.id).where("id NOT IN (?)", [@order.id]).destroy_all
 			@order.client_id = current_client.id
 			@order.status = 1 unless @order.order_items.empty?
 
 			if current_client.route && @order.delivery == true #delivery com rota definida
 				@order.delivery_date = get_delivery_date(true, 0)
 				@order.delivery_value = current_client.route.value
+
+				@order.order_items.each do |i|
+					available = false
+					if i.item.product.routes.length() == 0
+						available = true
+					end
+					i.item.product.routes.each do |r|
+						if current_client.route.id == r.id
+							available = true
+						end
+					end
+					i.available = available
+				end
+			elsif @order.delivery == false
+				@order.order_items.each do |i|
+					i.available = true
+				end
 			end
 
 			if current_client.route_id == 19 #rota de retirada
@@ -236,11 +254,25 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
 
+		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
+		if @delivery_date != (@order.delivery_date).to_date
+			@order.errors.add(:delivery_date, "Foi encontrado um erro com a data de entrega, tente novamente")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+			return
+		end
+
 		@order.confirmed_at = Time.now
 		@order.status = 2
 
-		if Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
+		if Admin::Order.where(:status => [2], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@order.errors.add(:id, "Outro pedido encontrado")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		elsif Admin::Order.where(:status => [3], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
+			@order.errors.add(:status, "Outro pedido encontrado")
 			respond_to do |format|
 				format.json { render json: @order.errors, status: :unprocessable_entity }
 			end
@@ -280,11 +312,30 @@ module Store
 	end
 
 	def order_keep
+		redirect_to root_path and return if @order.order_items.empty?
+		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
+
 		if @other_order = Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@other_order.status = 4
 			@other_order.save
 		end
-		redirect_to order_path
+
+		@order.confirmed_at = Time.now
+		@order.status = 2
+
+		if @order.save
+			SystemMailer.order_confirmation(@order, @order.client).deliver
+			session[:order] = nil
+
+			respond_to do |format|
+				format.js
+				format.html { redirect_to order_path, notice: 'Update successfully' }
+			end
+		else
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		end
 	end
 
 	def order_keep_other
