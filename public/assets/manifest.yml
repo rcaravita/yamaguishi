@@ -151,8 +151,8 @@ shared/nivo-slider/light/bullets.png: shared/nivo-slider/light/bullets-8c4a64d4f
 shared/nivo-slider/light/bullets/index.png: shared/nivo-slider/light/bullets-8c4a64d4f2cb2686b470b5d46eaa7943.png
 shared/nivo-slider/light/loading.gif: shared/nivo-slider/light/loading-859d255230abfdde405e23cbde6ac898.gif
 shared/nivo-slider/light/loading/index.gif: shared/nivo-slider/light/loading-859d255230abfdde405e23cbde6ac898.gif
-website/main.css: website/main-2cc29a4807e49de0c6caa43c9970265a.css
-website/main/index.css: website/main-2cc29a4807e49de0c6caa43c9970265a.css
+website/main.css: website/main-55da0f17cd4408720ceb19e6943b5c02.css
+website/main/index.css: website/main-55da0f17cd4408720ceb19e6943b5c02.css
 tinymce.js: tinymce-ed903b42fd6747a8eb44c543d9b29885.js
 tinymce/index.js: tinymce-ed903b42fd6747a8eb44c543d9b29885.js
 tinymce/langs/readme.md: tinymce/langs/readme.md
