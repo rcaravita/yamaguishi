@@ -37,7 +37,7 @@ $ ->
 					$('#notice').html "Status do pedido alterado."
 
 	draw_table()
-	#set_status_event()
+	set_status_event()
 
 	$('.filter').change ->
 		oTable.api().destroy()
@@ -48,4 +48,4 @@ $ ->
 		table_callbacks()
 
 	table_callbacks = () ->
-		#set_status_event()
+		set_status_event()
