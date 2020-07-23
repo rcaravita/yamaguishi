@@ -80,19 +80,21 @@ module Store
 				#current_client = Admin::Client.find(814) #rota 3 segunda-feira
 				#current_client = Admin::Client.find(8) #rota 2 terca-feira
 				#current_client = Admin::Client.find(407) #rota 6 quarta-feira
-				date = today + 2.days # 48h de antecedencia
-				if current_client.route.day == 0
-					date = Date.commercial(date.year, date.next_week.cweek, 1)
-					date = date - 1.days
-				elsif date.wday > current_client.route.day # proxima semana
-					date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
-				elsif date.wday == 0 #domingo
-					date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
-				else # esta semana
-					date = Date.commercial(date.year, date.cweek, current_client.route.day)
+				if current_client.route
+					date = today + 2.days # 48h de antecedencia
+					if current_client.route.day == 0
+						date = Date.commercial(date.year, date.next_week.cweek, 1)
+						date = date - 1.days
+					elsif date.wday > current_client.route.day # proxima semana
+						date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
+					elsif date.wday == 0 #domingo
+						date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
+					else # esta semana
+						date = Date.commercial(date.year, date.cweek, current_client.route.day)
+					end
 				end
 			end
-		end;
+		end
 
 		date
 
@@ -255,7 +257,7 @@ module Store
 		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
 
 		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
-		if @delivery_date != (@order.delivery_date).to_date
+		if @order.delivery_date && @delivery_date != (@order.delivery_date).to_date
 			@order.errors.add(:delivery_date, "Foi encontrado um erro com a data de entrega, tente novamente")
 			respond_to do |format|
 				format.json { render json: @order.errors, status: :unprocessable_entity }
