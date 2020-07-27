@@ -180,12 +180,14 @@ module Store
 	end
 
 	def add_to_cart
-		item = Admin::Item.find(params[:id])
-		@item = @order.add_item(item)
-		if @item
-			respond_to do |format|
-				format.html {redirect_to :back}
-				format.js
+		if current_client
+			item = Admin::Item.find(params[:id])
+			@item = @order.add_item(item)
+			if @item
+				respond_to do |format|
+					format.html {redirect_to :back}
+					format.js
+				end
 			end
 		end
 	end
