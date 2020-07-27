@@ -11,11 +11,35 @@ class WebsiteController < ApplicationController
 
 	def index
 		@items = Admin::Item.where(highlight: true).order("RAND()").limit(6)
+		@items.each do |i|
+			@available = false
+			if i.product.routes.length() == 0
+				@available = true
+			end
+			i.product.routes.each do |r|
+				if current_client && current_client.route.id == r.id
+					@available = true
+				end
+			end
+			i.avail = @available
+		end
 	end
 
 	def category
 		@category = Admin::Category.find_by_link(params[:link])
 		@items = @category.available_items
+				@items.each do |i|
+			@available = false
+			if i.product.routes.length() == 0
+				@available = true
+			end
+			i.product.routes.each do |r|
+				if current_client && current_client.route.id == r.id
+					@available = true
+				end
+			end
+			i.avail = @available
+		end
 		#render action: :index
 	end
 

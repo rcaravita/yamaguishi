@@ -1,3 +1,7 @@
-- if !@items.blank?
+- if !@items.blank? && current_client
 	- for item in @items do
-		= render :partial => 'item_box', :locals => { :item => item }
+		- logger.info "#{item.id} : #{item.avail}"
+		- if item.avail
+			= render :partial => 'item_box', :locals => { :item => item }
+- elsif !current_client
+	= link_to "É necessário fazer o login antes de comprar", new_client_session_path
