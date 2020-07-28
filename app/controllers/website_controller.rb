@@ -17,7 +17,7 @@ class WebsiteController < ApplicationController
 				@available = true
 			end
 			i.product.routes.each do |r|
-				if current_client && current_client.route.id == r.id
+				if current_client && current_client.route && current_client.route.id == r.id
 					@available = true
 				end
 			end
@@ -28,13 +28,13 @@ class WebsiteController < ApplicationController
 	def category
 		@category = Admin::Category.find_by_link(params[:link])
 		@items = @category.available_items
-				@items.each do |i|
+		@items.each do |i|
 			@available = false
 			if i.product.routes.length() == 0
 				@available = true
 			end
 			i.product.routes.each do |r|
-				if current_client && current_client.route.id == r.id
+				if current_client && current_client.route && current_client.route.id == r.id
 					@available = true
 				end
 			end
