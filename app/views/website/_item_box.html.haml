@@ -4,9 +4,9 @@
 			= link_to image_tag(item.image.url(:thumb)), link_to_product(item)
 		.name
 			= link_to item.name, link_to_product(item)
+		.value
+			= "#{number_to_human(item.quantity)} #{item.unity} | #{number_to_currency(item.value)}"
 		- if current_client
-			.value
-				= "#{number_to_human(item.quantity)} #{item.unity} | #{number_to_currency(item.value)}"
 			- oi = @order.order_items.select{|oi| oi.item_id == item.id}.flatten
 			- if !oi.empty?
 				=link_to "&#10004; (comprar mais)".html_safe, add_to_cart_path(item.id), remote: true, class: "add added" if item.visible

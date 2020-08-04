@@ -96,10 +96,7 @@
 					= yield
 
 				#sidebar
-					- if !current_client
-						= link_to "Algumas novidades do sítio", "/c/verduras-e-folhas", class: "title"
-						= link_to "É necessário fazer o login antes de comprar", new_client_session_path
-					- elsif @items
+					- if @items
 						= link_to "Algumas novidades do sítio", "/c/verduras-e-folhas", class: "title"
 						.search
 							= form_tag "/loja", :method => :get do
