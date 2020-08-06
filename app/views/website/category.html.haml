@@ -10,5 +10,11 @@
 #home.loja
 
 	%h1= @category.name
+	.info{:style => 'margin-bottom: 20px;'}
+		%p{:style => 'font-style: italic; font-size: 12px; line-height: 17px;'}
+			Os pedidos são aceitos com pelo menos dois dias antecedência, até às 19h45 (sendo confirmação até 19:59).
+			Confirmação processada no site às 20:00 horas em diante, fica para semana posterior automaticamente pelo sistema.
+
+
 
 	= render :partial => 'items', :locals => { :items => @items }
