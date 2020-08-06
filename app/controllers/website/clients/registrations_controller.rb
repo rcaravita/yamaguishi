@@ -27,6 +27,10 @@ class Website::Clients::RegistrationsController < Devise::RegistrationsControlle
 
 		if @admin_client.update_attributes(params[:admin_client])
 			sign_in @admin_client, :bypass => true
+
+			new_record = Admin::ClientChange.new(:client_id => @admin_client.id)
+			new_record.save!
+
 			SystemMailer.client_changed(@old_name, @old_kind, @old_document, @old_email, @old_phone, @old_add, @admin_client).deliver
 			redirect_to session[:previous_url] || client_path, notice: 'Dados atualizados com sucesso.'
 		else

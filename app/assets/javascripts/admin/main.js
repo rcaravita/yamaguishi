@@ -30,3 +30,4 @@
 //= require admin/orders
 //= require admin/categories
 //= require admin/clients
+//= require admin/changes
