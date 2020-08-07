@@ -4,10 +4,10 @@ class Admin::ClientChangesController < AdminController
 		o = Admin::ClientChange.find(params[:id])
 		if o.viewed
 			o.viewed = false
-			o. viewed_at = nil
+			o.viewed_at = nil
 		else
 			o.viewed = true
-			o. viewed_at = Time.now.to_date
+			o.viewed_at = Time.now
 		end
 		o.save
 
