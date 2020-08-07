@@ -31,6 +31,7 @@ Yamaguishi::Application.routes.draw do
 		resources :orders
 		resources :clients
 		resources :client_changes
+		resources :order_changes
 		resources :items
 		resources :producers
 		resources :products
