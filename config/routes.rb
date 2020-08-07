@@ -30,7 +30,7 @@ Yamaguishi::Application.routes.draw do
 		resources :routes
 		resources :orders
 		resources :clients
-		resources :changes
+		resources :client_changes
 		resources :items
 		resources :producers
 		resources :products
@@ -51,7 +51,7 @@ Yamaguishi::Application.routes.draw do
 		get "maintenance/export_clients" => "maintenance#export_clients", as: :export_clients
 		get "maintenance/export_orders_yamasis" => "maintenance#export_orders_yamasis", as: :export_orders_yamasis
 
-		match "changes/:id/markAsViewed" => "changes#markAsViewed"
+		match "client_changes/:id/markAsViewed" => "client_changes#markAsViewed"
 
 	end
 

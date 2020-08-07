@@ -1,4 +1,4 @@
-class Admin::ChangesController < AdminController
+class Admin::ClientChangesController < AdminController
 
 	def markAsViewed
 		o = Admin::ClientChange.find(params[:id])

@@ -3,7 +3,7 @@ $ ->
 	set_status_event = () ->
 		$(".viewChanges").click ->
 			el = this
-			$.post "/admin/changes/"+ this.name + "/markAsViewed",
+			$.post "/admin/client_changes/"+ this.name + "/markAsViewed",
 				(data) ->
 					el.disabled = true
 					$('#notice').html "Marcado como visualizado com sucesso."
