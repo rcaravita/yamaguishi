@@ -1,0 +1,34 @@
+%h1 Últimas alterações clientes
+
+.divider
+
+%br
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th{title: "ID"} Código
+			%th Cliente
+			%th E-mail
+			%th Data
+			%th Visualizado
+			%th Quando foi visualizado
+
+	%tbody
+		- @admin_changes.each do |admin_change|
+			%tr
+				%td= admin_change.id
+				%td= admin_change.client.name
+				%td= admin_change.client.email
+				%td= l(admin_change.created_at, format: :full)
+				%td= check_box_tag(:viewed, true, admin_change.viewed, disabled: admin_change.viewed, name: admin_change.id, class:'viewChanges')
+				%td= admin_change.viewed_at ? l(admin_change.viewed_at, format: :full) : ""
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			%th
+			%th
+

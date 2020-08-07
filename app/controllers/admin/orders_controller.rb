@@ -1,5 +1,5 @@
 class Admin::OrdersController < AdminController
-	
+
 	def toggleStatus
 		o = Admin::Order.find(params[:id])
 		if o.status == 2
@@ -7,18 +7,22 @@ class Admin::OrdersController < AdminController
 		elsif o.status == 3
 			o.status = 2
 		end
+
+		new_record = Admin::OrderChange.new(:order_id => o.id, :status => o.status, :administrator_id => current_administrator.id)
+		new_record.save!
+
 		o.save
-		
+
 		render nothing: true
 	end
-	
+
 	# GET /admin/orders
 	# GET /admin/orders.json
 	def index
 		#@admin_orders = Admin::Order.where(:status => [1,2,3])
-		
+
 		#logger.info params.to_yaml
-		
+
 		respond_to do |format|
 			format.html # index.html.erb
 			format.json { render json: OrdersDatatable.new(view_context) }
@@ -65,7 +69,7 @@ class Admin::OrdersController < AdminController
 	# POST /admin/orders.json
 	def create
 		@admin_order = Admin::Order.new(params[:admin_order])
-		
+
 		respond_to do |format|
 			if @admin_order.save
 				if params[:order_update].present?

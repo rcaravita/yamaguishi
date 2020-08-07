@@ -353,6 +353,7 @@ pt:
             long: ! '%A, %d de %B de %Y, %H:%Mh'
             short: ! '%d/%b/%y %H:%Mh'
             delivery: ! '%A, %d/%b/%y'
+            full: ! '%d/%b/%y %H:%M:%S'
             number: ! '%d/%b/%y'
             export: ! '%d/%m/%Y'
         pm: ''

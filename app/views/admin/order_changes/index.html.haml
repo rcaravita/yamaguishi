@@ -1,0 +1,37 @@
+%h1 Últimas alterações status pedido
+
+.divider
+
+%br
+
+%table{class: "dynamic-table"}
+	%thead
+		%tr
+			%th{title: "ID"} Código
+			%th Pedido
+			%th Cliente
+			%th Status alterado
+			%th Status atual pedido
+			%th Usuário
+			%th Quando
+
+	%tbody
+		- @admin_changes.each do |admin_change|
+			%tr
+				%td= admin_change.id
+				%td= admin_change.order.id
+				%td= admin_change.order.client.name
+				%td= admin_change.status_to_s
+				%td= admin_change.order.status_to_s
+				%td= admin_change.administrator.name
+				%td= l(admin_change.created_at, format: :full)
+	%tfoot
+		%tr
+			%th
+			%th
+			%th
+			%th
+			%th
+			%th
+			%th
+

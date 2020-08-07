@@ -1,5 +1,4 @@
 - if !@items.blank?
 	- for item in @items do
-		- logger.info "#{item.id} : #{item.avail}"
 		- if item.avail
 			= render :partial => 'item_box', :locals => { :item => item }

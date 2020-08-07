@@ -5,7 +5,7 @@
 		= stylesheet_link_tag "admin/main"
 		= javascript_include_tag "admin/main"
 		= csrf_meta_tags
-		
+
 		%link{:href => "/assets/favicons/apple-touch-icon-57x57.png", :rel => "apple-touch-icon", :sizes => "57x57"}
 		%link{:href => "/assets/favicons/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
 		%link{:href => "/assets/favicons/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
@@ -22,7 +22,7 @@
 		%link{:href => "/assets/favicons/favicon-32x32.png", :rel => "icon", :sizes => "32x32", :type => "image/png"}
 		%meta{:content => "#da532c", :name => "msapplication-TileColor"}
 		%meta{:content => "/mstile-144x144.png", :name => "msapplication-TileImage"}
-		
+
 	%body
 		#container
 			#header
@@ -32,7 +32,7 @@
 					%p#notice= notice
 					%noscript
 						%p O seu navegador não suporta Javascript e alguns recursos não podem funcionar.
-						
+
 					-#%li= link_to "LOJA", "/admin/loja", class: "loja"
 					-#%li= link_to "CONTEÚDO", "/cursos", class: "cursos"
 					-#%li= link_to "BLOG", "/blog", class: "blog"
@@ -50,17 +50,19 @@
 								%li{class: current_page?(admin_shops_path) ? "active" : ""}= link_to_unless_current "Pontos de Venda", admin_shops_path
 								%li{class: current_page?(admin_pages_path) ? "active" : ""}= link_to_unless_current "Páginas", admin_pages_path
 								%li{class: current_page?(admin_attaches_path) ? "active" : ""}= link_to_unless_current "Imagens", admin_attaches_path
-								%li{class: current_page?(admin_attaches_path) ? "active" : ""}= link_to_unless_current "Manutenção", admin_maintenance_path
+								%li{class: current_page?(admin_client_changes_path) ? "active" : ""}= link_to_unless_current "Alterações clientes", admin_client_changes_path
+								%li{class: current_page?(admin_order_changes_path) ? "active" : ""}= link_to_unless_current "Alterações status pedido", admin_order_changes_path
+								%li{class: current_page?(admin_maintenance_path) ? "active" : ""}= link_to_unless_current "Manutenção", admin_maintenance_path
 								%li{class: current_page?(admin_administrators_path) ? "active" : ""}= link_to_unless_current "Site", admin_administrators_path
-							
+
 				#content
 					= yield
-					
+
 			#footer
 				.administrator
 					.right
 						- if administrator_signed_in?
 							= current_administrator.name
 							= link_to "[logout]", destroy_administrator_session_path, method: :delete, class: "last"
-			
+
 				= yield :scripts #for Google-Maps-for-Rails
