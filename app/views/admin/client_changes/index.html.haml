@@ -16,13 +16,13 @@
 
 	%tbody
 		- @admin_changes.each do |admin_change|
-			%tr
-				%td= admin_change.id
+			%tr{class: "#{'not-viewed' if !admin_change.viewed}"}
+				%td= link_to admin_change.id.to_s.rjust(6, "0"), admin_change
 				%td= admin_change.client.name
 				%td= admin_change.client.email
 				%td= l(admin_change.created_at, format: :full)
-				%td= check_box_tag(:viewed, true, admin_change.viewed, disabled: admin_change.viewed, name: admin_change.id, class:'viewChanges')
-				%td= admin_change.viewed_at ? l(admin_change.viewed_at, format: :full) : ""
+				%td= check_box_tag(:viewed, true, admin_change.viewed, name: admin_change.id, class:'viewChanges')
+				%td{class: "when"}= admin_change.viewed_at ? l(admin_change.viewed_at, format: :full) : ""
 	%tfoot
 		%tr
 			%th

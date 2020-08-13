@@ -4,6 +4,10 @@
 
 body {
 	background: url(image-path('shared/bg.jpg')) top left repeat-x;
+
+	tr.not-viewed {
+		font-weight: bold;
+	}
 	#container {
 		width: 950px;
 		margin: 0 auto;

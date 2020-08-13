@@ -22,13 +22,15 @@ class Website::Clients::RegistrationsController < Devise::RegistrationsControlle
 		@old_email = @admin_client.email
 		@old_phone = @admin_client.phone
 		@old_add = @admin_client.main_address
+		@old_rg = @admin_client.rg
+		@old_cpf = @admin_client.cpf
 
 		@admin_client.route_id = nil unless params[:admin_client][:addresses_attributes]["0"][:postcode] == @admin_client.main_address.postcode
 
 		if @admin_client.update_attributes(params[:admin_client])
 			sign_in @admin_client, :bypass => true
 
-			new_record = Admin::ClientChange.new(:client_id => @admin_client.id)
+			new_record = Admin::ClientChange.new(:client_id => @admin_client.id, :name => @old_name, :phone => @old_phone, :email => @old_email, :rg => @old_rg, :cpf => @old_cpf, :full_address => @old_add.full_address + ", " + @old_add.quarter + " - " + @old_add.city + "/" + @old_add.state + " - " + @old_add.postcode)
 			new_record.save!
 
 			SystemMailer.client_changed(@old_name, @old_kind, @old_document, @old_email, @old_phone, @old_add, @admin_client).deliver

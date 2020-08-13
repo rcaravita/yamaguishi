@@ -1,6 +1,28 @@
 %h1 Controle de acesso ao site e aos pedidos
 
 
+- if administrator_signed_in? && current_administrator.id == 1
+
+	.left
+		%h3 Usuários administrativos
+
+	.right= link_to 'Novo Usuário', new_admin_administrator_path, class: "button create"
+	#default-table
+		%table
+			%thead
+				%tr
+					%th{:width => 200} Nome
+					%th{:width => 200} E-mail
+			%tbody
+				- @admin_administrators.each do |admin_administrator|
+					%tr
+						%td= link_to admin_administrator.name, edit_admin_administrator_path(admin_administrator)
+						%td= admin_administrator.email
+
+
+		%br
+		%br
+
 = nested_form_for @data, :multipart => true do |f|
 	- if @data.errors.any?
 		#error_explanation

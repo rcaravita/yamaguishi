@@ -5,7 +5,25 @@ $ ->
 			el = this
 			$.post "/admin/client_changes/"+ this.name + "/markAsViewed",
 				(data) ->
-					el.disabled = true
+					if (el.checked)
+						currentDate = new Date();
+						date = currentDate.getDate();
+						month = currentDate.getMonth();
+						year = currentDate.getFullYear();
+
+						dateString = date + "/" +(month + 1) + "/" + year;
+
+						$(el).parent().parent().removeClass('not-viewed');
+						$(el).parent().parent().find('.when')[0].innerHTML = dateString;
+					else
+						$(el).parent().parent().addClass('not-viewed');
+						$(el).parent().parent().find('.when')[0].innerHTML = "";
+					$('#notice').html "Marcado como visualizado com sucesso."
+
+		$(".viewChange").click ->
+			el = this
+			$.post "/admin/client_changes/"+ this.name + "/markAsViewed",
+				(data) ->
 					$('#notice').html "Marcado como visualizado com sucesso."
 
 	set_status_event()
