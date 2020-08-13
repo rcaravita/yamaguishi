@@ -16,7 +16,7 @@
 
 	%tbody
 		- @admin_changes.each do |admin_change|
-			%tr
+			%tr{class: "#{'not-viewed' if !admin_change.viewed}"}
 				%td= admin_change.id
 				%td= admin_change.client.name
 				%td= admin_change.client.email
