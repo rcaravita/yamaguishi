@@ -21,8 +21,8 @@
 				%td= admin_change.client.name
 				%td= admin_change.client.email
 				%td= l(admin_change.created_at, format: :full)
-				%td= check_box_tag(:viewed, true, admin_change.viewed, disabled: admin_change.viewed, name: admin_change.id, class:'viewChanges')
-				%td= admin_change.viewed_at ? l(admin_change.viewed_at, format: :full) : ""
+				%td= check_box_tag(:viewed, true, admin_change.viewed, name: admin_change.id, class:'viewChanges')
+				%td{class: "when"}= admin_change.viewed_at ? l(admin_change.viewed_at, format: :full) : ""
 	%tfoot
 		%tr
 			%th
