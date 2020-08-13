@@ -1,0 +1,52 @@
+#default-table
+	%h2
+		= "Alteração #{@admin_change.id}"
+
+	= check_box_tag(:viewed, true, @admin_change.viewed, name: @admin_change.id, class:'viewChange')
+	Visualizado
+
+	%br
+	%br
+
+	%h4 Dados antigos
+
+	%table
+		%thead
+			%tr
+				%th{:width => 100} Nome
+				%th{:width => 100} Telefone
+				%th{:width => 100} E-mail
+				%th{:width => 50} RG
+				%th{:width => 50} CPF
+				%th{:width => 300} Endereço
+		%tbody
+			%tr
+				%td= @admin_change.name
+				%td= @admin_change.phone
+				%td= @admin_change.email
+				%td= @admin_change.rg
+				%td= @admin_change.cpf
+				%td= @admin_change.full_address
+
+
+	%br
+	%br
+	%h4 Dados atuais
+
+	%table
+		%thead
+			%tr
+				%th{:width => 100} Nome
+				%th{:width => 100} Telefone
+				%th{:width => 100} E-mail
+				%th{:width => 50} RG
+				%th{:width => 50} CPF
+				%th{:width => 300} Endereço
+		%tbody
+			%tr
+				%td= @admin_client.name
+				%td= @admin_client.phone
+				%td= @admin_client.email
+				%td= @admin_client.rg
+				%td= @admin_client.cpf
+				%td= @admin_client.main_address.full_address + ", " + @admin_client.main_address.quarter + " - " + @admin_client.main_address.city + "/" + @admin_client.main_address.state + " - " + @admin_client.main_address.postcode
