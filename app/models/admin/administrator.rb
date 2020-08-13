@@ -1,12 +1,26 @@
-class Admin::Administrator < ActiveRecord::Base
-  attr_protected :id
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, #:registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+#encoding: utf-8
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :active, :new_users, :variable_date, :only_pickup
-  # attr_accessible :title, :body
+class Admin::Administrator < ActiveRecord::Base
+	attr_protected :id
+	# Include default devise modules. Others available are:
+	# :token_authenticatable, :confirmable,
+	# :lockable, :timeoutable and :omniauthable
+	devise :database_authenticatable, #:registerable,
+		:recoverable, :rememberable, :trackable, :validatable
+
+	# Setup accessible (or protected) attributes for your model
+	attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :active, :new_users, :variable_date, :only_pickup
+	# attr_accessible :title, :body
+
+	validates_presence_of :name
+
+	validate :validate_password
+	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+
+	def validate_password
+		unless self.password_confirmation == self.password
+			errors.add(:password, "não coincide com a confirmação.")
+			errors.add(:password_confirmation, "não coincide com a senha.")
+		end
+	end
 end

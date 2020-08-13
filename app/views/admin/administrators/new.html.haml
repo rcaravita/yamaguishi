@@ -1,0 +1,18 @@
+#cadastro
+	%h1 Usuário
+
+	.divider
+
+	= form_for @admin_administrator do |f|
+		- if @admin_administrator.errors.any?
+			#error_explanation
+				%h2= "#{pluralize(@admin_administrator.errors.count, "error")} prohibited this admin_administrator from being saved:"
+				%ul
+					- @admin_administrator.errors.full_messages.each do |msg|
+						%li= msg
+
+		= render 'form', :f => f
+
+		.clear
+
+		.right= f.submit "Salvar", class: "save"
