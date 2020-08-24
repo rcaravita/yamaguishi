@@ -4,7 +4,7 @@
 
 %br
 
-%table{class: "dynamic-table"}
+%table{class: "dynamic-table-order-changes", data: {source: '/admin/order_changes.json'}}
 	%thead
 		%tr
 			%th{title: "ID"} Código
@@ -15,16 +15,16 @@
 			%th Usuário
 			%th Quando
 
-	%tbody
-		- @admin_changes.each do |admin_change|
-			%tr
-				%td= admin_change.id
-				%td= admin_change.order.id
-				%td= admin_change.order.client.name
-				%td= admin_change.status_to_s
-				%td= admin_change.order.status_to_s
-				%td= admin_change.administrator.name
-				%td= l(admin_change.created_at, format: :full)
+	-#%tbody
+	-#	- @admin_changes.each do |admin_change|
+	-#		%tr
+	-#			%td= admin_change.id
+	-#			%td= admin_change.order.id
+	-#			%td= admin_change.order.client.name
+	-#			%td= admin_change.status_to_s
+	-#			%td= admin_change.order.status_to_s
+	-#			%td= admin_change.administrator.name
+	-#			%td= l(admin_change.created_at, format: :full)
 	%tfoot
 		%tr
 			%th
