@@ -119,8 +119,8 @@ website/old/bg-vila.jpg: website/old/bg-vila-e37d89f0e549f64de2cb9df59e6a03d9.jp
 website/old/bg-vila/index.jpg: website/old/bg-vila-e37d89f0e549f64de2cb9df59e6a03d9.jpg
 website/store-label.jpg: website/store-label-44f35c906caa3f0298a219cf351fd0f2.jpg
 website/store-label/index.jpg: website/store-label-44f35c906caa3f0298a219cf351fd0f2.jpg
-admin/main.js: admin/main-870d4a692d285c273d661f7f76a16896.js
-admin/main/index.js: admin/main-870d4a692d285c273d661f7f76a16896.js
+admin/main.js: admin/main-35823d2aee370e2de0285935f839564b.js
+admin/main/index.js: admin/main-35823d2aee370e2de0285935f839564b.js
 shared/datatables-PT-BR.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed31088.txt
 shared/datatables-PT-BR/index.txt: shared/datatables-PT-BR-c9d8e8b759ba07203acb4f47bed31088.txt
 website/main.js: website/main-e7dbf10cc7fe0103ede1a177287b7151.js
