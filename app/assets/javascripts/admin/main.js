@@ -31,3 +31,4 @@
 //= require admin/categories
 //= require admin/clients
 //= require admin/client_changes
+//= require admin/order_changes

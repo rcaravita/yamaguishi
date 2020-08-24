@@ -1,0 +1,35 @@
+$ ->
+	get_filters = () ->
+		result = {}
+		$.each $("input:checked.filter"), (key, el) ->
+			result[$(el).attr('id')] = $(el).attr('data-status')
+		result
+
+	oTable = ''
+
+	draw_table = () ->
+		oTable = $('.dynamic-table-order-changes').dataTable
+			sPaginationType: "full_numbers"
+			oLanguage: { "sUrl": "<%= asset_path('shared/datatables-PT-BR.txt') %>"}
+			bStateSave: true
+			serverSide: true
+			#processing: true
+			ajax:
+				url: $('.dynamic-table-order-changes').data('source'),
+				data:
+					filters: get_filters()
+			columns: [
+				{ "name": "admin_order_changes.id" },
+				{ "name": "admin_orders.id", "searchable": true, "orderable": true },
+				{ "name": "admin_clients.name", "searchable": true, "orderable": true},
+				{ "name": "admin_order_changes.status_to_s" },
+				{ "name": "admin_ordes.status_to_s" },
+				{ "name": "admin_administrators.name" },
+				{ "name": "admin_order_changes.created_at", "searchable": false, "orderable": true },
+			]
+
+	draw_table()
+
+	$('.filter').change ->
+		oTable.api().destroy()
+		draw_table()
