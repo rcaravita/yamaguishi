@@ -23,7 +23,7 @@ private
 		changes.map do |admin_change|
 			[
 				admin_change.id,
-				link_to(admin_change.id.to_s.rjust(6, "0"), admin_change),
+				link_to(admin_change.id.to_s.rjust(6, "0"), admin_change.order),
 				admin_change.order.client ? link_to(admin_change.order.client.name, admin_change.order.client) : "",
 				admin_change.status_to_s,
 				admin_change.order.status_to_s,
