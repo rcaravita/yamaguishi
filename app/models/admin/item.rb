@@ -44,7 +44,7 @@ class Admin::Item < ActiveRecord::Base
 	end
 
 	def complete_name
-		self.name + " (#{number_to_human(self.quantity)}#{self.unity})"
+		self.name + " (#{self.quantity}#{self.unity})"
 	end
 
 	def avail
