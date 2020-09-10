@@ -23,7 +23,7 @@ class Admin::Order < ActiveRecord::Base
 	end
 
 	def pickup_option
-		if status == 2 && delivery == false && (pickup != 1 && pickup != 2 && pickup != 3 && pickup != 4)
+		if status == 2 && delivery == false && (pickup != 1 && pickup != 2 && pickup != 3 && pickup != 4 && pickup != 5)
 			errors.add(:pickup, "Escolha uma opcao valida para retirada")
 		end
 	end

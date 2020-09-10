@@ -40,13 +40,16 @@
 						* de segunda à sexta, das 8h às 17h, e de sábado das 8h às 11h
 				- if @order.pickup == 2
 					%i
-						na Feira do Bosque dos Jequitibás, entre 7h e 10h
+						na Feira do Bosque dos Jequitibás, entre 7h e 11h
 				- if @order.pickup == 3
 					%i
 						na Feira do Parque Ecológico, entre 7h e 11h
 				- if @order.pickup == 4
 					%i
 						na Feira de Holambra, entre 8h e 10h
+				- if @order.pickup == 5
+					%i
+						na Feira do Centro de Convivência, entre 7h e 11h
 
 		%p
 			- if @order.delivery
@@ -79,6 +82,11 @@
 					Praça Vitória Régia
 					%br
 					em frente a R. Primavera, 936
+				- elsif @order.pickup == 5
+					%b Centro de Convivência
+					%br
+					Praça Imprensa Fluminense, s/n - Cambuí
+
 		%p
 			= "Telefone: #{@order.client.phone}" if @order.client.phone
 
