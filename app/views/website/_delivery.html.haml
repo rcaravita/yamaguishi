@@ -47,7 +47,7 @@
 	= f.radio_button :delivery, false,  disabled: !current_client.accept_pickup
 	%span{:class => ('current' if !@order.delivery)} Retirada
 
-	= f.select :pickup, [['--escolha uma opção--', 0], ['Sítio Yamaguishi', 1], ['Feira do Bosque (quarta)', 2], ['Feira do Parque Ecológico (domingo)', 3], ['Feira Holambra (sábado)', 4]], {}, disabled: @order.delivery || !current_client.accept_pickup
+	= f.select :pickup, [['--escolha uma opção--', 0], ['Sítio Yamaguishi', 1], ['Feira do Bosque (quarta)', 2], ['Feira do Parque Ecológico (domingo)', 3], ['Feira Holambra (sábado)', 4], ['Feira do Centro de Convivência (sexta)', 5]], {}, disabled: @order.delivery || !current_client.accept_pickup
 
 	- if @data.only_pickup && current_client.new
 		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, estamos disponibilizando apenas a opção para retirada no sítio
@@ -103,6 +103,11 @@
 							Praça Vitória Régia
 							%br
 							em frente a R. Primavera, 936
+						- elsif @order.pickup == 5
+							-# RETIRA
+							=link_to "Centro de Convivência", "https://goo.gl/maps/MqMxNgNsg5WLh1pH8", target: "_blank"
+							%br
+							Praça Imprensa Fluminense, s/n - Cambuí
 
 
 				%td{:width => 220}
@@ -128,7 +133,7 @@
 							- elsif @order.pickup == 2
 								%p
 									%b
-										Disponível entre 7h-10h de
+										Disponível entre 7h-11h de
 										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
 							- elsif @order.pickup == 3
 								%p
@@ -139,6 +144,11 @@
 								%p
 									%b
 										Disponível entre 8h-10h de
+										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
+							- elsif @order.pickup == 5
+								%p
+									%b
+										Disponível entre 7h-11h de
 										= "#{l(get_delivery_date(false, @order.pickup), format: :delivery)}."
 					- else
 						- if get_variable_date

@@ -41,11 +41,9 @@ module Store
 			date = nil
 		else
 			if delivery == false #RETIRA
+				date = today + 2.days # 48h de antecedencia
+
 				if pickup == 1  #VILA YAMAGUISHI
-					#logger.info "# RETIRA"
-
-					date = today + 2.days # 48h de antecedencia
-
 					if date.wday == 0 # domingo (0) -> terça (2) desta semana
 						date = Date.commercial(date.year, date.next_week.cweek, 2)
 						#puts "Domingo"
@@ -56,23 +54,26 @@ module Store
 						date = date
 						#puts "Semana"
 					end
-				else
-					date = today + 2.days # 48h de antecedencia
-					if pickup ==  2 #BOSQUE
-						if date.wday > 3 || date.wday == 0 # proxima semana
-							date = Date.commercial(date.year, date.next_week.cweek, 3)
-						else
-							date = Date.commercial(date.year, date.cweek, 3)
-						end
-					elsif pickup ==  3 #PARQUE ECOLÓGICO
-						date = Date.commercial(date.year, date.next_week.cweek, 1)
-						date = date - 1.days
-					elsif pickup ==  4 #HOLAMBRA
-						if date.wday > 6 || date.wday == 0  # proxima semana
-							date = Date.commercial(date.year, date.next_week.cweek, 6)
-						else
-							date = Date.commercial(date.year, date.cweek, 6)
-						end
+				elsif pickup ==  2 #BOSQUE
+					if date.wday > 3 || date.wday == 0 # proxima semana
+						date = Date.commercial(date.year, date.next_week.cweek, 3)
+					else
+						date = Date.commercial(date.year, date.cweek, 3)
+					end
+				elsif pickup ==  3 #PARQUE ECOLÓGICO
+					date = Date.commercial(date.year, date.next_week.cweek, 1)
+					date = date - 1.days
+				elsif pickup ==  4 #HOLAMBRA
+					if date.wday > 6 || date.wday == 0  # proxima semana
+						date = Date.commercial(date.year, date.next_week.cweek, 6)
+					else
+						date = Date.commercial(date.year, date.cweek, 6)
+					end
+				elsif pickup ==  5 #CENTRO CONVIVENCIA
+					if date.wday > 5 || date.wday == 0  # proxima semana
+						date = Date.commercial(date.year, date.next_week.cweek, 5)
+					else
+						date = Date.commercial(date.year, date.cweek, 5)
 					end
 				end
 			else # DELIVERY
