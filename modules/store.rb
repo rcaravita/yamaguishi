@@ -257,7 +257,7 @@ module Store
 
 	def order_checkout
 		redirect_to root_path and return if @order.order_items.empty?
-		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
+		redirect_to order_path and return if @order.items_value < 90 && @order.delivery
 
 		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
 		if @order.delivery_date && @delivery_date != (@order.delivery_date).to_date
@@ -318,7 +318,7 @@ module Store
 
 	def order_keep
 		redirect_to root_path and return if @order.order_items.empty?
-		redirect_to order_path and return if @order.items_value < 80 && @order.delivery
+		redirect_to order_path and return if @order.items_value < 90 && @order.delivery
 
 		if @other_order = Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@other_order.status = 4

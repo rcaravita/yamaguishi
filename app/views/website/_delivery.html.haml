@@ -166,7 +166,7 @@
 	.right
 		#confirm
 			= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
-			- if (@order.items_value >= 80 || !@order.delivery) && current_client
+			- if (@order.items_value >= 90 || !@order.delivery) && current_client
 				ou
 				= link_to "Confirmar e Fechar", "pedido/fechar", :id => 'confirm_order', :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 		#other_order{:style => 'display:none;'}
