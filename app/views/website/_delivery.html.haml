@@ -164,6 +164,12 @@
 
 	.space
 	.right
+		#min_value
+			- if @order.items_value < 90 && @order.delivery && current_client
+				%div{:style => 'margin: 10px 10px'}
+					%p{:style => 'font-weight:bold; color:red; font-size:14px;'}
+						O pedido não atingiu o valor mínimo e não pode ser finalizado com a opção de entrega
+	.right
 		#confirm
 			= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
 			- if (@order.items_value >= 90 || !@order.delivery) && current_client
