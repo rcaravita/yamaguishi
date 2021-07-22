@@ -5,9 +5,18 @@
 .field.left
 	%label Nome completo
 	= f.text_field :name, :autofocus => true
+	- if resource.errors.include?(:name)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:name].first
 .field.left
 	%label E-mail
 	= f.email_field :email
+	- if resource.errors.include?(:email)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:email].first
+
 
 .clear
 
@@ -36,9 +45,17 @@
 .field.left
 	%label Senha
 	= f.password_field :password
+	- if resource.errors.include?(:password)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:password].first
 .field
 	%label Senha (confirmação)
 	= f.password_field :password_confirmation
+	- if resource.errors.include?(:password_confirmation)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:password_confirmation].first
 
 .space
 .field

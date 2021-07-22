@@ -25,7 +25,7 @@ class Admin::Client < ActiveRecord::Base
 
 	validate :validate_document, :validate_password
 	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-	validates :name, length: { minimum: 10, too_short: "Por favor, preencha seu nome e sobrenome" }
+	validates :name, length: { minimum: 10, too_short: "preencha seu nome e sobrenome" }
 
 	def validate_document
 		case self.kind
@@ -38,8 +38,8 @@ class Admin::Client < ActiveRecord::Base
 
 	def validate_password
 		unless self.password_confirmation == self.password
-			errors.add(:password, "não coincide com a confirmação.")
-			errors.add(:password_confirmation, "não coincide com a senha.")
+			errors.add(:password, "não coincide com a confirmação")
+			errors.add(:password_confirmation, "não coincide com a senha")
 		end
 	end
 
