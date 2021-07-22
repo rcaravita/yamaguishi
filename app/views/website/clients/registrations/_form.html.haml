@@ -39,6 +39,16 @@
 	= f.text_field :cpf, id: "document" if f.object.kind == "0"
 	= f.text_field :cnpj, id: "document" if f.object.kind == "1"
 	
+	- if resource.errors.include?(:cnpj)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:cnpj].first
+
+	- if resource.errors.include?(:cpf)
+		.invalid-feedback.d-block
+			%span{:style => "font-size:10px; color: red;"}
+				= resource.errors[:cpf].first
+
 
 .clear
 
