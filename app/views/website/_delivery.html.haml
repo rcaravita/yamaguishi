@@ -165,14 +165,14 @@
 	.space
 	.right
 		#min_value
-			- if @order.items_value < 90 && @order.delivery && current_client
+			- if @order.items_value < get_min_purchase_amount() && @order.delivery && current_client
 				%div{:style => 'margin: 10px 10px'}
 					%p{:style => 'font-weight:bold; color:red; font-size:14px;'}
 						O pedido não atingiu o valor mínimo e não pode ser finalizado com a opção de entrega
 	.right
 		#confirm
 			= link_to "Continuar comprando", "/c/verduras-e-folhas", class: "button", style: 'background-color: blue; color: white; padding: 10px;'
-			- if (@order.items_value >= 90 || !@order.delivery) && current_client
+			- if (@order.items_value >= get_min_purchase_amount() || !@order.delivery) && current_client
 				ou
 				= link_to "Confirmar e Fechar", "pedido/fechar", :id => 'confirm_order', :remote=>true, class: "button", style: 'background-color: #1c7935; font-size: 1.4em; color: white; padding: 7px;'
 		#other_order{:style => 'display:none;'}
