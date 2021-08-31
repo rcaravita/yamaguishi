@@ -29,6 +29,11 @@ module Store
 		return @items
 	end
 
+	def get_min_purchase_amount()
+		min = 120
+		return min
+	end
+
 	def get_delivery_date(delivery, pickup)
 
 		#today = (Time.now - 7.hours).to_date # para pedidos realizados entre 0h e 7h da manha - OLD CODE
@@ -257,7 +262,7 @@ module Store
 
 	def order_checkout
 		redirect_to root_path and return if @order.order_items.empty?
-		redirect_to order_path and return if @order.items_value < 90 && @order.delivery
+		redirect_to order_path and return if @order.items_value < get_min_purchase_amount() && @order.delivery
 
 		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
 		if @order.delivery_date && @delivery_date != (@order.delivery_date).to_date
@@ -318,7 +323,7 @@ module Store
 
 	def order_keep
 		redirect_to root_path and return if @order.order_items.empty?
-		redirect_to order_path and return if @order.items_value < 90 && @order.delivery
+		redirect_to order_path and return if @order.items_value < get_min_purchase_amount() && @order.delivery
 
 		if @other_order = Admin::Order.where(:status => 2, :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@other_order.status = 4
