@@ -1,0 +1,9 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.7.1 (2021-03-17)
+ */
+!function(){"use strict";var e=tinymce.util.Tools.resolve("tinymce.PluginManager"),t=tinymce.util.Tools.resolve("tinymce.dom.DOMUtils"),n=tinymce.util.Tools.resolve("tinymce.EditorManager"),r=tinymce.util.Tools.resolve("tinymce.Env"),a=tinymce.util.Tools.resolve("tinymce.util.Delay"),i=tinymce.util.Tools.resolve("tinymce.util.Tools"),o=tinymce.util.Tools.resolve("tinymce.util.VK"),c=t.DOM,s=function(e){e.keyCode!==o.TAB||e.ctrlKey||e.altKey||e.metaKey||e.preventDefault()},l=function(e){var t=function(t){var s,l,u,f,d,m,g;t.keyCode!==o.TAB||t.ctrlKey||t.altKey||t.metaKey||t.isDefaultPrevented()||(u=function(r){var a=c.select(":input:enabled,*[tabindex]:not(iframe)"),o=function(e){return"BODY"===e.nodeName||"hidden"!==e.type&&"none"!==e.style.display&&"hidden"!==e.style.visibility&&o(e.parentNode)},u=function(e){return/INPUT|TEXTAREA|BUTTON/.test(e.tagName)&&n.get(t.id)&&-1!==e.tabIndex&&o(e)};if(i.each(a,function(t,n){return t.id===e.id?(s=n,!1):void 0}),r>0){for(l=s+1;l<a.length;l++)if(u(a[l]))return a[l]}else for(l=s-1;l>=0;l--)if(u(a[l]))return a[l];return null},1===(f=i.explode((d=e).getParam("tab_focus",d.getParam("tabfocus_elements",":prev,:next")))).length&&(f[1]=f[0],f[0]=":prev"),(m=t.shiftKey?":prev"===f[0]?u(-1):c.get(f[0]):":next"===f[1]?u(1):c.get(f[1]))&&(g=n.get(m.id||m.name),m.id&&g?g.focus():a.setTimeout(function(){r.webkit||window.focus(),m.focus()},10),t.preventDefault()))};e.on("init",function(){e.inline&&c.setAttrib(e.getBody(),"tabIndex",null),e.on("keyup",s),r.gecko?e.on("keypress keydown",t):e.on("keydown",t)})};e.add("tabfocus",function(e){l(e)})}();
