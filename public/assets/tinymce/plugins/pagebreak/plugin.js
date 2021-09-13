@@ -1,9 +1,0 @@
-/**
- * Copyright (c) Tiny Technologies, Inc. All rights reserved.
- * Licensed under the LGPL or a commercial license.
- * For LGPL see License.txt in the project root for license information.
- * For commercial licenses see https://www.tiny.cloud/
- *
- * Version: 5.7.1 (2021-03-17)
- */
-!function(){"use strict";var e=tinymce.util.Tools.resolve("tinymce.PluginManager"),t=tinymce.util.Tools.resolve("tinymce.Env"),n=function(e){return e.getParam("pagebreak_split_block",!1)},r=function(){return"mce-pagebreak"},a=function(){return'<img src="'+t.transparentSrc+'" class="'+r()+'" data-mce-resize="false" data-mce-placeholder />'};e.add("pagebreak",function(e){var t,i,o,c,s,l;(t=e).addCommand("mcePageBreak",function(){n(t)?t.insertContent("<p>"+a()+"</p>"):t.insertContent(a())}),(i=e).ui.registry.addButton("pagebreak",{icon:"page-break",tooltip:"Page break",onAction:function(){return i.execCommand("mcePageBreak")}}),i.ui.registry.addMenuItem("pagebreak",{text:"Page break",icon:"page-break",onAction:function(){return i.execCommand("mcePageBreak")}}),c=(o=e).getParam("pagebreak_separator","<!-- pagebreak -->"),s=new RegExp(c.replace(/[\?\.\*\[\]\(\)\{\}\+\^\$\:]/g,function(e){return"\\"+e}),"gi"),o.on("BeforeSetContent",function(e){e.content=e.content.replace(s,a())}),o.on("PreInit",function(){o.serializer.addNodeFilter("img",function(e){for(var t,r,a=e.length;a--;)if((r=(t=e[a]).attr("class"))&&-1!==r.indexOf("mce-pagebreak")){var i=t.parent;if(o.schema.getBlockElements()[i.name]&&n(o)){i.type=3,i.value=c,i.raw=!0,t.remove();continue}t.type=3,t.value=c,t.raw=!0}})}),(l=e).on("ResolveName",function(e){"IMG"===e.target.nodeName&&l.dom.hasClass(e.target,r())&&(e.name="pagebreak")})})}();
