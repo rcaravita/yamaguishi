@@ -10,7 +10,6 @@ plugins:
   - lists
   - paste
   - table
-  - textcolor
   - visualblocks
   - example
 image_advtab: true
