@@ -37,7 +37,7 @@ gem "mini_magick" #to process images
 
 #gem 'tinymce-rails' #rich text editor
 
-gem 'tinymce-rails'
+gem 'tinymce-rails', '5.7.1'
 
 #gem 'awesome_nested_set' #manage trees https://github.com/collectiveidea/awesome_nested_set/wiki/Awesome-nested-set-cheat-sheet
 
