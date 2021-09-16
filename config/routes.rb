@@ -23,7 +23,7 @@ Yamaguishi::Application.routes.draw do
 				:sessions => "admin/administrators/sessions",
 				:unlocks => "admin/administrators/unlocks"}
 
-	match "/admin" => "admin#index", as: :administrator_root
+	get "/admin" => "admin#index", as: :administrator_root
 
 	namespace :admin do
 		resources :shops
@@ -42,48 +42,49 @@ Yamaguishi::Application.routes.draw do
 		resources :pages
 		get "attaches/gallery" => "attaches#gallery"
 		resources :attaches
-		match "items/:id/toggleVisibility" => "items#toggleVisibility"
-		match "items/:id/toggleHighlight" => "items#toggleHighlight"
-		match "attaches/:id/toggleSlideshow" => "attaches#toggleSlideshow"
-		match "orders/:id/toggleStatus" => "orders#toggleStatus"
+		get "items/:id/toggleVisibility" => "items#toggleVisibility"
+		get "items/:id/toggleHighlight" => "items#toggleHighlight"
+		get "attaches/:id/toggleSlideshow" => "attaches#toggleSlideshow"
+		get "orders/:id/toggleStatus" => "orders#toggleStatus"
 
-		match "maintenance" => "maintenance#index", as: :maintenance
+		get "maintenance" => "maintenance#index", as: :maintenance
 		post "maintenance/import_clients" => "maintenance#import_clients", as: :import_clients
 		get "maintenance/export_clients" => "maintenance#export_clients", as: :export_clients
 		get "maintenance/export_orders_yamasis" => "maintenance#export_orders_yamasis", as: :export_orders_yamasis
 
-		match "client_changes/:id/markAsViewed" => "client_changes#markAsViewed"
+		get "client_changes/:id/markAsViewed" => "client_changes#markAsViewed"
 
 	end
 
-	match "/pedido" => "Website#order", as: :order #Store module
-	match "/pedido/atualizar" => "Website#order_update", as: :order_update #Store module
-	match "/pedido/confirmar" => "Website#order_confirmed", as: :order_confirmed #Store module
-	match "/pedido/mesclar" => "Website#order_merge", as: :order_merge #Store module
-	match "/pedido/manter" => "Website#order_keep", as: :order_keep #Store module
-	match "/pedido/manter_outro" => "Website#order_keep_other", as: :order_keep_other #Store module
-	match "/pedido/entrega" => "Website#order_update_delivery", as: :order_update_delivery #Store module
-	match "/pedido/fechar" => "Website#order_checkout", as: :order_checkout #Store module
-	match "/pedido/excluir" => "Website#order_destroy", as: :order_destroy #Store module
-	match "/pedido/cancelar/:id" => "Website#order_cancel", as: :order_cancel #Store module
-	match "/pedido/adicionar/:id" => "Website#add_to_cart", as: :add_to_cart #Store module
-	match "/produto/excluir/:id" => "Website#remove_item", as: :remove_item #Store module
+	get "/pedido" => "website#order", as: :order #Store module
+	patch "/pedido/atualizar" => "website#order_update", as: :order_update #Store module
+	get "/pedido/confirmar" => "website#order_confirmed", as: :order_confirmed #Store module
+	get "/pedido/mesclar" => "website#order_merge", as: :order_merge #Store module
+	get "/pedido/manter" => "website#order_keep", as: :order_keep #Store module
+	get "/pedido/manter_outro" => "website#order_keep_other", as: :order_keep_other #Store module
+	patch "/pedido/entrega" => "website#order_update_delivery", as: :order_update_delivery #Store module
+	get "/pedido/fechar" => "website#order_checkout", as: :order_checkout #Store module
+	get "/pedido/excluir" => "website#order_destroy", as: :order_destroy #Store module
+	get "/pedido/cancelar/:id" => "website#order_cancel", as: :order_cancel #Store module
+	get "/pedido/adicionar/:id" => "website#add_to_cart", as: :add_to_cart #Store module
+	delete "/produto/excluir/:id" => "website#remove_item", as: :remove_item #Store module
 
-	match "/localizar" => "Website#find_local", as: :find_local
-	match "/onde-comprar" => "Website#where_to_buy", as: :where_to_buy
+	get "/localizar" => "website#find_local", as: :find_local
+	get "/onde-comprar" => "website#where_to_buy", as: :where_to_buy
 
-	match "/pedidos" => "Website#client_orders", as: :client_orders
-	match "/area" => "Website#client_area", as: :client_area
+	get "/pedidos" => "website#client_orders", as: :client_orders
+	get "/area" => "website#client_area", as: :client_area
 
-	match "/cliente" => "Website#client", as: :client
+	get "/cliente" => "website#client", as: :client
 
-	match "c/:link" => "website#category", as: :category
-	match "p/:link" => "website#product", as: :product
+	get "c/:link" => "website#category", as: :category
+	get "p/:link" => "website#product", as: :product
 
-	get 'atendimento' => 'website#contact_form_new', :as => :contact_form
+
+	get 'atendimento' => 'website#contact_form_new', :as => :contact_form_new
 	post 'atendimento' => 'website#contact_form_create', :as => :contact_form
 
-	match "*page" => "website#page", as: :page
+	get "*page" => "website#page", as: :page
 
 	# Sample of regular route:
 	#		match 'products/:id' => 'catalog#view'

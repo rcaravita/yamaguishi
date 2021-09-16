@@ -3,13 +3,11 @@
 class Admin::Category < ActiveRecord::Base
 	
 	acts_as_list
-	
-	attr_protected :id
-	
+
 	has_many :products
 	has_many :items, :through => :products
 	
-	default_scope order: :position
+	default_scope -> { order(:position) }
 
 	validates :link, :presence => true, :uniqueness => true
 	validates :name, :presence => true

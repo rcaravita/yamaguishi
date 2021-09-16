@@ -7,12 +7,6 @@ class Admin::Client < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-	attr_accessible :name,
-		:kind, :phone, :mobile, :email, :rg, :cpf, :cnpj, :aniversary, :gender, :optin, :route_id,
-		:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new,
-		:accept_delivery, :accept_pickup
-
-
 	has_many :addresses, :as => :addressable, :dependent => :destroy
 	accepts_nested_attributes_for :addresses, :allow_destroy => true
 

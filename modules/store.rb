@@ -129,6 +129,10 @@ module Store
 	end
 
 	def define_order_details
+	
+		
+		my_logger.info("ORDER")
+		
 
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
@@ -203,15 +207,20 @@ module Store
 		item.destroy
 
 		@order.update_total
+		define_order
 
 		respond_to do |format|
 			format.js
 			format.html { redirect_to order_path, notice: 'Update successfully' }
 		end
 	end
+	
+	def my_logger
+		@@my_logger ||= Logger.new("#{Rails.root}/log/my.log")
+	end
 
 	def order_update
-		if @order.update_attributes(params[:admin_order])
+		if @order.update_attributes(admin_order_params)
 			respond_to do |format|
 				format.js
 				format.html { redirect_to order_path, notice: 'Update successfully' }
@@ -223,20 +232,30 @@ module Store
 
 	def update_order
 		updated = false
+		
+		my_logger.info("PARAMS")
+		my_logger.info("Params: #{params}")
+		
+		if params.has_key?(:admin_order)
+			my_logger.info("ENTROU")
+			my_logger.info("Params: #{admin_order_params}")
 
-		if @order.update_attributes(params[:admin_order])
-			if (params[:admin_order] && params[:admin_order]['pickup'] != "1")
-				define_order_details
-			elsif (params[:admin_order] && params[:admin_order]['delivery'] == "true")
-				define_order_details
+			if @order.update_attributes(admin_order_params)
+				if (admin_order_params && admin_order_params['pickup'] != "1")
+					define_order_details
+				elsif (admin_order_params && admin_order_params['delivery'] == "true")
+					define_order_details
+				end
+				updated = true
 			end
-			updated = true
 		end
 
 		updated
 	end
 
 	def order_confirmed
+		
+		
 		redirect_to root_path and return if @order.order_items.empty?
 
 		if update_order
@@ -375,5 +394,9 @@ module Store
 		end
 		redirect_to client_orders_path
 	end
-
+	
+private
+	def admin_order_params
+		params.require(:admin_order).permit(:id, :pickup, :delivery, :delivery_date, order_items_attributes: [:id, :quantity])
+	end
 end

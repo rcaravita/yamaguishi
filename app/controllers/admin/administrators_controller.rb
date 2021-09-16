@@ -22,7 +22,7 @@ class Admin::AdministratorsController < AdminController
 		@admin_administrator = Admin::Administrator.find(params[:id])
 
 		respond_to do |format|
-			if @admin_administrator.update_attributes(params[:admin_administrator])
+			if @admin_administrator.update_attributes(administrator_params)
 				format.html { redirect_to admin_administrators_url }
 				format.json { head :no_content }
 			else
@@ -65,7 +65,7 @@ class Admin::AdministratorsController < AdminController
 			return
 		end
 
-		@admin_administrator = Admin::Administrator.new(params[:admin_administrator])
+		@admin_administrator = Admin::Administrator.new(administrator_params)
 
 		respond_to do |format|
 			if @admin_administrator.save
@@ -95,4 +95,10 @@ class Admin::AdministratorsController < AdminController
 		end
 	end
 
+private
+	def administrator_params
+		params.require(:administrator).permit(:name, :email, :password, 
+			:password_confirmation, :remember_me, :active, :new_users, 
+			:variable_date, :only_pickup)
+	end
 end

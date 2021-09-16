@@ -2,11 +2,9 @@ class Admin::OrderItem < ActiveRecord::Base
 	
 	include ActionView::Helpers::NumberHelper
 	
-	attr_protected :id
-	
-  belongs_to :item
-  belongs_to :order
-  
+	belongs_to :item
+	belongs_to :order
+
 	before_save :update_total
 
 	def name

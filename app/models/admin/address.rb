@@ -1,6 +1,4 @@
 class Admin::Address < ActiveRecord::Base
-	
-  attr_protected :id
 
 	belongs_to :addressable, :polymorphic => true
 	

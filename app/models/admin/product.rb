@@ -1,5 +1,4 @@
 class Admin::Product < ActiveRecord::Base
-	attr_protected
 
 	belongs_to :category
 

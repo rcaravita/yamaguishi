@@ -2,9 +2,7 @@ class Admin::Order < ActiveRecord::Base
 
 	include Store
 
-	attr_protected :id
-
-  belongs_to :client
+	belongs_to :client
 
 	has_many :order_items, :dependent => :destroy
 	# ISTO É UM VALIDATE PARA ORDER VIA ADMIN MAS QUEBRA O PROCESSO VIA WEBSITE QUE NAO TEM ITEM_ID NO FORMULARIO
@@ -29,7 +27,7 @@ class Admin::Order < ActiveRecord::Base
 	end
 
 	def add_item(item)
-		oi = self.order_items.find_or_create_by_item_id(item.id)
+		oi = self.order_items.find_or_create_by(:item_id => item.id)
 		oi.quantity += 1
 		self.transaction do
 			oi.save

@@ -87,7 +87,7 @@ class Admin::ProductsController < AdminController
 		end
 	end
 
-	private
+private
 	def handle_routes
 		if params['route_ids']
 			@admin_product.routes.clear
