@@ -5,14 +5,14 @@
 .field.left
 	%label Nome completo
 	= f.text_field :name, :autofocus => true
-	- if resource.errors.include?(:name)
+	- if @client.errors.include?(:name)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:name].first
 .field.left
 	%label E-mail
 	= f.email_field :email
-	- if resource.errors.include?(:email)
+	- if @client.errors.include?(:email)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:email].first
@@ -39,12 +39,12 @@
 	= f.text_field :cpf, id: "document" if f.object.kind == "0"
 	= f.text_field :cnpj, id: "document" if f.object.kind == "1"
 	
-	- if resource.errors.include?(:cnpj)
+	- if @client.errors.include?(:cnpj)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:cnpj].first
 
-	- if resource.errors.include?(:cpf)
+	- if @client.errors.include?(:cpf)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:cpf].first
@@ -55,14 +55,14 @@
 .field.left
 	%label Senha
 	= f.password_field :password
-	- if resource.errors.include?(:password)
+	- if @client.errors.include?(:password)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:password].first
 .field
 	%label Senha (confirmação)
 	= f.password_field :password_confirmation
-	- if resource.errors.include?(:password_confirmation)
+	- if @client.errors.include?(:password_confirmation)
 		.invalid-feedback.d-block
 			%span{:style => "font-size:10px; color: red;"}
 				= resource.errors[:password_confirmation].first
