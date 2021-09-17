@@ -63,7 +63,7 @@ module Yamaguishi
 		# :port => 587,
 		# :domain => "yamaguishi1.webbyapp.com",
 		# :user_name => "siteyamaguishi@gmail.com",
-		# :password => "yamaguis",
+		# :password => "",
 		# :authentication => :plain
 		#}
 		
@@ -75,7 +75,7 @@ module Yamaguishi
 		# :port => 25,
 		# :domain => "yamaguishi.com.br",
 		# :user_name => "pedidos@yamaguishi.com.br",
-		# :password => "340km138",
+		# :password => "",
 		# :authentication => :login
 		#}
 		
