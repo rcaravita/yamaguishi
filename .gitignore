@@ -15,8 +15,9 @@
 /test
 /script
 /config/environment.rb
+/config/environment_or.rb
+/config/secrets.yml
 /public/assets/website/old
 /public/i
 id_rsa
 yamaguishi
-/config/environment_or.rb
