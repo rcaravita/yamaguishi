@@ -125,14 +125,10 @@ module Store
 		end
 
 		@categories = Admin::Category.all
-
 	end
 
+
 	def define_order_details
-	
-		
-		my_logger.info("ORDER")
-		
 
 		if @order.delivery == false # retira na vila
 			@order.delivery_value = 0
@@ -214,10 +210,6 @@ module Store
 			format.html { redirect_to order_path, notice: 'Update successfully' }
 		end
 	end
-	
-	def my_logger
-		@@my_logger ||= Logger.new("#{Rails.root}/log/my.log")
-	end
 
 	def order_update
 		if @order.update_attributes(admin_order_params)
@@ -233,12 +225,7 @@ module Store
 	def update_order
 		updated = false
 		
-		my_logger.info("PARAMS")
-		my_logger.info("Params: #{params}")
-		
 		if params.has_key?(:admin_order)
-			my_logger.info("ENTROU")
-			my_logger.info("Params: #{admin_order_params}")
 
 			if @order.update_attributes(admin_order_params)
 				if (admin_order_params && admin_order_params['pickup'] != "1")
