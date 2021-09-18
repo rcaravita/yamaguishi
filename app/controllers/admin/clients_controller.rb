@@ -1,4 +1,5 @@
 class Admin::ClientsController < AdminController
+
 	# GET /admin/clients
 	# GET /admin/clients.json
 	def index
@@ -43,7 +44,7 @@ class Admin::ClientsController < AdminController
 	# POST /admin/clients
 	# POST /admin/clients.json
 	def create
-		@admin_client = Admin::Client.new(params[:admin_client])
+		@admin_client = Admin::Client.new(client_params)
 
 		respond_to do |format|
 			if @admin_client.save
@@ -62,7 +63,7 @@ class Admin::ClientsController < AdminController
 		@admin_client = Admin::Client.find(params[:id])
 
 		respond_to do |format|
-			if @admin_client.update_attributes(params[:admin_client])
+			if @admin_client.update_attributes(client_params)
 				format.html { redirect_to @admin_client, notice: 'Cliente salvo com sucesso.' }
 				format.json { head :no_content }
 			else
@@ -82,5 +83,14 @@ class Admin::ClientsController < AdminController
 			format.html { redirect_to admin_clients_url }
 			format.json { head :no_content }
 		end
+	end
+
+private
+	def client_params
+		params.require(:admin_client).permit(:name,
+			:kind, :phone, :mobile, :email, :rg, :cpf, :cnpj, :aniversary, :gender, :optin, :route_id,
+			:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new,
+			:accept_delivery, :accept_pickup,
+			addresses_attributes: [:id, :postcode, :complete_address, :number, :complement, :quarter, :city, :state])
 	end
 end

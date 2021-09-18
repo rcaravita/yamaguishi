@@ -103,4 +103,9 @@ class Admin::ItemsController < AdminController
       format.json { head :no_content }
     end
   end
+
+private
+	def item_params
+		params.require(:item).permit(:avail)
+	end
 end

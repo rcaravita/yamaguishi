@@ -40,7 +40,7 @@ class Admin::ProducersController < AdminController
   # POST /admin/producers
   # POST /admin/producers.json
   def create
-    @admin_producer = Admin::Producer.new(params[:admin_producer])
+    @admin_producer = Admin::Producer.new(admin_producer_params)
 
     respond_to do |format|
       if @admin_producer.save
@@ -59,7 +59,7 @@ class Admin::ProducersController < AdminController
     @admin_producer = Admin::Producer.find(params[:id])
 
     respond_to do |format|
-      if @admin_producer.update_attributes(params[:admin_producer])
+      if @admin_producer.update_attributes(admin_producer_params)
         format.html { redirect_to @admin_producer, notice: 'Producer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,4 +80,9 @@ class Admin::ProducersController < AdminController
       format.json { head :no_content }
     end
   end
+
+private
+	def admin_producer_params
+		params.require(:admin_producer).permit(:name, :description, :link)
+	end
 end

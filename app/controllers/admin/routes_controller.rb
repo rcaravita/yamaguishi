@@ -58,7 +58,7 @@ class Admin::RoutesController < AdminController
   # POST /admin/routes
   # POST /admin/routes.json
   def create
-    @admin_route = Admin::Route.new(params[:admin_route])
+    @admin_route = Admin::Route.new(admin_route_params)
 
     respond_to do |format|
       if @admin_route.save
@@ -77,7 +77,7 @@ class Admin::RoutesController < AdminController
     @admin_route = Admin::Route.find(params[:id])
 
     respond_to do |format|
-      if @admin_route.update_attributes(params[:admin_route])
+      if @admin_route.update_attributes(admin_route_params)
         format.html { redirect_to @admin_route, notice: 'Route was successfully updated.' }
         format.json { head :no_content }
       else
@@ -98,4 +98,10 @@ class Admin::RoutesController < AdminController
       format.json { head :no_content }
     end
   end
+
+private
+	def admin_route_params
+		params.require(:admin_route).permit(:name, :description, :value, :day, :visible, :route_markers_attributes,
+		route_markers_attributes: [:id, :_destroy, :name, :quarter, :city, :state, :latitude, :longitude, :gmaps])
+	end
 end

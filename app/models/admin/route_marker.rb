@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
 class Admin::RouteMarker < ActiveRecord::Base
-  belongs_to :route
-  attr_protected :id
+
+	belongs_to :route
 
 	acts_as_gmappable
 	

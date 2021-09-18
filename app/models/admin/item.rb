@@ -2,8 +2,6 @@ class Admin::Item < ActiveRecord::Base
 
 	include ActionView::Helpers::NumberHelper
 
-	attr_protected :id
-
 	belongs_to :product
 	belongs_to :producer
 	belongs_to :quality
@@ -36,8 +34,8 @@ class Admin::Item < ActiveRecord::Base
 
 	validates_attachment_content_type :image, :content_type => [/image/, /text/]
 
-	scope :available, where(:visible => 1)
-	scope :highlight, where(:highlight => 1)
+	scope :available, -> { where(visible: 1) }
+	scope :highlight, -> { where(highlight: 1) }
 
 	def name
 		return self.product.name
@@ -47,18 +45,18 @@ class Admin::Item < ActiveRecord::Base
 		self.name + " (#{self.quantity}#{self.unity})"
 	end
 
-	def avail
-		self[:avail]
-	end
+	#def avail
+	#	self.avail
+	#end
 
 	# attr_writer
 	def avail=(val)
-		self[:avail] = val
+		@avail = val
 	end
 
 	# virtual attribute
 	def avail
-		return self[:avail]
+		@avail
 	end
 
 	private

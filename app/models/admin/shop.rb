@@ -1,6 +1,5 @@
 class Admin::Shop < ActiveRecord::Base
 	include AbstractController::Rendering
-	attr_protected :id
 	
 	acts_as_gmappable
 	

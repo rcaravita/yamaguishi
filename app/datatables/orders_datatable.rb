@@ -49,6 +49,8 @@ private
 		orders = orders.page(page).per_page(per_page)
 		unless params[:search][:value].empty?
 			orders = orders.where("admin_orders.id LIKE :search OR admin_clients.yamasis_id LIKE :search OR admin_clients.name LIKE :search OR admin_routes.name LIKE :search", search: "%#{params[:search][:value]}%")
+				.joins('LEFT JOIN admin_clients on admin_orders.client_id = admin_clients.id')
+				.joins('LEFT JOIN admin_routes on admin_clients.route_id = admin_routes.id')
 		end
 		orders
 	end

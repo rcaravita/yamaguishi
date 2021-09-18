@@ -42,6 +42,7 @@ private
 		clients = clients.page(page).per_page(per_page)
 		unless params[:search][:value].empty?
 			clients = clients.where("admin_clients.id LIKE :search OR admin_clients.name LIKE :search OR admin_routes.name LIKE :search OR admin_clients.email LIKE :search", search: "%#{params[:search][:value]}%")
+				.joins('LEFT JOIN admin_routes on admin_clients.route_id = admin_routes.id')
 		end
 		clients
 	end

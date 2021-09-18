@@ -60,7 +60,7 @@ class Admin::AttachesController < AdminController
   # POST /admin/attaches
   # POST /admin/attaches.json
   def create
-    @admin_attach = Admin::Attach.new(params[:admin_attach])
+    @admin_attach = Admin::Attach.new(admin_attach_params)
 
     respond_to do |format|
       if @admin_attach.save
@@ -79,7 +79,7 @@ class Admin::AttachesController < AdminController
     @admin_attach = Admin::Attach.find(params[:id])
 
     respond_to do |format|
-      if @admin_attach.update_attributes(params[:admin_attach])
+      if @admin_attach.update_attributes(admin_attach_params)
         format.html { redirect_to admin_attaches_url, notice: 'Attach was successfully updated.' }
         format.json { head :no_content }
       else
@@ -100,4 +100,9 @@ class Admin::AttachesController < AdminController
       format.json { head :no_content }
     end
   end
+
+private
+	def admin_attach_params
+		params.require(:admin_attach).permit(:name, :filename, :description, :attach)
+	end
 end

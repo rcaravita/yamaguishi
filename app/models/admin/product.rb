@@ -1,5 +1,4 @@
 class Admin::Product < ActiveRecord::Base
-	attr_protected
 
 	belongs_to :category
 
@@ -13,7 +12,9 @@ class Admin::Product < ActiveRecord::Base
 	before_validation :parameterize_link
 
 	def parameterize_link
-		self.link = self.link.parameterize.gsub(".", "-")
+		if !self.link.blank?
+			self.link = self.link.parameterize.gsub(".", "-")
+		end
 	end
 
 	def visible

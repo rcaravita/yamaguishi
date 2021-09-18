@@ -2,8 +2,6 @@
 
 class Admin::OrderChange < ActiveRecord::Base
 
-	attr_protected :id
-
 	belongs_to :order
 	belongs_to :administrator
 
