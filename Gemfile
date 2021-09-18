@@ -2,9 +2,9 @@ ruby '2.1.0'
 
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.14.1'
 
-gem 'railties', '4.1.0'
+gem 'railties', '4.1.14.1'
 
 gem 'thor', '0.19.1'
 
@@ -52,9 +52,9 @@ gem 'gmaps4rails', '1.5.6' #https://github.com/apneadiving/Google-Maps-for-Rails
 
 gem 'geocoder'
 
-gem 'nokogiri', '1.6.8.1' #to parse html pages *suposed to being in use for import content from the old website
+#gem 'nokogiri', '1.6.8.1' #to parse html pages *suposed to being in use for import content from the old website
 
-gem 'mechanize', '2.7.6' #to read from html pages used to import content from the old website
+#gem 'mechanize', '2.7.6' #to read from html pages used to import content from the old website
 
 gem "roo", '2.7.1' #import Excel files
 
@@ -64,11 +64,11 @@ gem 'will_paginate'
 
 gem 'acts_as_list'
 
-gem 'activerecord', '4.1.0'
+gem 'activerecord', '4.1.14.1'
 
-gem 'activemodel', '4.1.0'
+gem 'activemodel', '4.1.14.1'
 
-gem 'activesupport', '4.1.0'
+gem 'activesupport', '4.1.14.1'
 
 gem 'test-unit', '~> 3.0'
 
