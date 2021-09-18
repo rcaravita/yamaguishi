@@ -40,7 +40,7 @@ class Admin::PagesController < AdminController
   # POST /admin/pages
   # POST /admin/pages.json
   def create
-    @admin_page = Admin::Page.new(params[:admin_page])
+    @admin_page = Admin::Page.new(admin_page_params)
 
     respond_to do |format|
       if @admin_page.save
@@ -59,7 +59,7 @@ class Admin::PagesController < AdminController
     @admin_page = Admin::Page.find(params[:id])
 
     respond_to do |format|
-      if @admin_page.update_attributes(params[:admin_page])
+      if @admin_page.update_attributes(admin_page_params)
         format.html { redirect_to @admin_page, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,4 +80,9 @@ class Admin::PagesController < AdminController
       format.json { head :no_content }
     end
   end
+
+private
+	def admin_page_params
+		params.require(:admin_page).permit(:title, :link, :atach_id, :content)
+	end
 end

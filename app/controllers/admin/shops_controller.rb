@@ -45,7 +45,7 @@ class Admin::ShopsController < AdminController
 	# POST /admin/shops
 	# POST /admin/shops.json
 	def create
-		@admin_shop = Admin::Shop.new(params[:admin_shop])
+		@admin_shop = Admin::Shop.new(admin_shop_params)
 
 		respond_to do |format|
 			if @admin_shop.save
@@ -64,7 +64,7 @@ class Admin::ShopsController < AdminController
 		@admin_shop = Admin::Shop.find(params[:id])
 
 		respond_to do |format|
-			if @admin_shop.update_attributes(params[:admin_shop])
+			if @admin_shop.update_attributes(admin_shop_params)
 				format.html { redirect_to @admin_shop, notice: 'Shop was successfully updated.' }
 				format.json { head :no_content }
 			else
@@ -84,5 +84,11 @@ class Admin::ShopsController < AdminController
 			format.html { redirect_to admin_shops_url }
 			format.json { head :no_content }
 		end
+	end
+
+private
+	def admin_shop_params
+		params.require(:admin_shop).permit(:name, :kind, :postcode, :phone, :address, :number, :complement,
+			:quarter, :city, :state, :latitude, :longitude, :gmaps, :description)
 	end
 end

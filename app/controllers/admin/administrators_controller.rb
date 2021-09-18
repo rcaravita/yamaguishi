@@ -97,7 +97,7 @@ class Admin::AdministratorsController < AdminController
 
 private
 	def administrator_params
-		params.require(:administrator).permit(:name, :email, :password, 
+		params.require(:admin_administrator).permit(:name, :email, :password,
 			:password_confirmation, :remember_me, :active, :new_users, 
 			:variable_date, :only_pickup)
 	end
