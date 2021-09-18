@@ -87,9 +87,10 @@ class Admin::ClientsController < AdminController
 
 private
 	def client_params
-		params.require(:client).permit(:name,
+		params.require(:admin_client).permit(:name,
 			:kind, :phone, :mobile, :email, :rg, :cpf, :cnpj, :aniversary, :gender, :optin, :route_id,
 			:yamasis_id, :shopping_id, :ddd, :password, :password_confirmation, :addresses_attributes, :remember_me, :new,
-			:accept_delivery, :accept_pickup)
+			:accept_delivery, :accept_pickup,
+			addresses_attributes: [:id, :postcode, :complete_address, :number, :complement, :quarter, :city, :state])
 	end
 end
