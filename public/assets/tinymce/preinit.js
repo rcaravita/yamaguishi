@@ -1,1 +1,1 @@
-window.tinymce=window.tinymce||{base:"/assets/tinymce",suffix:""};
+preinit-63625cd3d970d7549b7b5dc3a81aac9bd9f229186f283d9b61b5b6a910a22165.js
