@@ -42,10 +42,10 @@ Yamaguishi::Application.routes.draw do
 		resources :pages
 		get "attaches/gallery" => "attaches#gallery"
 		resources :attaches
-		get "items/:id/toggleVisibility" => "items#toggleVisibility"
-		get "items/:id/toggleHighlight" => "items#toggleHighlight"
-		get "attaches/:id/toggleSlideshow" => "attaches#toggleSlideshow"
-		get "orders/:id/toggleStatus" => "orders#toggleStatus"
+		post "items/:id/toggleVisibility" => "items#toggleVisibility"
+		post "items/:id/toggleHighlight" => "items#toggleHighlight"
+		post "attaches/:id/toggleSlideshow" => "attaches#toggleSlideshow"
+		post "orders/:id/toggleStatus" => "orders#toggleStatus"
 
 		get "maintenance" => "maintenance#index", as: :maintenance
 		post "maintenance/import_clients" => "maintenance#import_clients", as: :import_clients

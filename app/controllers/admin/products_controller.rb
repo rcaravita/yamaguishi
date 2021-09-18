@@ -42,7 +42,7 @@ class Admin::ProductsController < AdminController
 	# POST /admin/products
 	# POST /admin/products.json
 	def create
-		@admin_product = Admin::Product.new(params[:admin_product])
+		@admin_product = Admin::Product.new(admin_product_params)
 
 		handle_routes
 
@@ -65,7 +65,7 @@ class Admin::ProductsController < AdminController
 		handle_routes
 
 		respond_to do |format|
-			if @admin_product.update_attributes(params[:admin_product])
+			if @admin_product.update_attributes(admin_product_params)
 				format.html { redirect_to @admin_product, notice: 'Produto salvo com sucesso.' }
 				format.json { head :no_content }
 			else
@@ -94,5 +94,12 @@ private
 			routes = params['route_ids'].map { |id| Admin::Route.find(id) }
 			@admin_product.routes << routes
 		end
+	end
+
+	def admin_product_params
+		params.require(:admin_product).permit(:name,
+			:route_ids, :items_attributes, :code, :link, :category_id, :description,
+			route_ids: [],
+			items_attributes: [:id, :code, :quantity, :image, :unity, :value, :visible, :highlight, :producer_id])
 	end
 end

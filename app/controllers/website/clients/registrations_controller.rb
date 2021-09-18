@@ -2,6 +2,8 @@ class Website::Clients::RegistrationsController < Devise::RegistrationsControlle
 
 	include Store
 
+	layout 'website'
+
 	before_filter :define_order
 
 	def new

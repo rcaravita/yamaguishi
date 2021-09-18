@@ -68,7 +68,7 @@ class Admin::OrdersController < AdminController
 	# POST /admin/orders
 	# POST /admin/orders.json
 	def create
-		@admin_order = Admin::Order.new(params[:admin_order])
+		@admin_order = Admin::Order.new(order_params)
 
 		respond_to do |format|
 			if @admin_order.save
@@ -91,7 +91,7 @@ class Admin::OrdersController < AdminController
 		@admin_order = Admin::Order.find(params[:id])
 
 		respond_to do |format|
-			if @admin_order.update_attributes(params[:admin_order])
+			if @admin_order.update_attributes(order_params)
 				if params[:order_update].present?
 					format.html { redirect_to edit_admin_order_path(@admin_order), notice: 'Pedido atualizado com sucesso.'}
 				else
@@ -115,5 +115,12 @@ class Admin::OrdersController < AdminController
 			format.html { redirect_to admin_orders_url }
 			format.json { head :no_content }
 		end
+	end
+
+private
+	def order_params
+		params.require(:admin_order).permit(:client_id,
+			:status, :order_items_attributes, :delivery, :pickup, :delivery_date, :delivery_value,
+			order_items_attributes: [:id, :quantity, :item_id, :_destroy])
 	end
 end
