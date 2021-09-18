@@ -2,6 +2,8 @@ class Website::Clients::PasswordsController < Devise::PasswordsController
 	
 	include Store
 	
+	layout 'website'
+
 	before_filter :define_order
 	
 	
