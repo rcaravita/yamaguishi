@@ -61,22 +61,22 @@ module Store
 					end
 				elsif pickup ==  2 #BOSQUE
 					if date.wday > 3 || date.wday == 0 # proxima semana
-						date = Date.commercial(date.year, date.next_week.cweek, 3)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, 3)
 					else
 						date = Date.commercial(date.year, date.cweek, 3)
 					end
 				elsif pickup ==  3 #PARQUE ECOLÓGICO
-					date = Date.commercial(date.year, date.next_week.cweek, 1)
+					date = Date.commercial(date.next_week.year, date.next_week.cweek, 1)
 					date = date - 1.days
 				elsif pickup ==  4 #HOLAMBRA
 					if date.wday > 6 || date.wday == 0  # proxima semana
-						date = Date.commercial(date.year, date.next_week.cweek, 6)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, 6)
 					else
 						date = Date.commercial(date.year, date.cweek, 6)
 					end
 				elsif pickup ==  5 #CENTRO CONVIVENCIA
 					if date.wday > 5 || date.wday == 0  # proxima semana
-						date = Date.commercial(date.year, date.next_week.cweek, 5)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, 5)
 					else
 						date = Date.commercial(date.year, date.cweek, 5)
 					end
@@ -89,12 +89,12 @@ module Store
 				if current_client.route
 					date = today + 2.days # 48h de antecedencia
 					if current_client.route.day == 0
-						date = Date.commercial(date.year, date.next_week.cweek, 1)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, 1)
 						date = date - 1.days
 					elsif date.wday > current_client.route.day # proxima semana
-						date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, current_client.route.day)
 					elsif date.wday == 0 #domingo
-						date = Date.commercial(date.year, date.next_week.cweek, current_client.route.day)
+						date = Date.commercial(date.next_week.year, date.next_week.cweek, current_client.route.day)
 					else # esta semana
 						date = Date.commercial(date.year, date.cweek, current_client.route.day)
 					end
