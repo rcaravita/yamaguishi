@@ -34,65 +34,6 @@
 		.space
 		.space
 
-		.left{:style => "margin-right:10px;"}= image_tag "shared/delivery-right.png", width: 40
-		%h2#delivery{:style => "margin:0px;"} Entrega em Domicílio
-
-		.space
-
-		= Admin::Page.find_by_link("como-comprar-2").try(:content).try(:html_safe)
-
-		-#%p
-		-#	As entregas em domicílio (delivery) são feitas semanalmente em dias pré-determinados por região nas cidades de
-		-#	%b Campinas, Jundiaí, Itatiba, Valinhos e Vinhedo.
-		-#	As principais cidades e bairros atendidos estão relacionados na tabela abaixo.
-		-#%p
-		-#	%b
-		-#		O valor mínimo para entrega à domicílio é de R$70,00 + taxa de entrega. Os pedidos são aceitos com até dois dias antecedência para entrega em domicílio e um dia para retirada na Vila Yamaguishi.
-		-#%p
-		-#	Em
-		-#	%b São Paulo
-		-#	as entregas são feitas pelo
-		-#	= link_to "Sabor Natural.", "http://www.sabornatural.com.br", target: :blank
-		-#%p
-		-#	= link_to "Consulte-nos", "/atendimento"
-		-#	para entregas em outras regiões.
-
-		.space
-
-		%h4.toggle
-			= link_to "Tabela de Rotas para Entrega em Domicílio", "javascript:void(0);"
-
-		.table.toggled
-			%table.formatted{:style => "font-size:12px; width: 650px !important;"}
-				%thead
-					%tr
-						%th Nome
-						%th Locais
-						%th{width: 90} Dia
-						%th{width: 90} Taxa de Entrega
-						-#%th Rota
-
-				%tbody
-					- for route in @routes do
-						%tr
-							%td= route.description
-							%td= route.route_markers.map(&:name).join(", ")
-							%td= I18n.translate(Date::DAYNAMES[route.day])
-							%td= number_to_currency(route.value)
-							-#%td= route.name
-				%tfoot
-					%tr
-						%th
-						%th
-						%th
-						%th
-						-#%th
-
-		.space
-		.space
-		.space
-		.space
-
 		.left{:style => "margin-right:10px;"}= image_tag "shared/feira-organica-right.png", width: 40
 		%h2#feira-organica{:style => "margin:0px;"} Feiras Orgânicas
 
