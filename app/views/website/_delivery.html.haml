@@ -227,10 +227,7 @@
 
 		$('#confirm_order').bind('ajax:error', function(e, xhr, status, error) {
 			var errors = $.parseJSON(xhr.responseText);
-			if (errors.delivery_date) {
-				alert("A data de retirada é inválida para a opção escolhida")
-			}
-			else if (errors.id) {
+			if (errors.id) {
 				$("#other_order").show();
 				$("#confirm").hide();
 				alert("Foram encontrados problemas com o seu pedido, verifique a mensagem em vermelho e escolha uma opção")
@@ -246,7 +243,6 @@
 					errorText += errors[error] + "\n";
 				}
 				alert(errorText);
-				location.replace("/pedido")
 			}
 			$("#confirm_order").removeClass("disabled");
 			$("#loading-overlayer").removeClass("show");

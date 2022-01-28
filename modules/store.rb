@@ -123,6 +123,10 @@ module Store
 			session[:order] = @order.id
 		end
 
+		if current_client && @order.client_id == 0
+			define_order_details
+		end
+
 		@categories = Admin::Category.all
 	end
 
@@ -272,8 +276,15 @@ module Store
 		@order.confirmed_at = Time.now
 		@order.status = 2
 
-		if @order.pickup == 1 && (@order.delivery_date.wday != 3 && @order.delivery_date.wday != 5)
-			@order.errors.add(:delivery_date, "Data inválida")
+		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
+
+		if @order.pickup == 1 && @order.delivery_date.wday != 3 && @order.delivery_date.wday != 5
+			@order.errors.add(:delivery_date, "A data de retirada para esta opção deve ser quarta ou sexta.")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		elsif @order.pickup == 1 && @order.delivery_date && @delivery_date > (@order.delivery_date).to_date
+			@order.errors.add(:delivery_date, "A data de retirada para esta opção deve ser superior a data mínima informada")
 			respond_to do |format|
 				format.json { render json: @order.errors, status: :unprocessable_entity }
 			end
