@@ -49,15 +49,14 @@ module Store
 				date = today + 2.days # 48h de antecedencia
 
 				if pickup == 1  #VILA YAMAGUISHI
-					if date.wday == 0 # domingo (0) -> terça (2) desta semana
-						date = Date.commercial(date.year, date.next_week.cweek, 2)
-						#puts "Domingo"
-					elsif date.wday == 1 # segunda (1) -> terça (2) desta semana
-						date = Date.commercial(date.year, date.cweek, 2)
-						#puts "Domingo"
-					else # terça a sexta...
-						date = date
-						#puts "Semana"
+					if date.wday <= 3 && today.wday < 3
+						date = Date.commercial(date.year, date.cweek, 3)
+					else
+						if date.wday <= 5 && today.wday < 5
+							date = Date.commercial(date.year, date.cweek, 5)
+						else
+							date = Date.commercial(date.next_week.year, date.next_week.cweek, 3)
+						end
 					end
 				elsif pickup ==  2 #BOSQUE
 					if date.wday > 3 || date.wday == 0 # proxima semana
@@ -112,15 +111,15 @@ module Store
 			begin #em caso do pedido ter sido excluído via admin
 				@order = Admin::Order.find(session[:order]) # pedido encontrado
 				if @order.status > 1 #caso a order já tenha sido confirmada ou atendida
-					@order = Admin::Order.create(status: 0, client_id: 0, delivery: 1)
+					@order = Admin::Order.create(status: 0, client_id: 0, delivery: 0)
 					session[:order] = @order.id
 				end
 			rescue # pedido nao encontrado, criar novo
-				@order = Admin::Order.create(status: 0, client_id: 0, delivery: 1)
+				@order = Admin::Order.create(status: 0, client_id: 0, delivery: 0)
 				session[:order] = @order.id
 			end
 		else # pedido novo
-			@order = Admin::Order.create(status: 0, client_id: 0, delivery: 1)
+			@order = Admin::Order.create(status: 0, client_id: 0, delivery: 0)
 			session[:order] = @order.id
 		end
 
@@ -270,19 +269,15 @@ module Store
 		redirect_to root_path and return if @order.order_items.empty?
 		redirect_to order_path and return if @order.items_value < get_min_purchase_amount() && @order.delivery
 
-		@delivery_date = get_delivery_date(@order.delivery, @order.pickup)
-		if @order.delivery_date && @delivery_date != (@order.delivery_date).to_date
-			@order.errors.add(:delivery_date, "Foi encontrado um erro com a data de entrega, tente novamente")
-			respond_to do |format|
-				format.json { render json: @order.errors, status: :unprocessable_entity }
-			end
-			return
-		end
-
 		@order.confirmed_at = Time.now
 		@order.status = 2
 
-		if Admin::Order.where(:status => [2], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
+		if @order.pickup == 1 && (@order.delivery_date.wday != 3 && @order.delivery_date.wday != 5)
+			@order.errors.add(:delivery_date, "Data inválida")
+			respond_to do |format|
+				format.json { render json: @order.errors, status: :unprocessable_entity }
+			end
+		elsif Admin::Order.where(:status => [2], :delivery_date => @order.delivery_date, :client_id => @order.client_id).first
 			@order.errors.add(:id, "Outro pedido encontrado")
 			respond_to do |format|
 				format.json { render json: @order.errors, status: :unprocessable_entity }
