@@ -47,7 +47,7 @@
 	= f.radio_button :delivery, false
 	%span{:class => ('current' if !@order.delivery)} Retirada
 
-	= f.select :pickup, [['--escolha uma opção--', 0], ['Sítio Yamaguishi (quarta e sexta)', 1], ['Feira do Bosque (quarta)', 2], ['Feira do Parque Ecológico (domingo)', 3], ['Feira do Centro de Convivência (sexta)', 5]], {}, disabled: @order.delivery || !current_client.accept_pickup
+	= f.select :pickup, [['--escolha uma opção--', 0], ['Feira do Parque Ecológico (domingo)', 3]], {}, disabled: @order.delivery || !current_client.accept_pickup
 
 	- if @data.only_pickup && current_client.new
 		%span{:style => 'margin-top: 10px; margin-bottom: 20px; color: #d22f00; font-weight: bold; display: block; font-size: 12px;'} Devido a situação atual, estamos disponibilizando apenas a opção para retirada no sítio
